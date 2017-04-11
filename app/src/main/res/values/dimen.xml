@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bar_height_title">44dp</dimen>
+
+
+    <dimen name="text_size_title">18sp</dimen>
+    <dimen name="text_size_child_title">16sp</dimen>
+    <dimen name="text_size_content">15sp</dimen>
+
+    <dimen name="elevation_app_bar">4dp</dimen>
+    <dimen name="elevation_bottom_bar">4dp</dimen>
+    <dimen name="elevation_button">2dp</dimen>
+
+    <dimen name="dot_size">5dp</dimen>
+    <dimen name="margin_content">4dp</dimen>
+    <dimen name="margin_title">16dp</dimen>
+    <dimen name="margin_border">12dp</dimen>
+
+    <dimen name="padding_border">12dp</dimen>
+    <dimen name="padding_content">4dp</dimen>
+
+    <dimen name="pic_size_news">80dp</dimen>
+    <dimen name="pic_size_return">32dp</dimen>
+
+    <dimen name="corner_size_middle">4dp</dimen>
+
+    <dimen name="button_height">36dp</dimen>
+
+</resources>

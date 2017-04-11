@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.goodo.pdjfy.homepage.HomePageActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bar_height_title"
+        android:background="@color/blue"
+        android:elevation="@dimen/elevation_app_bar">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/title_home_page"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_title"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.goodo.pdjfy.homepage.ShufflingFigureViewPagerFl
+            android:id="@+id/fl_viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/blue"
+                android:elevation="@dimen/elevation_bottom_bar"
+                android:id="@+id/rl_bottom">
+
+                <TextView
+                    android:id="@+id/tv_login_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请登录！"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_border"/>
+
+                <Button
+                    android:id="@+id/btn_enter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/button_height"
+                    android:text="进入系统"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:elevation="@dimen/elevation_button"
+                    android:background="@drawable/corner_blue_press_dark_blue_middle"
+                    android:layout_margin="@dimen/padding_border"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                android:id="@+id/ll_news"
+                android:layout_above="@id/rl_bottom"
+                android:gravity="center_vertical">
+
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

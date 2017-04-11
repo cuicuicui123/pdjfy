@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@color/blue">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bar_height_title"
+        android:elevation="@dimen/elevation_app_bar"
+        android:background="@color/blue">
+
+        <include
+            layout="@layout/ll_return"></include>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_title"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:text="教学通知"/>
+
+        <Button
+            android:id="@+id/btn_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:text="进入系统"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:elevation="@dimen/elevation_button"
+            android:background="@drawable/corner_blue_press_dark_blue_middle"
+            android:layout_margin="@dimen/margin_content"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+</LinearLayout>
