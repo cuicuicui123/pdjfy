@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="bar_height_title">44dp</dimen>
-
+    <dimen name="bar_height_bottom">64dp</dimen>
+    <dimen name="remember_pwd_size">24dp</dimen>
+    <dimen name="btn_height_login">44dp</dimen>
+    <dimen name="image_size_attach">38dp</dimen>
+    <dimen name="progressbar_size">36dp</dimen>
 
     <dimen name="text_size_title">18sp</dimen>
     <dimen name="text_size_child_title">16sp</dimen>
     <dimen name="text_size_content">15sp</dimen>
+    <dimen name="text_size_date">14sp</dimen>
+    <dimen name="text_size_inform">14sp</dimen>
+    <dimen name="text_size_remember_pwd">14sp</dimen>
 
     <dimen name="elevation_app_bar">4dp</dimen>
     <dimen name="elevation_bottom_bar">4dp</dimen>
@@ -15,6 +22,11 @@
     <dimen name="margin_content">4dp</dimen>
     <dimen name="margin_title">16dp</dimen>
     <dimen name="margin_border">12dp</dimen>
+    <dimen name="margin_kind">8dp</dimen>
+    <dimen name="margin_login_title">32dp</dimen>
+    <dimen name="margin_login_btn">32dp</dimen>
+
+    <dimen name="padding_login_top">48dp</dimen>
 
     <dimen name="padding_border">12dp</dimen>
     <dimen name="padding_content">4dp</dimen>
@@ -25,5 +37,7 @@
     <dimen name="corner_size_middle">4dp</dimen>
 
     <dimen name="button_height">36dp</dimen>
+
+    <dimen name="divider_height">0.5dp</dimen>
 
 </resources>

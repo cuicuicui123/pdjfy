@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,8 +32,12 @@ import butterknife.ButterKnife;
  */
 
 public class HomePageActivity extends BaseActivity implements HomePageView {
-    @BindView(R.id.fl_viewPager) ShufflingFigureViewPagerFl mViewPagerFl;
-    @BindView(R.id.ll_news) LinearLayout mNewsLl;
+    @BindView(R.id.fl_viewPager)
+    ShufflingFigureViewPagerFl mViewPagerFl;
+    @BindView(R.id.ll_news)
+    LinearLayout mNewsLl;
+    @BindView(R.id.btn_enter)
+    Button mEnterBtn;
 
     private HomePagePresenter mPresenter;
     private HomePagePagerAdapter mAdapter;
@@ -62,7 +67,12 @@ public class HomePageActivity extends BaseActivity implements HomePageView {
 
     @Override
     protected void initEvent() {
-
+        mEnterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.startToLoginActivity();
+            }
+        });
     }
 
     @Override
@@ -71,6 +81,13 @@ public class HomePageActivity extends BaseActivity implements HomePageView {
         mAdapter = new HomePagePagerAdapter(mTopListBeanList);
         mViewPagerFl.setAdapter(mAdapter);
         setTimeTask();
+        //点击事件
+        mAdapter.setOnItemClickListener(new HomePagePagerAdapter.OnItemClick() {
+            @Override
+            public void onItemClick(String contentId) {
+                mPresenter.startToPicDetailActivity(contentId);
+            }
+        });
     }
 
     /**

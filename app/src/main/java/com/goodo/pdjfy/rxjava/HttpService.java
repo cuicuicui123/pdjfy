@@ -26,4 +26,18 @@ public interface HttpService {
     Observable<ResponseBody> getHomePageNewsList(@Path("news") String news,
                                                  @Query("Page") int page, @Query("PageSize") int pageSize,
                                                  @Query("Keyword") String keyWord);
+
+    /**
+     * 获取首页轮播图片详情
+     */
+    @GET("web/wsjson.asmx/Get_Json_Content")
+    Observable<ResponseBody> getHomePagePicDetail(@Query("Content_ID") String contentId);
+
+    /**
+     * 登录
+     */
+    @GET("EduPlate/MyScheduleForJfy/Interface.asmx/LoginUser")
+    Observable<ResponseBody> login(@Query("LoginID") String account, @Query("EncyptPassword") String pwd,
+                                   @Query("OnlineType") String onLineType, @Query("DeviceName") String deviceName,
+                                   @Query("Place") String place);
 }

@@ -29,6 +29,7 @@ public class HomePagePagerAdapter extends PagerAdapter {
     private int mImageHeight;
     private AppContext mAppContext;
     private DisplayImageOptions mOptions;
+    private OnItemClick mOnItemClick;
 
     public HomePagePagerAdapter(List<HomePageTopListBean> beanList) {
         mBeanList = beanList;
@@ -57,12 +58,20 @@ public class HomePagePagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         ImageView imageView = new ImageView(mAppContext);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         ImageLoader.getInstance().displayImage(
                 HttpMethods.BASE_URL + mBeanList.get(position).getPicUrl(), imageView, mOptions);
         container.addView(imageView, mImageWidth, mImageHeight);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mOnItemClick != null) {
+                    mOnItemClick.onItemClick(mBeanList.get(position).getContents_ID());
+                }
+            }
+        });
         return imageView;
     }
 
@@ -70,4 +79,16 @@ public class HomePagePagerAdapter extends PagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
     }
+
+    /**
+     * 点击事件
+     */
+    public void setOnItemClickListener(OnItemClick onItemClickListener){
+        mOnItemClick = onItemClickListener;
+    }
+
+    public interface OnItemClick{
+        void onItemClick(String contentId);
+    }
+
 }

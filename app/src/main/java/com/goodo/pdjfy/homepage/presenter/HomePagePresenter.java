@@ -9,4 +9,6 @@ package com.goodo.pdjfy.homepage.presenter;
 public interface HomePagePresenter {
     void getHomePageTopList(int topList);
     void startToNewsListActivity(int position);
+    void startToPicDetailActivity(String contentId);
+    void startToLoginActivity();
 }

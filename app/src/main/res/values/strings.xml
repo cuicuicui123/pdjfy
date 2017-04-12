@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Pdjfy</string>
     <string name="title_home_page">首页</string>
+    <string name="title_activity_home_page_pic_detail">HomePagePicDetailActivity</string>
 </resources>

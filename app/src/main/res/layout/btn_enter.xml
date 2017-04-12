@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button
+    android:id="@+id/btn_enter"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/button_height"
+    android:text="进入系统"
+    android:textColor="@color/white"
+    android:textSize="@dimen/text_size_content"
+    android:layout_alignParentRight="true"
+    android:layout_centerVertical="true"
+    android:elevation="@dimen/elevation_button"
+    android:background="@drawable/corner_blue_press_dark_blue_middle"
+    android:layout_marginRight="@dimen/margin_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"/>

@@ -70,7 +70,7 @@
                     android:layout_centerVertical="true"
                     android:elevation="@dimen/elevation_button"
                     android:background="@drawable/corner_blue_press_dark_blue_middle"
-                    android:layout_margin="@dimen/padding_border"/>
+                    android:layout_margin="@dimen/margin_border"/>
 
             </RelativeLayout>
 

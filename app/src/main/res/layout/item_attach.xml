@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_title"
+        android:layout_marginTop="@dimen/margin_title">
+
+        <ImageView
+            android:id="@+id/iv_attach"
+            android:layout_width="@dimen/image_size_attach"
+            android:layout_height="@dimen/image_size_attach"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_border"
+            android:layout_marginRight="@dimen/margin_kind"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pic_file_pic"/>
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="@dimen/progressbar_size"
+            android:layout_height="@dimen/progressbar_size"
+            android:visibility="invisible"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tv_attach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/progressbar"
+            android:layout_toRightOf="@id/iv_attach"
+            android:clickable="true"
+            android:textColor="@drawable/text_color_black_press_blue"
+            android:textSize="@dimen/text_size_content"/>
+    </RelativeLayout>
+
+    <include layout="@layout/divider"></include>
+</LinearLayout>

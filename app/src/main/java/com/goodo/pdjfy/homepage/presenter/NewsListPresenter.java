@@ -1,4 +1,4 @@
-package com.goodo.pdjfy.news.presenter;
+package com.goodo.pdjfy.homepage.presenter;
 
 /**
  * Created by Cui on 2017/4/11.
@@ -8,4 +8,6 @@ package com.goodo.pdjfy.news.presenter;
 
 public interface NewsListPresenter {
     void getNewsList(String news, int page, int pageSize, String keyword);
+    void startToDetailActivity(String contentId, String title);
+    void startToLoginActivity();
 }

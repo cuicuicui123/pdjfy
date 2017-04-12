@@ -2,10 +2,13 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#00a8f0</color>
     <color name="blue">#00a8f0</color>
     <color name="dark_blue">#0764a9</color>
     <color name="white">#ffffff</color>
     <color name="grey_dot_normal">#66666666</color>
     <color name="black">#000000</color>
+    <color name="grey_text">#808080</color>
+    <color name="grey_divider">#dbdbdb</color>
+    <color name="grey_login_bac">#ecedf1</color>
 </resources>

@@ -2,6 +2,8 @@ package com.goodo.pdjfy.rxjava;
 
 import android.util.Log;
 
+import com.goodo.pdjfy.homepage.model.LoginBean;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -30,7 +32,7 @@ public class HttpMethods {
     private HttpService mHttpService;
 
     public static String BASE_URL = "http://jfy.pudong-edu.sh.cn/";
-    private static final int DEFAULT_TIMEOUT = 20;//默认超时时间20秒
+    private static final int DEFAULT_TIMEOUT = 60;//默认超时时间60秒
     private static volatile HttpMethods mInstance;
 
     /**
@@ -106,6 +108,27 @@ public class HttpMethods {
                 news, page, pageSize, keyword);
         doSubscribe(observable, subscriber);
     }
+
+    /**
+     * 获取首页图片信息详情
+     * @param contentId
+     */
+    public void getHomePagePicDetail(String contentId, Subscriber subscriber){
+        Observable observable = mHttpService.getHomePagePicDetail(contentId);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 登录
+     * @param loginBean
+     * @param subscriber
+     */
+    public void login(LoginBean loginBean, Subscriber subscriber){
+        Observable observable = mHttpService.login(loginBean.getAccount(), loginBean.getPwd(),
+                loginBean.getOnLineType(), loginBean.getDeviceName(), loginBean.getPlace());
+        doSubscribe(observable, subscriber);
+    }
+
 
     private void doSubscribe(Observable observable, Subscriber subscriber){
         observable.subscribeOn(Schedulers.io())

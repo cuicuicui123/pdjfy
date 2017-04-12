@@ -25,18 +25,8 @@
             android:textColor="@color/white"
             android:text="教学通知"/>
 
-        <Button
-            android:id="@+id/btn_enter"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/button_height"
-            android:text="进入系统"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:elevation="@dimen/elevation_button"
-            android:background="@drawable/corner_blue_press_dark_blue_middle"
-            android:layout_margin="@dimen/margin_content"/>
+        <include
+            layout="@layout/btn_enter"></include>
 
     </RelativeLayout>
 
@@ -44,11 +34,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+            android:layout_height="wrap_content"
+            android:id="@+id/swipe_refresh_layout">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 

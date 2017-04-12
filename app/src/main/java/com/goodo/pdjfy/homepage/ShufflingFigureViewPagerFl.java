@@ -98,8 +98,12 @@ public class ShufflingFigureViewPagerFl extends FrameLayout {
 
     /**
      * 初始化dot，即显示当前是第几张图片的视图
+     * 如果已经初始化一次，则先将之前的视图清空
      */
     private void initDots(){
+        if (mDotLl != null) {
+            removeView(mDotLl);
+        }
         mDotList = new ArrayList<>();
         mDotLl = new LinearLayout(mContext);
         mDotLl.setWeightSum(mDotNum);

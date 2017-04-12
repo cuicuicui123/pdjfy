@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/pdjfy.iml" filepath="$PROJECT_DIR$/pdjfy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pdjfy-master.iml" filepath="$PROJECT_DIR$/pdjfy-master.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bar_height_title"
+        android:background="@color/blue"
+        android:elevation="@dimen/elevation_app_bar">
+
+        <include
+            layout="@layout/ll_return"></include>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_title"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey_login_bac"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/padding_login_top">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_login_title"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/pic_size_news"
+                android:layout_height="@dimen/pic_size_news"
+                android:scaleType="fitCenter"
+                android:src="@drawable/logo120"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="浦东教育发展研究院"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_title"/>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/edt_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_login_title"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="@dimen/padding_border"
+            android:inputType="text"/>
+
+        <include
+            layout="@layout/divider"></include>
+
+        <EditText
+            android:id="@+id/edt_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="@dimen/padding_border"
+            android:inputType="textPassword"/>
+
+        <LinearLayout
+            android:id="@+id/ll_remember_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="@dimen/margin_border"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="记住密码"
+                android:textSize="@dimen/text_size_remember_pwd"/>
+
+            <TextView
+                android:id="@+id/tv_remember"
+                android:layout_width="@dimen/remember_pwd_size"
+                android:layout_height="@dimen/remember_pwd_size"
+                android:layout_marginLeft="@dimen/margin_content"
+                android:background="@drawable/corner_white_middle"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_child_title"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height_login"
+            android:layout_marginLeft="@dimen/margin_login_btn"
+            android:layout_marginRight="@dimen/margin_login_btn"
+            android:layout_marginTop="@dimen/margin_kind"
+            android:background="@drawable/corner_blue_press_dark_blue_middle"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_child_title"
+            android:elevation="@dimen/elevation_button"/>
+
+    </LinearLayout>
+</LinearLayout>

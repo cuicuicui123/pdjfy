@@ -1,4 +1,4 @@
-package com.goodo.pdjfy.news.model;
+package com.goodo.pdjfy.homepage.model;
 
 /**
  * Created by Cui on 2017/4/11.

@@ -2,16 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.goodo.pdjfy">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
+        android:name=".base.AppContext"
         android:allowBackup="true"
         android:icon="@drawable/logo120"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name=".base.AppContext">
-        <activity android:name=".homepage.HomePageActivity"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".homepage.HomePageActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -19,10 +20,21 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity android:name=".news.NewsListActivity"
+        <activity
+            android:name=".homepage.NewsListActivity"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name=".homepage.HomePageNewsDetailActivity"
+            android:label="@string/title_activity_home_page_pic_detail"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity android:name=".homepage.HomePagePicDetailActivity"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".homepage.LoginActivity"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".main.MainActivity"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
