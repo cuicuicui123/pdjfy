@@ -15,6 +15,7 @@ import com.goodo.pdjfy.homepage.presenter.NewsListPresenter;
 import com.goodo.pdjfy.homepage.presenter.NewsListPresenterImpl;
 import com.goodo.pdjfy.homepage.presenter.RecyclerViewAdapter;
 import com.goodo.pdjfy.homepage.view.NewsListView;
+import com.goodo.pdjfy.util.MyConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +74,7 @@ public class NewsListActivity extends BaseActivity implements NewsListView {
         mAdapter = new RecyclerViewAdapter(mBeanList);
         mRecyclerView.setAdapter(mAdapter);
         mPresenter = new NewsListPresenterImpl(this, this);
-        int position = getIntent().getIntExtra(Flag.KEY_POSITION, 0);
+        int position = getIntent().getIntExtra(MyConfig.KEY_POSITION, 0);
         mNews = mPaths[position];
         mTitle = mTitles[position];
         mTitleTv.setText(mTitle);

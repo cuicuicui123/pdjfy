@@ -4,6 +4,7 @@ import okhttp3.ResponseBody;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -40,4 +41,12 @@ public interface HttpService {
     Observable<ResponseBody> login(@Query("LoginID") String account, @Query("EncyptPassword") String pwd,
                                    @Query("OnlineType") String onLineType, @Query("DeviceName") String deviceName,
                                    @Query("Place") String place);
+
+    /**
+     * 下载文件
+     * @param url
+     * @return
+     */
+    @GET
+    Observable<ResponseBody> downLoad(@Url String url);
 }

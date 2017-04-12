@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -129,6 +130,15 @@ public class HttpMethods {
         doSubscribe(observable, subscriber);
     }
 
+    /**
+     * 下载文件Base64编码
+     * @param url
+     * @param subscriber
+     */
+    public void downLoad(String url, Subscriber subscriber){
+        Observable observable = mHttpService.downLoad(url);
+        doSubscribe(observable, subscriber);
+    }
 
     private void doSubscribe(Observable observable, Subscriber subscriber){
         observable.subscribeOn(Schedulers.io())

@@ -3,7 +3,7 @@ package com.goodo.pdjfy.homepage.presenter;
 import android.content.Intent;
 
 import com.goodo.pdjfy.base.BaseActivity;
-import com.goodo.pdjfy.homepage.Flag;
+import com.goodo.pdjfy.util.MyConfig;
 import com.goodo.pdjfy.homepage.HomePageNewsDetailActivity;
 import com.goodo.pdjfy.homepage.LoginActivity;
 import com.goodo.pdjfy.homepage.model.NewsListBean;
@@ -59,8 +59,8 @@ public class NewsListPresenterImpl implements NewsListPresenter {
     @Override
     public void startToDetailActivity(String contentId, String title) {
         Intent it = new Intent(mActivity, HomePageNewsDetailActivity.class);
-        it.putExtra(Flag.KEY_TITLE, title);
-        it.putExtra(Flag.KEY_CONTENT_ID, contentId);
+        it.putExtra(MyConfig.KEY_TITLE, title);
+        it.putExtra(MyConfig.KEY_CONTENT_ID, contentId);
         mActivity.startActivity(it);
     }
 

@@ -37,8 +37,7 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/progressbar"
             android:layout_toRightOf="@id/iv_attach"
-            android:clickable="true"
-            android:textColor="@drawable/text_color_black_press_blue"
+            android:textColor="@color/black"
             android:textSize="@dimen/text_size_content"/>
     </RelativeLayout>
 

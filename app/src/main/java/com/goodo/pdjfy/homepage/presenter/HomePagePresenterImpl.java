@@ -3,7 +3,7 @@ package com.goodo.pdjfy.homepage.presenter;
 import android.content.Intent;
 
 import com.goodo.pdjfy.base.BaseActivity;
-import com.goodo.pdjfy.homepage.Flag;
+import com.goodo.pdjfy.util.MyConfig;
 import com.goodo.pdjfy.homepage.HomePagePicDetailActivity;
 import com.goodo.pdjfy.homepage.LoginActivity;
 import com.goodo.pdjfy.homepage.NewsListActivity;
@@ -20,7 +20,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.goodo.pdjfy.homepage.Flag.KEY_CONTENT_ID;
+import static com.goodo.pdjfy.util.MyConfig.KEY_CONTENT_ID;
 
 /**
  * Created by Cui on 2017/4/11.
@@ -82,7 +82,7 @@ public class HomePagePresenterImpl implements HomePagePresenter {
     @Override
     public void startToNewsListActivity(int position) {
         Intent it = new Intent(mActivity, NewsListActivity.class);
-        it.putExtra(Flag.KEY_POSITION, position);
+        it.putExtra(MyConfig.KEY_POSITION, position);
         mActivity.startActivity(it);
     }
 
@@ -90,7 +90,7 @@ public class HomePagePresenterImpl implements HomePagePresenter {
     public void startToPicDetailActivity(String contentId) {
         Intent it = new Intent(mActivity, HomePagePicDetailActivity.class);
         it.putExtra(KEY_CONTENT_ID, contentId);
-        it.putExtra(Flag.KEY_TITLE, Flag.TOP_LIST_DETAIL_TITLE);
+        it.putExtra(MyConfig.KEY_TITLE, MyConfig.TOP_LIST_DETAIL_TITLE);
         mActivity.startActivity(it);
     }
 

@@ -1,5 +1,7 @@
 package com.goodo.pdjfy.homepage.presenter;
 
+import com.goodo.pdjfy.homepage.model.AttachBean;
+
 /**
  * Created by Cui on 2017/4/12.
  *

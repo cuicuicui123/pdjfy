@@ -14,6 +14,7 @@ import com.goodo.pdjfy.homepage.presenter.HomePageDetailPresenter;
 import com.goodo.pdjfy.homepage.presenter.HomePagePicDetailPresenterImpl;
 import com.goodo.pdjfy.homepage.view.HomePageNewsDetailView;
 import com.goodo.pdjfy.rxjava.HttpMethods;
+import com.goodo.pdjfy.util.MyConfig;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +46,7 @@ public class HomePagePicDetailActivity extends BaseActivity implements HomePageN
     @Override
     protected void initData() {
         mPresenter = new HomePagePicDetailPresenterImpl(this, this);
-        mTitleTv.setText(getIntent().getStringExtra(Flag.KEY_TITLE));
+        mTitleTv.setText(getIntent().getStringExtra(MyConfig.KEY_TITLE));
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setUseWideViewPort(true);
@@ -55,7 +56,7 @@ public class HomePagePicDetailActivity extends BaseActivity implements HomePageN
 
     @Override
     protected void initEvent() {
-        mPresenter.getHomePagePicDetail(getIntent().getStringExtra(Flag.KEY_CONTENT_ID));
+        mPresenter.getHomePagePicDetail(getIntent().getStringExtra(MyConfig.KEY_CONTENT_ID));
         mReturnLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

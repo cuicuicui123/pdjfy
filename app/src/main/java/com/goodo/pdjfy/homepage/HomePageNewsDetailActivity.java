@@ -1,5 +1,6 @@
 package com.goodo.pdjfy.homepage;
 
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -7,6 +8,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.goodo.pdjfy.R;
@@ -14,13 +16,15 @@ import com.goodo.pdjfy.base.AppContext;
 import com.goodo.pdjfy.base.BaseActivity;
 import com.goodo.pdjfy.homepage.model.AttachBean;
 import com.goodo.pdjfy.homepage.model.HomePageDetailBean;
+import com.goodo.pdjfy.homepage.presenter.DownLoadFilePresenter;
+import com.goodo.pdjfy.homepage.presenter.DownLoadFilePresenterImpl;
 import com.goodo.pdjfy.homepage.presenter.HomePageDetailPresenter;
 import com.goodo.pdjfy.homepage.presenter.HomePageNewsDetailPresenterImpl;
 import com.goodo.pdjfy.homepage.view.HomePageNewsDetailView;
 import com.goodo.pdjfy.homepage.view.NewsAttachView;
 import com.goodo.pdjfy.rxjava.HttpMethods;
-import com.goodo.pdjfy.util.GetFilePicture;
-import com.goodo.pdjfy.util.JavaScriptUtil;
+import com.goodo.pdjfy.util.Base64FileDownLoad;
+import com.goodo.pdjfy.util.MyConfig;
 
 import java.util.List;
 
@@ -52,6 +56,13 @@ public class HomePageNewsDetailActivity extends BaseActivity implements HomePage
     TextView mAttachTv;
 
     private HomePageDetailPresenter mPresenter;
+    private DownLoadFilePresenter mDownLoadFilePresenter;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        mDownLoadFilePresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
     @Override
     protected void initContentView() {
@@ -62,7 +73,8 @@ public class HomePageNewsDetailActivity extends BaseActivity implements HomePage
     @Override
     protected void initData() {
         mPresenter = new HomePageNewsDetailPresenterImpl(this, this, this);
-        mTitleTv.setText(getIntent().getStringExtra(Flag.KEY_TITLE));
+        mDownLoadFilePresenter = new DownLoadFilePresenterImpl(this, this);
+        mTitleTv.setText(getIntent().getStringExtra(MyConfig.KEY_TITLE));
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setUseWideViewPort(true);
@@ -72,7 +84,7 @@ public class HomePageNewsDetailActivity extends BaseActivity implements HomePage
 
     @Override
     protected void initEvent() {
-        mPresenter.getHomePagePicDetail(getIntent().getStringExtra(Flag.KEY_CONTENT_ID));
+        mPresenter.getHomePagePicDetail(getIntent().getStringExtra(MyConfig.KEY_CONTENT_ID));
         mReturnLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,7 +104,7 @@ public class HomePageNewsDetailActivity extends BaseActivity implements HomePage
         mContentTitleTv.setText(bean.getContentTitle());
         mInformTv.setText("发送人："+ bean.getUserName() + "  发布日期："+bean.getSubmitDate() +
                 "  浏览次数："+bean.getICount());
-        String html = JavaScriptUtil.handleImage(bean.getContent(), AppContext.getInstance().getWindowWidth());
+        String html = MyConfig.handleImage(bean.getContent(), AppContext.getInstance().getWindowWidth());
         mWebView.loadDataWithBaseURL(HttpMethods.BASE_URL, html, "text/html", "utf-8", null);
     }
 
@@ -102,14 +114,21 @@ public class HomePageNewsDetailActivity extends BaseActivity implements HomePage
         mAddAttachLl.removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        for (AttachBean bean : list) {
+        for (final AttachBean bean : list) {
             View attachView = inflater.inflate(R.layout.item_attach, mAddAttachLl, false);
             mAddAttachLl.addView(attachView);
             TextView fileTv = (TextView) attachView.findViewById(R.id.tv_attach);
             fileTv.setText(bean.getName());
             ImageView fileIv = (ImageView) attachView.findViewById(R.id.iv_attach);
-            GetFilePicture getFilePicture = new GetFilePicture(bean.getName());
-            fileIv.setImageResource(getFilePicture.getFilePictureByName());
+            fileIv.setImageResource(MyConfig.getFilePictureByName(bean.getName()));
+            final ProgressBar progressBar = (ProgressBar) attachView.findViewById(R.id.progressbar);
+            attachView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    mDownLoadFilePresenter.downLoadFile(bean, progressBar);
+                }
+            });
         }
 
     }
