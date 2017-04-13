@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bar_height_title"
+        android:background="@color/blue"
+        android:elevation="@dimen/elevation_app_bar">
+
+        <include
+            layout="@layout/menu_iv"></include>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/iv_pre"
+                android:layout_width="@dimen/pic_size_pre"
+                android:layout_height="@dimen/pic_size_pre"
+                android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2017年4月"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_title"
+                android:layout_toRightOf="@id/iv_pre"
+                android:paddingLeft="@dimen/padding_content"
+                android:paddingRight="@dimen/padding_content"/>
+
+            <ImageView
+                android:id="@+id/iv_next"
+                android:layout_width="@dimen/pic_size_pre"
+                android:layout_height="@dimen/pic_size_pre"
+                android:src="@drawable/ic_keyboard_arrow_right_white_24dp"
+                android:scaleType="fitCenter"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <com.goodo.pdjfy.schedule.ScheduleView
+        android:id="@+id/scheduleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

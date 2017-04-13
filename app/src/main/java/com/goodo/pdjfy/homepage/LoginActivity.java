@@ -72,6 +72,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mLoginBtn.setEnabled(false);
                 mLoginPresenter.login(mAccountEdt.getText().toString(),
                         mPwdEdt.getText().toString());
             }
@@ -84,5 +85,10 @@ public class LoginActivity extends BaseActivity implements LoginView {
         mAccountEdt.setText(account);
         mPwdEdt.setText(pwd);
         mRememberTv.setText("√");
+    }
+
+    @Override
+    public void isLoginSucceed(boolean succeed) {
+        mLoginBtn.setEnabled(true);
     }
 }

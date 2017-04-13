@@ -10,7 +10,6 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -137,6 +136,39 @@ public class HttpMethods {
      */
     public void downLoad(String url, Subscriber subscriber){
         Observable observable = mHttpService.downLoad(url);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获得公告列表
+     */
+    public void getAnnounceList(int page, int pageSize, String keyword, Subscriber subscriber){
+        Observable observable = mHttpService.getAnnounceList(page, pageSize, keyword);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获得公告详情
+     */
+    public void getAnnounceDetail(String contentId, Subscriber subscriber){
+        Observable observable = mHttpService.getAnnounceDetail(contentId);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获得公告分类列表
+     */
+    public void getAnnounceClassifyList(Subscriber subscriber){
+        Observable observable = mHttpService.getAnnounceClassifyList();
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获得某一分类公告列表
+     */
+    public void getAnnounceClassifyOneList(String id, int page, int pageSize, String keyword
+            , Subscriber subscriber){
+        Observable observable = mHttpService.getAnnounceClassifyOneList(id, page, pageSize, keyword);
         doSubscribe(observable, subscriber);
     }
 

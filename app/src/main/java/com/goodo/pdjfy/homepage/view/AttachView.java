@@ -10,6 +10,6 @@ import java.util.List;
  * @Description
  */
 
-public interface NewsAttachView {
+public interface AttachView {
     void getAttach(List<AttachBean> list);
 }

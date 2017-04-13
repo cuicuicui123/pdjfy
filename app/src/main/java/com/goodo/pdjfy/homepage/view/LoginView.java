@@ -8,4 +8,5 @@ package com.goodo.pdjfy.homepage.view;
 
 public interface LoginView {
     void getRememberAccountAndPwd(String account, String pwd);
+    void isLoginSucceed(boolean succeed);
 }

@@ -94,10 +94,20 @@ public class LoginPresenterImpl implements LoginPresenter {
                     mUserBean = gson.fromJson(Goodo.toString(), UserBean.class);
                     if (mUserBean.getEID() == 0) {//EID为0代表登录成功
                         startToMainActivity();
+                        mLoginView.isLoginSucceed(true);
+                    } else {
+                        mLoginView.isLoginSucceed(false);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    mLoginView.isLoginSucceed(false);
                 }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                mLoginView.isLoginSucceed(false);
             }
         };
         mHttpMethods.login(loginBean, subscriber);
@@ -112,6 +122,7 @@ public class LoginPresenterImpl implements LoginPresenter {
     public void startToMainActivity() {
         Intent it = new Intent(mActivity, MainActivity.class);
         mActivity.startActivity(it);
+        mActivity.finish();
     }
 
     public static UserBean getUserBean(){

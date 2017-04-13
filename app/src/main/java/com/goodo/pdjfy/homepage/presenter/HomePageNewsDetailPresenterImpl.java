@@ -4,7 +4,7 @@ import com.goodo.pdjfy.base.BaseActivity;
 import com.goodo.pdjfy.homepage.model.AttachBean;
 import com.goodo.pdjfy.homepage.model.HomePageDetailBean;
 import com.goodo.pdjfy.homepage.view.HomePageNewsDetailView;
-import com.goodo.pdjfy.homepage.view.NewsAttachView;
+import com.goodo.pdjfy.homepage.view.AttachView;
 import com.goodo.pdjfy.util.JudgeIsJsonArray;
 import com.google.gson.Gson;
 
@@ -21,11 +21,11 @@ import java.util.List;
  */
 
 public class HomePageNewsDetailPresenterImpl extends BaseDetailPresenterImpl {
-    private NewsAttachView mNewsAttachView;
+    private AttachView mAttachView;
 
-    public HomePageNewsDetailPresenterImpl(HomePageNewsDetailView detailView, BaseActivity activity, NewsAttachView newsAttachView) {
+    public HomePageNewsDetailPresenterImpl(HomePageNewsDetailView detailView, BaseActivity activity, AttachView attachView) {
         super(detailView, activity);
-        mNewsAttachView = newsAttachView;
+        mAttachView = attachView;
     }
 
     protected void handleResponse(String response){
@@ -39,7 +39,7 @@ public class HomePageNewsDetailPresenterImpl extends BaseDetailPresenterImpl {
             if (!Record.isNull("Attach")) {
                 getAttach(Record);
             } else {
-                mNewsAttachView.getAttach(new ArrayList<AttachBean>());
+                mAttachView.getAttach(new ArrayList<AttachBean>());
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -56,6 +56,6 @@ public class HomePageNewsDetailPresenterImpl extends BaseDetailPresenterImpl {
                 list.add(bean);
             }
         });
-        mNewsAttachView.getAttach(list);
+        mAttachView.getAttach(list);
     }
 }

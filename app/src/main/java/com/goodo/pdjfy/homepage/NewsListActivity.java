@@ -16,6 +16,7 @@ import com.goodo.pdjfy.homepage.presenter.NewsListPresenterImpl;
 import com.goodo.pdjfy.homepage.presenter.RecyclerViewAdapter;
 import com.goodo.pdjfy.homepage.view.NewsListView;
 import com.goodo.pdjfy.util.MyConfig;
+import com.goodo.pdjfy.util.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +105,7 @@ public class NewsListActivity extends BaseActivity implements NewsListView {
                 finish();
             }
         });
-        mAdapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 NewsListBean bean = mBeanList.get(position);

@@ -49,4 +49,31 @@ public interface HttpService {
      */
     @GET
     Observable<ResponseBody> downLoad(@Url String url);
+
+    /**
+     * 获得院级公告列表
+     */
+    @GET("web/wsjson.asmx/Get_Json_SubjectContentSearchList")
+    Observable<ResponseBody> getAnnounceList(@Query("Page") int page, @Query("PageSize") int pageSize,
+                                             @Query("Keyword") String keyword);
+
+    /**
+     * 获得院级公告详情
+     */
+    @GET("web/wsjson.asmx/Get_Json_Content")
+    Observable<ResponseBody> getAnnounceDetail(@Query("Content_ID") String contentId);
+
+    /**
+     * 获得院级公告分类列表
+     */
+    @GET("web/wsjson.asmx/Get_Json_SubjectChlidList")
+    Observable<ResponseBody> getAnnounceClassifyList();
+
+    /**
+     * 获得院级公告某一分类的列表
+     */
+    @GET("web/wsjson.asmx/Get_Json_SubjectContentSearchListByID")
+    Observable<ResponseBody> getAnnounceClassifyOneList(@Query("Subjects_ID") String id, @Query("Page") int page,
+                                                        @Query("PageSize") int pageSize, @Query("Keyword") String keyword);
+
 }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.goodo.pdjfy.R;
 import com.goodo.pdjfy.base.AppContext;
 import com.goodo.pdjfy.homepage.model.NewsListBean;
+import com.goodo.pdjfy.util.OnItemClickListener;
 
 import java.util.List;
 
@@ -73,13 +74,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-    }
-
-    /**
-     * 点击事件
-     */
-    public interface OnItemClickListener{
-        void onItemClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){

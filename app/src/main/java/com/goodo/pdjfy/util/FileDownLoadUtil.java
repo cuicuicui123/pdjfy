@@ -3,15 +3,16 @@ package com.goodo.pdjfy.util;
 
 import android.content.Context;
 import android.os.Environment;
-import android.util.Base64;
 
 import com.goodo.pdjfy.rxjava.HttpMethods;
-import com.goodo.pdjfy.rxjava.MySubscriber;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import rx.Subscriber;
 
 /**
  * Created by Cui on 2017/4/12.
@@ -19,7 +20,7 @@ import java.io.IOException;
  * @Description 下载base64编码的文件
  */
 
-public class Base64FileDownLoad {
+public class FileDownLoadUtil {
     private String mUrl;
     private String mFileName;
     private String mPath;
@@ -28,7 +29,7 @@ public class Base64FileDownLoad {
     private OnDownLoadSuccessListener mOnDownLoadSuccessListener;
     private OnDownLoadFailListener mOnDownLoadFailListener;
 
-    public Base64FileDownLoad(String mUrl, String mFileName, Context context
+    public FileDownLoadUtil(String mUrl, String mFileName, Context context
             , OnDownLoadSuccessListener onDownLoadSuccessListener, OnDownLoadFailListener onDownLoadFailListener) {
         this.mUrl = mUrl;
         this.mFileName = mFileName;
@@ -50,28 +51,35 @@ public class Base64FileDownLoad {
     public void downLoad() {
         final File file = new File(mPath + mFileName);
         if (!file.exists()) {
-//            try {
-                file.mkdirs();
-                MySubscriber subscriber = new MySubscriber() {
+            try {
+                file.createNewFile();
+                Subscriber<ResponseBody> subscriber = new Subscriber<ResponseBody>() {
                     @Override
-                    protected void onResponse(String response) {
-                        saveFile(response, file);
-                        if (mOnDownLoadSuccessListener != null) {
-                            mOnDownLoadSuccessListener.downLoadSuccess(file);
-                        }
+                    public void onCompleted() {
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        super.onError(e);
-                        mOnDownLoadFailListener.downLoadFail();
+
+                    }
+
+                    @Override
+                    public void onNext(ResponseBody body) {
+                        try {
+                            saveFile(body.bytes(), file);
+                            mOnDownLoadSuccessListener.downLoadSuccess(file);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            mOnDownLoadFailListener.downLoadFail();
+                        }
                     }
                 };
                 mHttpMethods.downLoad(mUrl, subscriber);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                mOnDownLoadFailListener.downLoadFail();
-//            }
+            } catch (IOException e) {
+                e.printStackTrace();
+                mOnDownLoadFailListener.downLoadFail();
+            }
         } else {
             if (mOnDownLoadSuccessListener != null) {
                 mOnDownLoadSuccessListener.downLoadSuccess(file);
@@ -80,8 +88,7 @@ public class Base64FileDownLoad {
 
     }
 
-    private void saveFile(String response, File file) {
-        byte[] bytes = response.getBytes();
+    private void saveFile(byte[] bytes, File file) {
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream(file);

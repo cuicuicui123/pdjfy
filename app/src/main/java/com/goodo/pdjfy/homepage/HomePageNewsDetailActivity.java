@@ -21,9 +21,8 @@ import com.goodo.pdjfy.homepage.presenter.DownLoadFilePresenterImpl;
 import com.goodo.pdjfy.homepage.presenter.HomePageDetailPresenter;
 import com.goodo.pdjfy.homepage.presenter.HomePageNewsDetailPresenterImpl;
 import com.goodo.pdjfy.homepage.view.HomePageNewsDetailView;
-import com.goodo.pdjfy.homepage.view.NewsAttachView;
+import com.goodo.pdjfy.homepage.view.AttachView;
 import com.goodo.pdjfy.rxjava.HttpMethods;
-import com.goodo.pdjfy.util.Base64FileDownLoad;
 import com.goodo.pdjfy.util.MyConfig;
 
 import java.util.List;
@@ -35,7 +34,7 @@ import butterknife.ButterKnife;
  * 首页新闻列表详情
  */
 
-public class HomePageNewsDetailActivity extends BaseActivity implements HomePageNewsDetailView, NewsAttachView {
+public class HomePageNewsDetailActivity extends BaseActivity implements HomePageNewsDetailView, AttachView {
     @BindView(R.id.ll_return)
     LinearLayout mReturnLl;
     @BindView(R.id.btn_enter)
@@ -110,26 +109,31 @@ public class HomePageNewsDetailActivity extends BaseActivity implements HomePage
 
     @Override
     public void getAttach(List<AttachBean> list) {
-        mAttachTv.setText("附件：共" + list.size() + "个");
-        mAddAttachLl.removeAllViews();
-        LayoutInflater inflater = LayoutInflater.from(this);
+        if (list.size() > 0) {
+            mAttachLl.setVisibility(View.VISIBLE);
+            mAttachTv.setText("附件：共" + list.size() + "个");
+            mAddAttachLl.removeAllViews();
+            LayoutInflater inflater = LayoutInflater.from(this);
 
-        for (final AttachBean bean : list) {
-            View attachView = inflater.inflate(R.layout.item_attach, mAddAttachLl, false);
-            mAddAttachLl.addView(attachView);
-            TextView fileTv = (TextView) attachView.findViewById(R.id.tv_attach);
-            fileTv.setText(bean.getName());
-            ImageView fileIv = (ImageView) attachView.findViewById(R.id.iv_attach);
-            fileIv.setImageResource(MyConfig.getFilePictureByName(bean.getName()));
-            final ProgressBar progressBar = (ProgressBar) attachView.findViewById(R.id.progressbar);
-            attachView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    progressBar.setVisibility(View.VISIBLE);
-                    mDownLoadFilePresenter.downLoadFile(bean, progressBar);
-                }
-            });
+            for (final AttachBean bean : list) {
+                final View attachView = inflater.inflate(R.layout.item_attach, mAddAttachLl, false);
+                mAddAttachLl.addView(attachView);
+                TextView fileTv = (TextView) attachView.findViewById(R.id.tv_attach);
+                fileTv.setText(bean.getName());
+                ImageView fileIv = (ImageView) attachView.findViewById(R.id.iv_attach);
+                fileIv.setImageResource(MyConfig.getFilePictureByName(bean.getName()));
+                final ProgressBar progressBar = (ProgressBar) attachView.findViewById(R.id.progressbar);
+                attachView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        progressBar.setVisibility(View.VISIBLE);
+                        view.setEnabled(false);
+                        mDownLoadFilePresenter.downLoadFile(bean, progressBar, attachView);
+                    }
+                });
+            }
+        } else {
+            mAttachLl.setVisibility(View.GONE);
         }
-
     }
 }

@@ -123,5 +123,10 @@ public class AppContext extends Application {
         return mDensityUtil;
     }
 
+    public static boolean isMeiZu(){
+        return "Meizu".equals(android.os.Build.MANUFACTURER);
+    }
+
+
 }
 

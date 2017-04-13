@@ -1,21 +1,13 @@
 package com.goodo.pdjfy.util;
 
-import android.Manifest;
-import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.webkit.MimeTypeMap;
-import android.widget.Toast;
 
 import com.goodo.pdjfy.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Created by Cui on 2017/4/12.
  *
- * @Description
+ * @Description 用于存储公共变量和提供公共方法
  */
 
 public class MyConfig {
@@ -23,6 +15,7 @@ public class MyConfig {
     public static String KEY_POSITION = "position";
     public static String KEY_CONTENT_ID = "contentId";
     public static String TOP_LIST_DETAIL_TITLE = "首页新闻";
+    public static String KEY_ID = "id";
 
     public static int READ_STORAGE_CODE = 1;
 
@@ -89,6 +82,13 @@ public class MyConfig {
                 "\t}\n" +
                 "    }\n" +
                 "</script>"  + html;
+    }
+
+    /**
+     * 获取文件名
+     */
+    public static String getFileName(String path) {
+        return path.substring(path.lastIndexOf("/") + 1);
     }
 
 }
