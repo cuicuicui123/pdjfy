@@ -12,6 +12,7 @@
     <dimen name="text_size_title">18sp</dimen>
     <dimen name="text_size_child_title">16sp</dimen>
     <dimen name="text_size_content">15sp</dimen>
+    <dimen name="text_size_week">12sp</dimen>
     <dimen name="text_size_date">14sp</dimen>
     <dimen name="text_size_inform">14sp</dimen>
     <dimen name="text_size_remember_pwd">14sp</dimen>

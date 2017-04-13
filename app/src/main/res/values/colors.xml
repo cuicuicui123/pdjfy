@@ -11,4 +11,5 @@
     <color name="grey_text">#808080</color>
     <color name="grey_divider">#dbdbdb</color>
     <color name="grey_login_bac">#ecedf1</color>
+    <color name="blue_bac">#ccffff</color>
 </resources>
