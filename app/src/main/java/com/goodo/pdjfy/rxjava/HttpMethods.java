@@ -85,6 +85,13 @@ public class HttpMethods {
         return mInstance;
     }
 
+    private void doSubscribe(Observable observable, Subscriber subscriber){
+        observable.subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
     /**
      * 获得首页顶部轮播图
      * @param topList 图片数量
@@ -172,11 +179,14 @@ public class HttpMethods {
         doSubscribe(observable, subscriber);
     }
 
-    private void doSubscribe(Observable observable, Subscriber subscriber){
-        observable.subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+    /**
+     * 获得日程
+     */
+    public void getSchedule(String sessionId, int userId, int unitId, String beginDay, String endDay,
+                            Subscriber subscriber){
+        Observable observable = mHttpService.getSchedule(sessionId, userId, unitId, beginDay, endDay);
+        doSubscribe(observable, subscriber);
     }
+
 
 }

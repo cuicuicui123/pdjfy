@@ -46,8 +46,8 @@
                 android:scaleType="fitCenter"/>
         </LinearLayout>
     </RelativeLayout>
-    <com.goodo.pdjfy.schedule.ScheduleView
-        android:id="@+id/scheduleView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <com.goodo.pdjfy.schedule.ScheduleMainView
+            android:id="@+id/scheduleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 </LinearLayout>

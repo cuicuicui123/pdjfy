@@ -8,6 +8,7 @@
     <dimen name="progressbar_size">36dp</dimen>
     <dimen name="main_bottom_bar_height">48dp</dimen>
     <dimen name="more_button_width">64dp</dimen>
+    <dimen name="schedule_viewpager_height">150dp</dimen>
 
     <dimen name="text_size_title">18sp</dimen>
     <dimen name="text_size_child_title">16sp</dimen>
@@ -15,6 +16,7 @@
     <dimen name="text_size_date">14sp</dimen>
     <dimen name="text_size_inform">14sp</dimen>
     <dimen name="text_size_remember_pwd">14sp</dimen>
+    <dimen name="text_size_week">12sp</dimen>
 
     <dimen name="elevation_app_bar">4dp</dimen>
     <dimen name="elevation_bottom_bar">4dp</dimen>
