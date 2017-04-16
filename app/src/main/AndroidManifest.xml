@@ -44,6 +44,10 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".announcement.AnnounceClassifyOneListActivity"
             android:theme="@style/AppTheme"/>
+        <activity android:name=".schedule.ScheduleDetailActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".schedule.AddScheduleActivity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

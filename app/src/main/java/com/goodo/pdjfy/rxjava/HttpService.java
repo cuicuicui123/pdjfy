@@ -76,4 +76,20 @@ public interface HttpService {
     Observable<ResponseBody> getAnnounceClassifyOneList(@Query("Subjects_ID") String id, @Query("Page") int page,
                                                         @Query("PageSize") int pageSize, @Query("Keyword") String keyword);
 
+    /**
+     * 获得日程
+     */
+    @GET("EduPlate/MSGSchedule/InterfaceJson.asmx/Schedule_GetTotalList")
+    Observable<ResponseBody> getSchedule(@Query("SessionID") String sessionId, @Query("User_ID") int userID,
+                                         @Query("Unit_ID") int unitId, @Query("BeginDay") String beginDay,
+                                         @Query("EndDay") String endDay);
+
+    /**
+     * 获得日程详情
+     */
+    @GET("EduPlate/MSGSchedule/InterfaceJson.asmx/Schedule_GetSingle")
+    Observable<ResponseBody> getScheduleDetail(@Query("SessionID") String sessionId, @Query("User_ID") int userId,
+                                               @Query("Unit_ID") int unitId, @Query("ID") int id,
+                                               @Query("Type") int type);
+
 }

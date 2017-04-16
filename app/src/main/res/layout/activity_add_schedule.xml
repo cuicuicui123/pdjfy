@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@color/blue">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bar_height_title"
+        android:elevation="@dimen/elevation_app_bar">
+
+        <include
+            layout="@layout/ll_return"></include>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加个人安排"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_title"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:layout_alignParentRight="true"
+            android:textColor="@drawable/text_color_white_press_blue"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_content"
+            android:textSize="@dimen/text_size_child_title"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_border">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择日期："
+            android:textColor="@drawable/text_color_black_press_blue"
+            android:textSize="@dimen/text_size_title"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/margin_border">
+            <RadioButton
+                android:id="@+id/hole_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全天"
+                android:textSize="15sp"
+                android:textColor="#000000"
+                />
+            <RadioButton
+                android:id="@+id/morning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上午"
+                android:textSize="15sp"
+                android:textColor="#000000"
+                />
+
+            <RadioButton
+                android:id="@+id/afternoon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="下午"
+                android:textSize="15sp"
+                android:textColor="#000000"
+                />
+
+            <RadioButton
+                android:id="@+id/custom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="自定义"
+                android:textSize="15sp"
+                android:textColor="#000000"
+                />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始时间："
+            android:textSize="@dimen/text_size_date"
+            android:textColor="@color/grey_text"
+            android:layout_marginTop="@dimen/margin_border"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="结束时间："
+            android:textSize="@dimen/text_size_date"
+            android:textColor="@color/grey_text"
+            android:layout_marginTop="@dimen/margin_border"/>
+
+        <EditText
+            android:id="@+id/edt_work"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corner_white_middle"
+            android:paddingTop="@dimen/padding_border"
+            android:paddingBottom="@dimen/padding_border"
+            android:layout_marginTop="@dimen/margin_border"
+            android:hint="工作："
+            android:paddingLeft="@dimen/padding_content"
+            android:paddingRight="@dimen/padding_content"/>
+
+    </LinearLayout>
+
+</LinearLayout>

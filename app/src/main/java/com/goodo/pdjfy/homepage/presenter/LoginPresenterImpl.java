@@ -11,6 +11,7 @@ import com.goodo.pdjfy.homepage.view.LoginView;
 import com.goodo.pdjfy.main.MainActivity;
 import com.goodo.pdjfy.rxjava.HttpMethods;
 import com.goodo.pdjfy.rxjava.MySubscriber;
+import com.goodo.pdjfy.util.MyConfig;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -92,6 +93,9 @@ public class LoginPresenterImpl implements LoginPresenter {
                     JSONObject Goodo = jsonObject.getJSONObject("Goodo");
                     Gson gson = new Gson();
                     mUserBean = gson.fromJson(Goodo.toString(), UserBean.class);
+                    MyConfig.setUserId(mUserBean.getUser_ID());
+                    MyConfig.setUnitId(mUserBean.getUnit_ID());
+                    MyConfig.setSessionId(mUserBean.getSessionID());
                     if (mUserBean.getEID() == 0) {//EID为0代表登录成功
                         startToMainActivity();
                         mLoginView.isLoginSucceed(true);

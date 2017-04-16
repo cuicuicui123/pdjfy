@@ -45,9 +45,19 @@
                 android:src="@drawable/ic_keyboard_arrow_right_white_24dp"
                 android:scaleType="fitCenter"/>
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_add"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_content"
+            android:src="@drawable/ic_add_white_36dp"
+            android:scaleType="fitCenter"
+            android:layout_alignParentRight="true"/>
+
     </RelativeLayout>
-    <com.goodo.pdjfy.schedule.ScheduleView
-        android:id="@+id/scheduleView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <com.goodo.pdjfy.schedule.ScheduleMainView
+            android:id="@+id/scheduleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 </LinearLayout>

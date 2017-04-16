@@ -1,43 +1,36 @@
 package com.goodo.pdjfy.schedule.model;
 
-import java.io.Serializable;
-
 /**
- * Created by Cui on 2017/4/13.
+ * Created by Cui on 2017/4/14.
  *
  * @Description
  */
 
-public class ScheduleBean implements Serializable {
+public class ScheduleDetailBean {
 
     /**
-     * ID : 228
-     * Date : 2017/4/10 0:00:00
+     * Date : 2017/4/11 0:00:00
      * IsAllDay : 0
-     * BeginTime : 09:00
-     * EndTime : 11:00
-     * Work : 部门业务学习
-     * Address : 各部门自定
-     * Type : 1
+     * BeginTime : 09:30
+     * EndTime : 16:00
+     * Work : 城乡一体化项目招标联系招标中心
+     * Address :
      */
 
-    private int ID;
     private String Date;
     private boolean IsAllDay;
     private String BeginTime;
     private String EndTime;
     private String Work;
     private String Address;
-    private int Type;
-    private int mRow;
-    private int mColumn;
+    private String Content;
 
-    public int getID() {
-        return ID;
+    public String getContent() {
+        return Content;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setContent(String content) {
+        Content = content;
     }
 
     public String getDate() {
@@ -87,29 +80,4 @@ public class ScheduleBean implements Serializable {
     public void setAddress(String Address) {
         this.Address = Address;
     }
-
-    public int getType() {
-        return Type;
-    }
-
-    public void setType(int Type) {
-        this.Type = Type;
-    }
-
-    public int getRow() {
-        return mRow;
-    }
-
-    public void setRow(int row) {
-        mRow = row;
-    }
-
-    public int getColumn() {
-        return mColumn;
-    }
-
-    public void setColumn(int column) {
-        mColumn = column;
-    }
-
 }

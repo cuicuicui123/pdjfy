@@ -4,6 +4,8 @@ import android.webkit.MimeTypeMap;
 
 import com.goodo.pdjfy.R;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by Cui on 2017/4/12.
  *
@@ -16,12 +18,38 @@ public class MyConfig {
     public static String KEY_CONTENT_ID = "contentId";
     public static String TOP_LIST_DETAIL_TITLE = "首页新闻";
     public static String KEY_ID = "id";
+    public static String NOON_TIME = "12:00";
+    public static String KEY_LIST = "list";
+    public static String KEY_SCHEDULE_BEAN = "scheduleBean";
+
+
+    public static final int SCHEDULE_TYPE_PERSON = 3;
+    public static final int SCHEDULE_TYPE_DEPART = 2;
+    public static final int SCHEDULE_TYPE_COLLEGE = 1;
+
+
+
+    public static int USER_ID;
+    public static int UNIT_ID;
+    public static String SESSION_ID;
 
     public static int READ_STORAGE_CODE = 1;
 
     public static int[] FILE_PICTURE = new int[]{R.drawable.pic_file_word, R.drawable.pic_file_txt,
             R.drawable.pic_file_excel, R.drawable.pic_file_ppt, R.drawable.pic_file_rar, R.drawable.pic_file_video,
             R.drawable.pic_file_pic, R.drawable.pic_file_no};
+
+    public static void setUserId(int userId) {
+        USER_ID = userId;
+    }
+
+    public static void setUnitId(int unitId) {
+        UNIT_ID = unitId;
+    }
+
+    public static void setSessionId(String sessionId) {
+        SESSION_ID = sessionId;
+    }
 
     /**
      * 根据文件名获取对应的图片
@@ -89,6 +117,13 @@ public class MyConfig {
      */
     public static String getFileName(String path) {
         return path.substring(path.lastIndexOf("/") + 1);
+    }
+
+    /**
+     * 获得DateFormat
+     */
+    public static SimpleDateFormat getDateFormat(){
+        return new SimpleDateFormat("yyyy-MM-dd");
     }
 
 }
