@@ -23,7 +23,7 @@ public class ScheduleBean implements Serializable {
 
     private int ID;
     private String Date;
-    private boolean IsAllDay;
+    private int IsAllDay;
     private String BeginTime;
     private String EndTime;
     private String Work;
@@ -48,11 +48,11 @@ public class ScheduleBean implements Serializable {
         this.Date = Date;
     }
 
-    public boolean isIsAllDay() {
+    public int getIsAllDay() {
         return IsAllDay;
     }
 
-    public void setIsAllDay(boolean IsAllDay) {
+    public void setIsAllDay(int IsAllDay) {
         this.IsAllDay = IsAllDay;
     }
 

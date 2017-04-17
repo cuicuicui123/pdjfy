@@ -58,7 +58,7 @@ public class SchedulePageAdapter extends PagerAdapter {
                 bacLl.setBackgroundResource(R.drawable.corner_week_blue_bac);
                 break;
             case MyConfig.SCHEDULE_TYPE_PERSON:
-                bacLl.setBackgroundResource(R.drawable.corner_week_grey_bac);
+                bacLl.setBackgroundResource(R.drawable.corner_week_green_bac);
                 break;
             default:
                 break;

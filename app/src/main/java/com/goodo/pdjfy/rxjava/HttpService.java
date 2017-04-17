@@ -92,4 +92,47 @@ public interface HttpService {
                                                @Query("Unit_ID") int unitId, @Query("ID") int id,
                                                @Query("Type") int type);
 
+    /**
+     * 添加日程
+     */
+    @GET("EduPlate/MSGSchedule/InterfaceJson.asmx/MySchedule_AddNew")
+    Observable<ResponseBody> addSchedule(@Query("SessionID") String sessionId, @Query("User_ID") int userId,
+                                         @Query("UserName") String userName, @Query("Date") String date,
+                                         @Query("IsAllDay") boolean isAllDay, @Query("BeginTime") String beginTime,
+                                         @Query("EndTime") String endTime, @Query("Work") String work,
+                                         @Query("Content") String content, @Query("Address") String address,
+                                         @Query("RelatedUser") String user, @Query("Case_ID") int caseId,
+                                         @Query("CaseName") String caseName);
+
+    /**
+     * 编辑日程
+     */
+    @GET("EduPlate/MSGSchedule/InterfaceJson.asmx/MySchedule_Save")
+    Observable<ResponseBody> editSchedule(@Query("SessionID") String sessionId, @Query("User_ID") int userId,
+                                          @Query("MySchedule_ID") int id, @Query("Date") String date,
+                                          @Query("IsAllDay") boolean isAllDay, @Query("BeginTime") String beginTime,
+                                          @Query("EndTime") String endTime, @Query("Work") String work,
+                                          @Query("Content") String content, @Query("Address") String address,
+                                          @Query("RelatedUser") String user, @Query("Case_ID") int caseId,
+                                          @Query("CaseName") String caseName);
+
+    /**
+     * 删除日程
+     */
+    @GET("EduPlate/MSGSchedule/InterfaceJson.asmx/MySchedule_Delete")
+    Observable<ResponseBody> deleteSchedule(@Query("SessionID") String sessionID, @Query("User_ID") int userId,
+                                            @Query("MySchedule_ID") int id);
+
+    /**
+     * 获取绑定的外部邮箱
+     */
+    @GET("EduPlate/MSGMail/InterfaceJson.asmx/OuterMailAddr_ListGet")
+    Observable<ResponseBody> getOuterMail(@Query("SessionID") String sessionId, @Query("User_ID") int userId);
+
+    /**
+     * 获取内部电函分类
+     */
+    @GET("EduPlate/MSGMail/InterfaceJson.asmx/Receive_ClassifyGetList")
+    Observable<ResponseBody> getInnerClassify(@Query("SessionID") String sessionId, @Query("User_ID") int userId);
+
 }

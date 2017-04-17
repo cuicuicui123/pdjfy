@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_press_grey"
+    android:clickable="true">
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/email_child_height"
+        android:padding="@dimen/padding_content">
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="@dimen/email_image_size"
+            android:layout_height="@dimen/email_image_size"
+            android:src="@drawable/pic_all_email_receive"
+            android:scaleType="fitCenter"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:id="@+id/tv_kind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收件箱"
+            android:textSize="@dimen/text_size_content"
+            android:textColor="@color/black"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv"
+            android:layout_marginLeft="@dimen/padding_kind"/>
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="@dimen/arrow_size"
+            android:layout_height="@dimen/arrow_size"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+    <include
+        layout="@layout/divider"></include>
+</LinearLayout>

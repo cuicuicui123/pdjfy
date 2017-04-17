@@ -3,6 +3,8 @@ package com.goodo.pdjfy.rxjava;
 import android.util.Log;
 
 import com.goodo.pdjfy.homepage.model.LoginBean;
+import com.goodo.pdjfy.schedule.model.AddScheduleBean;
+import com.goodo.pdjfy.util.MyConfig;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -193,6 +195,50 @@ public class HttpMethods {
      */
     public void getScheduleDetail(String sessionId, int userId, int unitId, int id, int type, Subscriber subscriber){
         Observable observable = mHttpService.getScheduleDetail(sessionId, userId, unitId, id, type);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 添加日程
+     */
+    public void addSchedule(AddScheduleBean bean, Subscriber subscriber) {
+        Observable observable = mHttpService.addSchedule(MyConfig.SESSION_ID, MyConfig.USER_ID, MyConfig.USERNAME,
+                bean.getDate(), bean.getIsAllDay() == MyConfig.IS_ALL_DAY, bean.getBeginTime(), bean.getEndTime(), bean.getWork(),
+                bean.getContent(), bean.getAddress(), bean.getRelatedUser(), bean.getCaseId(), bean.getCaseName());
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 编辑日程
+     */
+    public void editSchedule(AddScheduleBean bean, Subscriber subscriber){
+        Observable observable = mHttpService.editSchedule(MyConfig.SESSION_ID, MyConfig.USER_ID, bean.getId(),
+                bean.getDate(), bean.getIsAllDay() == MyConfig.IS_ALL_DAY, bean.getBeginTime(), bean.getEndTime(), bean.getWork(),
+                bean.getContent(), bean.getAddress(), bean.getRelatedUser(), bean.getCaseId(), bean.getCaseName());
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 删除日程
+     */
+    public void deleteSchedule(int scheduleId, Subscriber subscriber){
+        Observable observable = mHttpService.deleteSchedule(MyConfig.SESSION_ID, MyConfig.USER_ID, scheduleId);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取外部邮箱
+     */
+    public void getOuterMail(Subscriber subscriber){
+        Observable observable = mHttpService.getOuterMail(MyConfig.SESSION_ID, MyConfig.USER_ID);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取内部电函分类
+     */
+    public void getInnerClassify(Subscriber subscriber){
+        Observable observable = mHttpService.getInnerClassify(MyConfig.SESSION_ID, MyConfig.USER_ID);
         doSubscribe(observable, subscriber);
     }
 

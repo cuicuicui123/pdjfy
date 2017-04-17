@@ -50,11 +50,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * 子类可以复写此方法初始化事件
-     */
-    protected abstract void initEvent();
-
-    /**
      * 当Activity初始化之后可以在这里进行一些数据的初始化操作
      * @param savedInstanceState
      */
@@ -77,5 +72,10 @@ public abstract class BaseFragment extends Fragment {
      * 子类在此方法中实现数据的初始化
      */
     public abstract void initData();
+
+    /**
+     * 子类可以复写此方法初始化事件
+     */
+    protected abstract void initEvent();
 
 }

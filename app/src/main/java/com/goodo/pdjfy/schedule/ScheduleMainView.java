@@ -43,11 +43,8 @@ public class ScheduleMainView extends View {
     private List<ScheduleBean>[][] mScheduleBeanLists;
     private int mRowNum = 7;
     private int mColumnNum = 3;
-    private int mAllDayPosition = 0;
-    private int mMorningPosition = 1;
-    private int mAfterNoonPosition = 2;
-
     private OnItemClickListener mOnItemClickListener;
+    private OnItemLongClickListener mOnItemLongClickListener;
 
     public ScheduleMainView(Context context) {
         super(context);
@@ -372,14 +369,14 @@ public class ScheduleMainView extends View {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if (bean.isIsAllDay()) {
-            bean.setColumn(mAllDayPosition);
+        if (bean.getIsAllDay() == 1) {
+            bean.setColumn(MyConfig.ALL_DAY);
             mAllDayBeanLists[bean.getRow()].add(bean);
         } else if (bean.getBeginTime().compareTo(MyConfig.NOON_TIME) < 0){
-            bean.setColumn(mMorningPosition);
+            bean.setColumn(MyConfig.MORNING);
             mMorningBeanLists[bean.getRow()].add(bean);
         } else {
-            bean.setColumn(mAfterNoonPosition);
+            bean.setColumn(MyConfig.AFTERNOON);
             mAfterNoonBeanLists[bean.getRow()].add(bean);
         }
     }
@@ -407,7 +404,7 @@ public class ScheduleMainView extends View {
                 mLongPressRunnable = new Runnable() {
                     @Override
                     public void run() {
-
+                        findLongClickPosition(mStartX, mStartY);
                     }
                 };
                 postDelayed(mLongPressRunnable, ViewConfiguration.getLongPressTimeout());
@@ -417,7 +414,7 @@ public class ScheduleMainView extends View {
                 mEndX = event.getX();
                 mEndY = event.getY();
                 if (Math.abs(mEndX - mStartX) < 20 && Math.abs(mEndY - mStartY) < 20) {
-                    findClickScheduleBean(mStartX, mStartY);
+                    findClickSchedulePosition(mStartX, mStartY);
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -438,25 +435,52 @@ public class ScheduleMainView extends View {
     /**
      * 根据计算得到的scheduleBean的携带的位置信息得到点击的scheduleBean
      */
-    private void findClickScheduleBean(float x, float y) {
+    private void findClickSchedulePosition(float x, float y) {
         if (x > mSurface.mCellWidth && y > mSurface.mWeekHeight) {
             int indexX = (int) ((x - mSurface.mCellWidth) / mSurface.mCellWidth);
             int indexY = (int) ((y - mSurface.mWeekHeight) / mSurface.mCellHeight);
             int position;
-            if (indexY == mAllDayPosition) {
-                position = mAllDayPosition;
+            if (indexY == MyConfig.ALL_DAY) {
+                position = MyConfig.ALL_DAY;
             } else if (indexY > 0 && indexY <= 2) {
-                position = mMorningPosition;
+                position = MyConfig.MORNING;
                 indexY = indexY - 1;
             } else {
-                position = mAfterNoonPosition;
+                position = MyConfig.AFTERNOON;
                 indexY = indexY - 3;
             }
             List<ScheduleBean> list  = mScheduleBeanLists[position][indexX];
-            if (list.size() > 0) {
+            if (list.size() > 0 && list.size() > indexY) {//判断点击的位置有数据，并且如果点到上午下午第二条数据时，必须上午下午数据有两条以上
                 if (mOnItemClickListener != null) {
                     mOnItemClickListener.onItemClick(list, indexY);
                 }
+            }
+        }
+    }
+
+    private void findLongClickPosition(float x, float y){
+        if (x > mSurface.mCellWidth && y > mSurface.mWeekHeight) {
+            int indexX = (int) ((x - mSurface.mCellWidth) / mSurface.mCellWidth);
+            int indexY = (int) ((y - mSurface.mWeekHeight) / mSurface.mCellHeight);
+            Date baseDate = mCalendar.getTime();
+            if (indexX == 6) {
+                mCalendar.add(Calendar.WEEK_OF_YEAR, 1);
+                mCalendar.set(Calendar.DAY_OF_WEEK, 1);
+            } else {
+                mCalendar.set(Calendar.DAY_OF_WEEK, indexX + 2);
+            }
+            String date = mDateFormat.format(mCalendar.getTime());
+            mCalendar.setTime(baseDate);
+            int type;
+            if (indexY == 0) {
+                type = MyConfig.ALL_DAY;
+            } else if (indexY < 3) {
+                type = MyConfig.MORNING;
+            } else {
+                type = MyConfig.AFTERNOON;
+            }
+            if (mOnItemLongClickListener != null) {
+                mOnItemLongClickListener.onItemLogClick(date, type);
             }
         }
     }
@@ -513,7 +537,7 @@ public class ScheduleMainView extends View {
 
             mGradientDrawable = (GradientDrawable) getResources().getDrawable(R.drawable.gradient_grey);
             mColumnGradientDrawable = (GradientDrawable) getResources().getDrawable(R.drawable.gradient_grey_column);
-            mPersonCornerBacDrawable = getResources().getDrawable(R.drawable.corner_week_grey_bac);
+            mPersonCornerBacDrawable = getResources().getDrawable(R.drawable.corner_week_green_bac);
             mDepartCornerBacDrawable = getResources().getDrawable(R.drawable.corner_week_blue_bac);
             mCollegeCornerBacDrawable = getResources().getDrawable(R.drawable.corner_week_red_bac);
 
@@ -559,6 +583,21 @@ public class ScheduleMainView extends View {
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         mOnItemClickListener = onItemClickListener;
     }
+
+    public interface OnItemLongClickListener{
+        /**
+         * 长按接口
+         * @param date 日期
+         * @param time 全天、上午还是下午
+         */
+        void onItemLogClick(String date, int time);
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener listener){
+        mOnItemLongClickListener = listener;
+    }
+
+
 
 
 }
