@@ -26,6 +26,9 @@ public class SelectPersonPresenterImpl implements SelectPersonPresenter {
     private BaseActivity mActivity;
     private HttpMethods mHttpMethods;
     private int mSize;
+    private int mNum = 0;
+    private List<UnitBean> mUnitBeanList;
+    private List<List<UnitUserBean>> mUserBeanList;
 
     private String KEY_UNIT_INFO = "getUnitInfo";
 
@@ -33,6 +36,8 @@ public class SelectPersonPresenterImpl implements SelectPersonPresenter {
         mSelectPersonView = selectPersonView;
         mActivity = activity;
         mHttpMethods = HttpMethods.getInstance();
+        mUnitBeanList = new ArrayList<>();
+        mUserBeanList = new ArrayList<>();
     }
 
     @Override
@@ -45,17 +50,16 @@ public class SelectPersonPresenterImpl implements SelectPersonPresenter {
                     JSONObject Goodo = jsonObject.getJSONObject("Goodo");
                     JSONObject Record = Goodo.getJSONObject("Record");
                     final Gson gson = new Gson();
-                    final List<UnitBean> list = new ArrayList<>();
                     JudgeIsJsonArray.judge(Record, "Record", new JudgeIsJsonArray.OnJudged() {
                         @Override
                         public void judged(JSONObject jsonObject) throws JSONException {
                             UnitBean bean = gson.fromJson(jsonObject.toString(), UnitBean.class);
-                            list.add(bean);
+                            mUnitBeanList.add(bean);
                         }
                     });
-                    mSize = list.size();
+                    mSize = mUnitBeanList.size();
                     for (int i = 0;i < mSize;i ++) {
-                        UnitBean bean = list.get(i);
+                        UnitBean bean = mUnitBeanList.get(i);
                         getUnitUser(bean.getID());
                     }
                 } catch (JSONException e) {
@@ -83,6 +87,11 @@ public class SelectPersonPresenterImpl implements SelectPersonPresenter {
                             list.add(bean);
                         }
                     });
+                    mUserBeanList.add(list);
+                    mNum ++;
+                    if (mNum == mSize) {
+                        mSelectPersonView.getUnitInfoList(mUnitBeanList, mUserBeanList);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

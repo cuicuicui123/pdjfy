@@ -1,6 +1,7 @@
 package com.goodo.pdjfy.email.view;
 
 import com.goodo.pdjfy.email.model.UnitBean;
+import com.goodo.pdjfy.email.model.UnitUserBean;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ import java.util.List;
  */
 
 public interface SelectPersonView {
-    void getUnitInfoList(List<UnitBean> list);
+    void getUnitInfoList(List<UnitBean> unitBeanList, List<List<UnitUserBean>> userBeanList);
 }

@@ -17,6 +17,7 @@ public class UnitUserBean {
     private int User_ID;
     private String LoginID;
     private String UserName;
+    private boolean mIsSelected;
 
     public int getUser_ID() {
         return User_ID;
@@ -40,5 +41,13 @@ public class UnitUserBean {
 
     public void setUserName(String UserName) {
         this.UserName = UserName;
+    }
+
+    public boolean isSelected() {
+        return mIsSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        mIsSelected = selected;
     }
 }

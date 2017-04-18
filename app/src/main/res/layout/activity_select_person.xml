@@ -37,15 +37,11 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <ExpandableListView
+        android:id="@+id/expandable_listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:id="@+id/ll">
-
-
-
-    </LinearLayout>
+        android:divider="@drawable/divider"
+        android:background="@color/white"></ExpandableListView>
 
 </LinearLayout>

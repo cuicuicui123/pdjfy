@@ -17,6 +17,7 @@ public class UnitBean {
     private int ID;
     private String NAME;
     private int T;
+    private boolean mIsSelected;
 
     public int getID() {
         return ID;
@@ -40,5 +41,13 @@ public class UnitBean {
 
     public void setT(int T) {
         this.T = T;
+    }
+
+    public boolean isSelected() {
+        return mIsSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        mIsSelected = selected;
     }
 }
