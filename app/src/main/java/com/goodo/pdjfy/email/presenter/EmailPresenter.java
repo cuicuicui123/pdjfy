@@ -13,4 +13,5 @@ import java.util.List;
 public interface EmailPresenter {
     void getOuterMail();
     void getInnerReceiveClassify(List<OuterMailBean> list);
+    void startToSendEmailActivity();
 }

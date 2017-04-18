@@ -10,7 +10,16 @@ import java.util.List;
 
 public class EmailBean {
     String title;
+    int id;
     List<ChildEmailBean> mList;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -30,6 +39,7 @@ public class EmailBean {
 
     public static class ChildEmailBean{
         String mContent;
+        int id;
         int mPicRes;
 
         public String getContent() {
@@ -46,6 +56,14 @@ public class EmailBean {
 
         public void setPicRes(int picRes) {
             mPicRes = picRes;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
         }
     }
 }

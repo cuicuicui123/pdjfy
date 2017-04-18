@@ -26,6 +26,8 @@ public class MyConfig {
     public static final String KEY_DIALOG_CONTENT = "content";
     public static final String KEY_DATE = "date";
     public static final String KEY_TIME = "time";
+    public static final String KEY_EMAIL_LIST_BEAN = "emailListBean";
+    public static final String KEY_IS_INBOX = "isInBox";
 
     public static final int SCHEDULE_TYPE_PERSON = 3;
     public static final int SCHEDULE_TYPE_DEPART = 2;
@@ -46,6 +48,9 @@ public class MyConfig {
     public static final String END_TIME_HOLE_DAY = "18:00";
     public static final String END_TIME_MORNING = "12:00";
     public static final String END_TIME_AFTERNOON = "18:00";
+
+    public static final int IS_INBOX = 1;
+    public static final int NOT_INBOX = 0;
 
     public static int USER_ID;
     public static int UNIT_ID;

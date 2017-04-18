@@ -1,5 +1,6 @@
 package com.goodo.pdjfy.email.presenter;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.goodo.pdjfy.R;
@@ -7,6 +8,7 @@ import com.goodo.pdjfy.base.BaseFragment;
 import com.goodo.pdjfy.email.model.EmailBean;
 import com.goodo.pdjfy.email.model.InnerMailBean;
 import com.goodo.pdjfy.email.model.OuterMailBean;
+import com.goodo.pdjfy.email.send.SendInnerEmailActivity;
 import com.goodo.pdjfy.email.view.EmailView;
 import com.goodo.pdjfy.rxjava.CacheSubscriber;
 import com.goodo.pdjfy.rxjava.HttpMethods;
@@ -37,6 +39,7 @@ public class EmailPresenterImpl implements EmailPresenter {
         mFragment = fragment;
         mEmailView = emailView;
         mHttpMethods = HttpMethods.getInstance();
+
     }
 
     @Override
@@ -69,6 +72,12 @@ public class EmailPresenterImpl implements EmailPresenter {
             }
         };
         mHttpMethods.getInnerClassify(cacheSubscriber);
+    }
+
+    @Override
+    public void startToSendEmailActivity() {
+        Intent it = new Intent(mFragment.getContext(), SendInnerEmailActivity.class);
+        mFragment.startActivity(it);
     }
 
     private void handleOuterResponse(String response){
@@ -121,6 +130,7 @@ public class EmailPresenterImpl implements EmailPresenter {
         int size = outerMailBeanList.size();
         for (int i = 0;i < size;i ++) {
             EmailBean emailBean = new EmailBean();
+            emailBean.setId(outerMailBeanList.get(i).getOuterMailAddr_ID());
             emailBean.setTitle(outerMailBeanList.get(i).getOuterMailName());
             List<EmailBean.ChildEmailBean> list = new ArrayList<>();
             EmailBean.ChildEmailBean childEmailBeanReceive = new EmailBean.ChildEmailBean();
@@ -144,6 +154,7 @@ public class EmailPresenterImpl implements EmailPresenter {
         List<EmailBean.ChildEmailBean> list = new ArrayList<>();
         for (int i = 0;i < size;i ++) {
             EmailBean.ChildEmailBean childEmailBean = new EmailBean.ChildEmailBean();
+            childEmailBean.setId(innerMailBeanList.get(i).getReceiveClassify_ID());
             childEmailBean.setContent(innerMailBeanList.get(i).getReceiveClassifyName());
             childEmailBean.setPicRes(R.drawable.pic_all_email_receive);
             list.add(childEmailBean);

@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@color/blue">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,33 +14,38 @@
         android:elevation="@dimen/elevation_app_bar">
 
         <include
-            layout="@layout/menu_iv"></include>
+            layout="@layout/ll_return"></include>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="收发文件"
+            android:text="选择人员"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_title"
             android:layout_centerInParent="true"/>
 
-        <ImageView
-            android:id="@+id/iv_add"
+        <TextView
+            android:id="@+id/tv_sure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/padding_content"
-            android:src="@drawable/ic_add_white_36dp"
-            android:scaleType="fitCenter"
-            android:layout_alignParentRight="true"/>
+            android:text="确定"
+            android:textSize="@dimen/text_size_child_title"
+            android:textColor="@drawable/text_color_white_press_blue"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_content"/>
 
     </RelativeLayout>
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/ll"></LinearLayout>
-    </ScrollView>
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:id="@+id/ll">
+
+
+
+    </LinearLayout>
+
 </LinearLayout>

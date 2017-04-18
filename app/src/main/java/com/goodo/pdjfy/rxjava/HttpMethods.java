@@ -242,5 +242,93 @@ public class HttpMethods {
         doSubscribe(observable, subscriber);
     }
 
+    /**
+     * 获取所有邮箱收件箱列表
+     */
+    public void getAllEmailReceiveList(int page, int size, Subscriber subscriber){
+        Observable observable = mHttpService.getAllEmailReceiveList(MyConfig.SESSION_ID, MyConfig.USER_ID, page, size);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取所有邮箱发件箱列表
+     */
+    public void getAllEmailSendList(int page, int size, Subscriber subscriber){
+        Observable observable = mHttpService.getAllEmailSendList(MyConfig.SESSION_ID, MyConfig.USER_ID, page, size);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取所有邮箱草稿箱列表
+     */
+    public void getAllEmailDraftList(int page, int size, Subscriber subscriber){
+        Observable observable = mHttpService.getAllEmailDraftList(MyConfig.SESSION_ID, MyConfig.USER_ID, page, size);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取所有邮箱回收箱列表
+     */
+    public void getAllEmailTrashList(int page, int size, Subscriber subscriber){
+        Observable observable = mHttpService.getAllEmailTrashList(MyConfig.SESSION_ID, MyConfig.USER_ID, page, size);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取内部电函收件箱列表
+     */
+    public void getInnerEmailReceiveList(int page, int size, int id, Subscriber subscriber){
+        Observable observable = mHttpService.getInnerEmailReceiveList(MyConfig.SESSION_ID, MyConfig.USER_ID, id, page, size);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取内部电函发件箱列表
+     */
+    public void getInnerEmailSendList(int page, int size, Subscriber subscriber){
+        Observable observable = mHttpService.getInnerEmailSendList(MyConfig.SESSION_ID, MyConfig.USER_ID, page, size);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取外部邮箱收件箱列表
+     */
+    public void getOuterEmailReceiveList(int page, int size, int id, Subscriber subscriber){
+        Observable observable = mHttpService.getOuterEmailReceiveList(MyConfig.SESSION_ID, MyConfig.USER_ID, id, page, size);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取外部邮箱发件箱列表
+     */
+    public void getOuterEmailSendList(int page, int size, int id, Subscriber subscriber){
+        Observable observable = mHttpService.getOuterEmailSendList(MyConfig.SESSION_ID, MyConfig.USER_ID, id, page, size);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取邮件详情
+     */
+    public void getEmailDetail(int id, int isInBox, Subscriber subscriber){
+        Observable observable = mHttpService.getEmailDetail(MyConfig.SESSION_ID, MyConfig.USER_ID, id, isInBox);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取单位信息
+     */
+    public void getUnitInfo(Subscriber subscriber){
+        Observable observable = mHttpService.getUnitInfo(MyConfig.USER_ID, MyConfig.UNIT_ID, MyConfig.SESSION_ID);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取单位人员
+     */
+    public void getUnitGroupUser(int id, Subscriber subscriber){
+        Observable observable = mHttpService.getUnitUser(MyConfig.USER_ID, MyConfig.UNIT_ID, MyConfig.SESSION_ID, id, true);
+        doSubscribe(observable, subscriber);
+    }
+
 
 }

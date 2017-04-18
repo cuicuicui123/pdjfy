@@ -1,15 +1,14 @@
-package com.goodo.pdjfy.announcement.presenter;
+package com.goodo.pdjfy.email.presenter;
 
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.goodo.pdjfy.R;
-import com.goodo.pdjfy.announcement.model.AnnounceListBean;
 import com.goodo.pdjfy.base.AppContext;
+import com.goodo.pdjfy.email.model.EmailListBean;
 import com.goodo.pdjfy.util.DataTransform;
 import com.goodo.pdjfy.util.OnItemClickListener;
 
@@ -19,18 +18,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Cui on 2017/4/13.
+ * Created by Cui on 2017/4/18.
  *
  * @Description
  */
 
-public class AnnounceRecyclerViewAdapter extends Adapter {
-    private List<AnnounceListBean> mBeanList;
+public class EmailListRecyclerViewAdapter extends RecyclerView.Adapter {
+    private List<EmailListBean> mBeanList;
     private AppContext mAppContext;
     private LayoutInflater mInflater;
     private OnItemClickListener mOnItemClickListener;
 
-    public AnnounceRecyclerViewAdapter(List<AnnounceListBean> beanList) {
+    public EmailListRecyclerViewAdapter(List<EmailListBean> beanList) {
         mBeanList = beanList;
         mAppContext = AppContext.getInstance();
         mInflater = LayoutInflater.from(mAppContext);
@@ -38,20 +37,20 @@ public class AnnounceRecyclerViewAdapter extends Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        MyViewHolder viewHolder = new MyViewHolder(mInflater.inflate(R.layout.recyclerview_news_list, parent, false));
-        return viewHolder;
+        return new MyViewHolder(mInflater.inflate(R.layout.recyclerview_email_list, parent, false));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        AnnounceListBean bean = mBeanList.get(position);
-        MyViewHolder myViewHolder = (MyViewHolder) holder;
-        myViewHolder.mTitleTv.setText("【" + bean.getSubjectName() + "】" + bean.getContentTitle());
-        myViewHolder.mSenderTv.setText("发布人：" + bean.getUserName());
-        myViewHolder.mDateTv.setText(DataTransform.transformDateTimeNoSecond(bean.getSubmitDate()));
-        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        MyViewHolder viewHolder = (MyViewHolder) holder;
+        EmailListBean bean = mBeanList.get(position);
+        //from为空代表是发件箱
+        viewHolder.mNameTv.setText(bean.getFrom() == null ? bean.getTo() : bean.getFrom());
+        viewHolder.mSubjectTv.setText(bean.getSubject());
+        viewHolder.mDateTv.setText(DataTransform.transformDateTimeNoSecond(bean.getDate()));
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 if (mOnItemClickListener != null) {
                     mOnItemClickListener.onItemClick(position);
                 }
@@ -65,12 +64,12 @@ public class AnnounceRecyclerViewAdapter extends Adapter {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.tv_title)
-        public TextView mTitleTv;
-        @BindView(R.id.tv_sender)
-        public TextView mSenderTv;
+        @BindView(R.id.tv_name)
+        TextView mNameTv;
+        @BindView(R.id.tv_subject)
+        TextView mSubjectTv;
         @BindView(R.id.tv_date)
-        public TextView mDateTv;
+        TextView mDateTv;
 
         public MyViewHolder(View itemView) {
             super(itemView);

@@ -135,4 +135,86 @@ public interface HttpService {
     @GET("EduPlate/MSGMail/InterfaceJson.asmx/Receive_ClassifyGetList")
     Observable<ResponseBody> getInnerClassify(@Query("SessionID") String sessionId, @Query("User_ID") int userId);
 
+    /**
+     * 获取所有邮箱收件箱列表
+     */
+    @GET("EduPlate/MSGMail/InterfaceJson.asmx/TotalReceive_GetListByCache")
+    Observable<ResponseBody> getAllEmailReceiveList(@Query("SessionID") String sessionId, @Query("User_ID") int userId,
+                                                    @Query("nPage") int page, @Query("nPageSize") int size);
+
+    /**
+     * 获取所有邮箱发件箱列表
+     */
+    @GET("EduPlate/MSGMail/InterfaceJson.asmx/TotalMail_GetListByCache")
+    Observable<ResponseBody> getAllEmailSendList(@Query("SessionID") String sessionId, @Query("User_ID") int userId,
+                                                 @Query("nPage") int page, @Query("nPageSize") int size);
+
+    /**
+     * 获取所有邮箱草稿箱列表
+     */
+    @GET("EduPlate/MSGMail/InterfaceJson.asmx/EMail_DraftListGet")
+    Observable<ResponseBody> getAllEmailDraftList(@Query("SessionID") String sessionId, @Query("User_ID") int userId,
+                                                  @Query("nPage") int page, @Query("nPageSize") int size);
+
+    /**
+     * 获取所有邮箱回收箱列表
+     */
+    @GET("EduPlate/MSGMail/InterfaceJson.asmx/EMail_RecycleListGet")
+    Observable<ResponseBody> getAllEmailTrashList(@Query("SessionID") String sessionId, @Query("User_ID") int userId,
+                                                  @Query("nPage") int page, @Query("nPageSize") int size);
+
+    /**
+     * 获取内部电函收件箱列表
+     */
+    @GET("EduPlate/MSGMail/InterfaceJson.asmx/Receive_GetListByCache")
+    Observable<ResponseBody> getInnerEmailReceiveList(@Query("SessionID") String sessionId, @Query("User_ID") int userId,
+                                                      @Query("ReceiveClassify_ID") int receiveClassifyId,
+                                                      @Query("nPage") int page, @Query("nPageSize") int size);
+
+    /**
+     * 获取内部电函发件箱列表
+     */
+    @GET("EduPlate/MSGMail/InterfaceJson.asmx/Mail_GetListByCache")
+    Observable<ResponseBody> getInnerEmailSendList(@Query("SessionID") String sessionId, @Query("User_ID") int userId,
+                                                   @Query("nPage") int page, @Query("nPageSize") int size);
+
+    /**
+     * 获取外部邮箱收件箱列表
+     */
+    @GET("EduPlate/MSGMail/InterfaceJson.asmx/OuterReceive_GetListByCache")
+    Observable<ResponseBody> getOuterEmailReceiveList(@Query("SessionID") String sessionId, @Query("User_ID") int userId,
+                                                      @Query("OuterMailAddr_ID") int id,
+                                                      @Query("nPage") int page, @Query("nPageSize") int size);
+
+    /**
+     * 获取外部邮箱发件箱列表
+     */
+    @GET("EduPlate/MSGMail/InterfaceJson.asmx/OuterMail_GetListByCache")
+    Observable<ResponseBody> getOuterEmailSendList(@Query("SessionID") String sessionId, @Query("User_ID") int userId,
+                                                   @Query("OuterMailAddr_ID") int id,
+                                                   @Query("nPage") int page, @Query("nPageSize") int size);
+
+    /**
+     * 获取邮件详情
+     */
+    @GET("EduPlate/MSGMail/InterfaceJson.asmx/EMail_GetSingleInfo")
+    Observable<ResponseBody> getEmailDetail(@Query("SessionID") String sessionId, @Query("User_ID") int userId,
+                                            @Query("EMail_ID") int emailId, @Query("IsInBox") int isInBox);
+
+    /**
+     * 获取单位信息
+     */
+    @GET("BasePlate/Interface/IInterfaceJson.asmx/OrgTree_Get")
+    Observable<ResponseBody> getUnitInfo(@Query("User_ID") int userId, @Query("Unit_ID") int unitId,
+                                         @Query("SessionID") String sessionId);
+
+    /**
+     * 获取单位人员
+     */
+    @GET("BasePlate/Interface/IInterfaceJson.asmx/User_GetList")
+    Observable<ResponseBody> getUnitUser(@Query("User_ID") int userId, @Query("Unit_ID") int unitId,
+                                         @Query("SessionID") String sessionId, @Query("Org_ID") int id,
+                                         @Query("IsListChild") boolean isListChild);
+
+
 }

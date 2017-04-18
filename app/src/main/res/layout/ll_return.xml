@@ -21,5 +21,5 @@
         android:layout_height="wrap_content"
         android:text="返回"
         android:textColor="@drawable/text_color_white_press_blue"
-        android:textSize="@dimen/text_size_content"/>
+        android:textSize="@dimen/text_size_child_title"/>
 </LinearLayout>

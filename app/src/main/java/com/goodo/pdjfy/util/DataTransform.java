@@ -246,7 +246,7 @@ public class DataTransform {
      */
 	public static String transformDateTimeNoSecond(String text){
 		if (text.contains(":")) {
-			return text.substring(0, text.lastIndexOf(":"));
+			return transformDateAndTime(text.substring(0, text.lastIndexOf(":")));
 		} else {
 			return "";
 		}
