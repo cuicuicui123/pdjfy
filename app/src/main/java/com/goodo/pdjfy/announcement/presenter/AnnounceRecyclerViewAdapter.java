@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.goodo.pdjfy.R;
 import com.goodo.pdjfy.announcement.model.AnnounceListBean;
 import com.goodo.pdjfy.base.AppContext;
+import com.goodo.pdjfy.util.DataTransform;
 import com.goodo.pdjfy.util.OnItemClickListener;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public class AnnounceRecyclerViewAdapter extends Adapter {
         MyViewHolder myViewHolder = (MyViewHolder) holder;
         myViewHolder.mTitleTv.setText("【" + bean.getSubjectName() + "】" + bean.getContentTitle());
         myViewHolder.mSenderTv.setText("发布人：" + bean.getUserName());
-        myViewHolder.mDateTv.setText(bean.getSubmitDate());
+        myViewHolder.mDateTv.setText(DataTransform.transformDateTimeNoSecond(bean.getSubmitDate()));
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

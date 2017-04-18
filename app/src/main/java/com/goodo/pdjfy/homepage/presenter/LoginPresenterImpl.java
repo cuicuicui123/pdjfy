@@ -96,6 +96,7 @@ public class LoginPresenterImpl implements LoginPresenter {
                     MyConfig.setUserId(mUserBean.getUser_ID());
                     MyConfig.setUnitId(mUserBean.getUnit_ID());
                     MyConfig.setSessionId(mUserBean.getSessionID());
+                    MyConfig.setUserName(mUserBean.getUserName());
                     if (mUserBean.getEID() == 0) {//EID为0代表登录成功
                         startToMainActivity();
                         mLoginView.isLoginSucceed(true);

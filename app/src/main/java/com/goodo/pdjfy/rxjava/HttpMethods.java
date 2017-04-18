@@ -3,6 +3,8 @@ package com.goodo.pdjfy.rxjava;
 import android.util.Log;
 
 import com.goodo.pdjfy.homepage.model.LoginBean;
+import com.goodo.pdjfy.schedule.model.AddScheduleBean;
+import com.goodo.pdjfy.util.MyConfig;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -193,6 +195,138 @@ public class HttpMethods {
      */
     public void getScheduleDetail(String sessionId, int userId, int unitId, int id, int type, Subscriber subscriber){
         Observable observable = mHttpService.getScheduleDetail(sessionId, userId, unitId, id, type);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 添加日程
+     */
+    public void addSchedule(AddScheduleBean bean, Subscriber subscriber) {
+        Observable observable = mHttpService.addSchedule(MyConfig.SESSION_ID, MyConfig.USER_ID, MyConfig.USERNAME,
+                bean.getDate(), bean.getIsAllDay() == MyConfig.IS_ALL_DAY, bean.getBeginTime(), bean.getEndTime(), bean.getWork(),
+                bean.getContent(), bean.getAddress(), bean.getRelatedUser(), bean.getCaseId(), bean.getCaseName());
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 编辑日程
+     */
+    public void editSchedule(AddScheduleBean bean, Subscriber subscriber){
+        Observable observable = mHttpService.editSchedule(MyConfig.SESSION_ID, MyConfig.USER_ID, bean.getId(),
+                bean.getDate(), bean.getIsAllDay() == MyConfig.IS_ALL_DAY, bean.getBeginTime(), bean.getEndTime(), bean.getWork(),
+                bean.getContent(), bean.getAddress(), bean.getRelatedUser(), bean.getCaseId(), bean.getCaseName());
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 删除日程
+     */
+    public void deleteSchedule(int scheduleId, Subscriber subscriber){
+        Observable observable = mHttpService.deleteSchedule(MyConfig.SESSION_ID, MyConfig.USER_ID, scheduleId);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取外部邮箱
+     */
+    public void getOuterMail(Subscriber subscriber){
+        Observable observable = mHttpService.getOuterMail(MyConfig.SESSION_ID, MyConfig.USER_ID);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取内部电函分类
+     */
+    public void getInnerClassify(Subscriber subscriber){
+        Observable observable = mHttpService.getInnerClassify(MyConfig.SESSION_ID, MyConfig.USER_ID);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取所有邮箱收件箱列表
+     */
+    public void getAllEmailReceiveList(int page, int size, Subscriber subscriber){
+        Observable observable = mHttpService.getAllEmailReceiveList(MyConfig.SESSION_ID, MyConfig.USER_ID, page, size);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取所有邮箱发件箱列表
+     */
+    public void getAllEmailSendList(int page, int size, Subscriber subscriber){
+        Observable observable = mHttpService.getAllEmailSendList(MyConfig.SESSION_ID, MyConfig.USER_ID, page, size);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取所有邮箱草稿箱列表
+     */
+    public void getAllEmailDraftList(int page, int size, Subscriber subscriber){
+        Observable observable = mHttpService.getAllEmailDraftList(MyConfig.SESSION_ID, MyConfig.USER_ID, page, size);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取所有邮箱回收箱列表
+     */
+    public void getAllEmailTrashList(int page, int size, Subscriber subscriber){
+        Observable observable = mHttpService.getAllEmailTrashList(MyConfig.SESSION_ID, MyConfig.USER_ID, page, size);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取内部电函收件箱列表
+     */
+    public void getInnerEmailReceiveList(int page, int size, int id, Subscriber subscriber){
+        Observable observable = mHttpService.getInnerEmailReceiveList(MyConfig.SESSION_ID, MyConfig.USER_ID, id, page, size);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取内部电函发件箱列表
+     */
+    public void getInnerEmailSendList(int page, int size, Subscriber subscriber){
+        Observable observable = mHttpService.getInnerEmailSendList(MyConfig.SESSION_ID, MyConfig.USER_ID, page, size);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取外部邮箱收件箱列表
+     */
+    public void getOuterEmailReceiveList(int page, int size, int id, Subscriber subscriber){
+        Observable observable = mHttpService.getOuterEmailReceiveList(MyConfig.SESSION_ID, MyConfig.USER_ID, id, page, size);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取外部邮箱发件箱列表
+     */
+    public void getOuterEmailSendList(int page, int size, int id, Subscriber subscriber){
+        Observable observable = mHttpService.getOuterEmailSendList(MyConfig.SESSION_ID, MyConfig.USER_ID, id, page, size);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取邮件详情
+     */
+    public void getEmailDetail(int id, int isInBox, Subscriber subscriber){
+        Observable observable = mHttpService.getEmailDetail(MyConfig.SESSION_ID, MyConfig.USER_ID, id, isInBox);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取单位信息
+     */
+    public void getUnitInfo(Subscriber subscriber){
+        Observable observable = mHttpService.getUnitInfo(MyConfig.USER_ID, MyConfig.UNIT_ID, MyConfig.SESSION_ID);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取单位人员
+     */
+    public void getUnitGroupUser(int id, Subscriber subscriber){
+        Observable observable = mHttpService.getUnitUser(MyConfig.USER_ID, MyConfig.UNIT_ID, MyConfig.SESSION_ID, id, true);
         doSubscribe(observable, subscriber);
     }
 

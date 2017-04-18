@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:id="@+id/ll_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_bac"
+        android:id="@+id/rl_title">
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/email_image_size"
+            android:text="所有邮箱"
+            android:textColor="@color/grey_text"
+            android:textSize="@dimen/text_size_content"
+            android:padding="@dimen/padding_kind"
+            android:ellipsize="end"
+            android:lines="1"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -10,6 +10,13 @@
     <dimen name="more_button_width">64dp</dimen>
     <dimen name="schedule_recycler_view_height">150dp</dimen>
     <dimen name="schedule_recycler_view_width">100dp</dimen>
+    <dimen name="schedule_content_edt_height">150dp</dimen>
+    <dimen name="delete_btn_width">120dp</dimen>
+    <dimen name="email_image_size">30dp</dimen>
+    <dimen name="email_child_height">50dp</dimen>
+    <dimen name="arrow_size">16dp</dimen>
+    <dimen name="email_send_edt_height">44dp</dimen>
+    <dimen name="select_image_size">30dp</dimen>
 
     <dimen name="text_size_title">18sp</dimen>
     <dimen name="text_size_child_title">16sp</dimen>
@@ -33,7 +40,7 @@
     <dimen name="margin_login_btn">32dp</dimen>
 
     <dimen name="padding_login_top">48dp</dimen>
-
+    <dimen name="padding_kind">8dp</dimen>
     <dimen name="padding_border">12dp</dimen>
     <dimen name="padding_content">4dp</dimen>
 

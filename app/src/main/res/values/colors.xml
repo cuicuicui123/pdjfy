@@ -15,5 +15,6 @@
     <color name="grey_bac">#E9EEF4</color>
     <color name="week_blue_bac">#81CFF9</color>
     <color name="week_red_bac">#E9B3F6</color>
+    <color name="week_green_bac">#90EE90</color>
     <color name="transparent">#00000000</color>
 </resources>

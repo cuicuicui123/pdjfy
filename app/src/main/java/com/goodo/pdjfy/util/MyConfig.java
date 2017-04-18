@@ -21,16 +21,40 @@ public class MyConfig {
     public static String NOON_TIME = "12:00";
     public static String KEY_LIST = "list";
     public static String KEY_SCHEDULE_BEAN = "scheduleBean";
-
+    public static final String KEY_SCHEDULE_DETAIL_BEAN = "scheduleDetailBean";
+    public static final String KEY_DIALOG_TITLE = "title";
+    public static final String KEY_DIALOG_CONTENT = "content";
+    public static final String KEY_DATE = "date";
+    public static final String KEY_TIME = "time";
+    public static final String KEY_EMAIL_LIST_BEAN = "emailListBean";
+    public static final String KEY_IS_INBOX = "isInBox";
 
     public static final int SCHEDULE_TYPE_PERSON = 3;
     public static final int SCHEDULE_TYPE_DEPART = 2;
     public static final int SCHEDULE_TYPE_COLLEGE = 1;
+    public static final int ADD_SCHEDULE_CODE = 0;
+    public static final int EDIT_SCHEDULE_CODE = 1;
+    public static final int SCHEDULE_DETAIL_CODE = 2;
+    public static final int IS_ALL_DAY = 1;
+    public static final int NOT_ALL_DAY = 0;
+    public static final int ALL_DAY = 0;
+    public static final int MORNING = 1;
+    public static final int AFTERNOON = 2;
 
 
+    public static final String BEGIN_TIME_HOLE_DAY = "06:00";
+    public static final String BEGIN_TIME_MORNING = "06:00";
+    public static final String BEGIN_TIME_AFTERNOON = "12:00";
+    public static final String END_TIME_HOLE_DAY = "18:00";
+    public static final String END_TIME_MORNING = "12:00";
+    public static final String END_TIME_AFTERNOON = "18:00";
+
+    public static final int IS_INBOX = 1;
+    public static final int NOT_INBOX = 0;
 
     public static int USER_ID;
     public static int UNIT_ID;
+    public static String USERNAME;
     public static String SESSION_ID;
 
     public static int READ_STORAGE_CODE = 1;
@@ -51,6 +75,9 @@ public class MyConfig {
         SESSION_ID = sessionId;
     }
 
+    public static void setUserName(String userName){
+        USERNAME = userName;
+    }
     /**
      * 根据文件名获取对应的图片
      * @param fileName

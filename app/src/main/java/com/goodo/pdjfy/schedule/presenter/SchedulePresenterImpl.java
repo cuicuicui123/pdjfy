@@ -1,11 +1,14 @@
 package com.goodo.pdjfy.schedule.presenter;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.goodo.pdjfy.base.BaseActivity;
+import com.goodo.pdjfy.base.AppContext;
+import com.goodo.pdjfy.base.BaseFragment;
 import com.goodo.pdjfy.rxjava.CacheSubscriber;
 import com.goodo.pdjfy.rxjava.HttpMethods;
+import com.goodo.pdjfy.schedule.AddScheduleActivity;
 import com.goodo.pdjfy.schedule.ScheduleDetailActivity;
 import com.goodo.pdjfy.schedule.ScheduleDialogFragment;
 import com.goodo.pdjfy.schedule.model.ScheduleBean;
@@ -29,20 +32,25 @@ import java.util.List;
 
 public class SchedulePresenterImpl implements SchedulePresenter {
     private ScheduleView mScheduleView;
-    private BaseActivity mActivity;
+    private BaseFragment mFragment;
     private HttpMethods mHttpMethods;
 
     private String KEY_GET_SCHEDULE_LIST = "getScheduleList";
+    private String mBeginDay;
+    private String mEndDay;
+    private AppContext mAppContext;
 
-    public SchedulePresenterImpl(ScheduleView scheduleView, BaseActivity activity) {
+    public SchedulePresenterImpl(ScheduleView scheduleView, BaseFragment fragment) {
         mScheduleView = scheduleView;
-        mActivity = activity;
+        mFragment = fragment;
         mHttpMethods = HttpMethods.getInstance();
-
+        mAppContext = AppContext.getInstance();
     }
 
     @Override
     public void getScheduleList(String beginDay, String endDay) {
+        mBeginDay = beginDay;
+        mEndDay = endDay;
         CacheSubscriber cacheSubscriber = new CacheSubscriber(KEY_GET_SCHEDULE_LIST + beginDay + endDay) {
             @Override
             protected void getCache(String cacheData) {
@@ -61,7 +69,7 @@ public class SchedulePresenterImpl implements SchedulePresenter {
     public void getClickScheduleList(List<ScheduleBean> list, int position) {
         if (list.size() > 0) {
             ScheduleBean scheduleBean = list.get(0);
-            if (scheduleBean.isIsAllDay()) {
+            if (scheduleBean.getIsAllDay() == 1) {
                 if (list.size() > 1) {//全天大于1条展示弹出框
                     showDialogFragment(list, position);
                 } else {
@@ -79,9 +87,32 @@ public class SchedulePresenterImpl implements SchedulePresenter {
 
     @Override
     public void startToScheduleDetailActivity(ScheduleBean scheduleBean) {
-        Intent it = new Intent(mActivity, ScheduleDetailActivity.class);
+        Intent it = new Intent(mAppContext, ScheduleDetailActivity.class);
         it.putExtra(MyConfig.KEY_SCHEDULE_BEAN, scheduleBean);
-        mActivity.startActivity(it);
+        mFragment.startActivityForResult(it, MyConfig.SCHEDULE_DETAIL_CODE);
+    }
+
+    @Override
+    public void startToAddScheduleActivity() {
+        Intent it = new Intent(mAppContext, AddScheduleActivity.class);
+        mFragment.startActivityForResult(it, MyConfig.ADD_SCHEDULE_CODE);
+    }
+
+    @Override
+    public void startToAddScheduleActivity(String date, int time) {
+        Intent it = new Intent(mAppContext, AddScheduleActivity.class);
+        it.putExtra(MyConfig.KEY_DATE, date);
+        it.putExtra(MyConfig.KEY_TIME, time);
+        mFragment.startActivityForResult(it, MyConfig.ADD_SCHEDULE_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == MyConfig.ADD_SCHEDULE_CODE || requestCode == MyConfig.SCHEDULE_DETAIL_CODE) {
+                getScheduleList(mBeginDay, mEndDay);
+            }
+        }
     }
 
     private void showDialogFragment(List<ScheduleBean> list, int position) {
@@ -90,7 +121,7 @@ public class SchedulePresenterImpl implements SchedulePresenter {
         bundle.putSerializable(MyConfig.KEY_LIST, (Serializable) list);
         bundle.putInt(MyConfig.KEY_POSITION, position);
         dialogFragment.setArguments(bundle);
-        dialogFragment.show(mActivity.getSupportFragmentManager(), "dialog");
+        dialogFragment.show(mFragment.getFragmentManager(), "dialog");
         dialogFragment.setCancelable(true);
     }
 

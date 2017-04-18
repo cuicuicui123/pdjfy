@@ -55,7 +55,7 @@ public class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter{
                 viewHolder.mBacLl.setBackgroundResource(R.drawable.corner_week_blue_bac);
                 break;
             case MyConfig.SCHEDULE_TYPE_PERSON:
-                viewHolder.mBacLl.setBackgroundResource(R.drawable.corner_week_grey_bac);
+                viewHolder.mBacLl.setBackgroundResource(R.drawable.corner_week_green_bac);
                 break;
             default:
                 break;

@@ -1,5 +1,7 @@
 package com.goodo.pdjfy.schedule;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,8 +15,6 @@ import com.goodo.pdjfy.schedule.presenter.ScheduleDetailPresenterImpl;
 import com.goodo.pdjfy.schedule.view.ScheduleDetailView;
 import com.goodo.pdjfy.util.DataTransform;
 import com.goodo.pdjfy.util.MyConfig;
-
-import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,9 +36,20 @@ public class ScheduleDetailActivity extends BaseActivity implements ScheduleDeta
     TextView mAddressTv;
     @BindView(R.id.tv_content)
     TextView mContentTv;
+    @BindView(R.id.tv_edit)
+    TextView mEdtTv;
+    @BindView(R.id.tv_delete)
+    TextView mDeleteTv;
 
     private ScheduleDetailPresenter mPresenter;
     private ScheduleBean mScheduleBean;
+    private MakeSureDialogFragment mDialogFragment;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mPresenter.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     protected void initContentView() {
@@ -50,6 +61,9 @@ public class ScheduleDetailActivity extends BaseActivity implements ScheduleDeta
     protected void initData() {
         mPresenter = new ScheduleDetailPresenterImpl(this, this);
         mScheduleBean = (ScheduleBean) getIntent().getSerializableExtra(MyConfig.KEY_SCHEDULE_BEAN);
+        int visibility = mScheduleBean.getType() == MyConfig.SCHEDULE_TYPE_PERSON ? View.VISIBLE : View.GONE;
+        mEdtTv.setVisibility(visibility);
+        mDeleteTv.setVisibility(visibility);
     }
 
     @Override
@@ -59,6 +73,18 @@ public class ScheduleDetailActivity extends BaseActivity implements ScheduleDeta
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+        mEdtTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.startToEditScheduleActivity();
+            }
+        });
+        mDeleteTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDeleteDialogFragment();
             }
         });
     }
@@ -84,4 +110,22 @@ public class ScheduleDetailActivity extends BaseActivity implements ScheduleDeta
             mContentTv.setText("内容：" + bean.getContent());
         }
     }
+
+    private void showDeleteDialogFragment(){
+        mDialogFragment = new MakeSureDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(MyConfig.KEY_DIALOG_TITLE, "删除日程");
+        bundle.putString(MyConfig.KEY_DIALOG_CONTENT, "确定删除日程？");
+        mDialogFragment.setArguments(bundle);
+        mDialogFragment.show(getSupportFragmentManager(), "dialogFragment");
+        mDialogFragment.setCancelable(true);
+        mDialogFragment.setOnClickSureListener(new MakeSureDialogFragment.OnClickSureListener() {
+            @Override
+            public void onClickSure() {
+                mPresenter.deleteSchedule();
+            }
+        });
+    }
+
+
 }

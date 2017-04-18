@@ -48,6 +48,30 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".schedule.AddScheduleActivity"
             android:theme="@style/AppTheme"/>
+        <activity android:name=".schedule.EditScheduleActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".email.list.AllEmailReceiveActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".email.list.AllEmailSendActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".email.list.AllEmailDraftActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".email.list.AllEmailTrashActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".email.list.InnerEmailReceiveActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".email.list.InnerEmailSendActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".email.list.OuterEmailReceiveActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".email.list.OuterEmailSendActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".email.EmailDetailActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".email.send.SendInnerEmailActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".email.SelectPersonActivity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

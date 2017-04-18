@@ -1,8 +1,14 @@
 package com.goodo.pdjfy.schedule.presenter;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.widget.Toast;
+
 import com.goodo.pdjfy.base.BaseActivity;
 import com.goodo.pdjfy.rxjava.CacheSubscriber;
 import com.goodo.pdjfy.rxjava.HttpMethods;
+import com.goodo.pdjfy.rxjava.MySubscriber;
+import com.goodo.pdjfy.schedule.EditScheduleActivity;
 import com.goodo.pdjfy.schedule.model.ScheduleBean;
 import com.goodo.pdjfy.schedule.model.ScheduleDetailBean;
 import com.goodo.pdjfy.schedule.view.ScheduleDetailView;
@@ -23,6 +29,8 @@ public class ScheduleDetailPresenterImpl implements ScheduleDetailPresenter {
     private HttpMethods mHttpMethods;
     private BaseActivity mActivity;
     private String KEY_SCHEDULE_DETAIL = "getScheduleDetail";
+    private ScheduleBean mScheduleBean;
+    private ScheduleDetailBean mScheduleDetailBean;
 
     public ScheduleDetailPresenterImpl(ScheduleDetailView scheduleDetailView, BaseActivity activity) {
         mScheduleDetailView = scheduleDetailView;
@@ -32,6 +40,7 @@ public class ScheduleDetailPresenterImpl implements ScheduleDetailPresenter {
 
     @Override
     public void getScheduleDetail(ScheduleBean scheduleBean) {
+        mScheduleBean = scheduleBean;
         CacheSubscriber cacheSubscriber = new CacheSubscriber(KEY_SCHEDULE_DETAIL + scheduleBean.getID()) {
             @Override
             protected void getCache(String cacheData) {
@@ -47,13 +56,59 @@ public class ScheduleDetailPresenterImpl implements ScheduleDetailPresenter {
                 scheduleBean.getID(), scheduleBean.getType(), cacheSubscriber);
     }
 
+    @Override
+    public void startToEditScheduleActivity() {
+        if (mScheduleDetailBean != null) {
+            Intent it = new Intent(mActivity, EditScheduleActivity.class);
+            it.putExtra(MyConfig.KEY_SCHEDULE_DETAIL_BEAN, mScheduleDetailBean);
+            mActivity.startActivityForResult(it, MyConfig.EDIT_SCHEDULE_CODE);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == MyConfig.EDIT_SCHEDULE_CODE) {
+                mActivity.setResult(Activity.RESULT_OK);
+                if (mScheduleBean != null) {
+                    getScheduleDetail(mScheduleBean);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void deleteSchedule() {
+        if (mScheduleDetailBean != null) {
+            MySubscriber subscriber = new MySubscriber() {
+                @Override
+                protected void onResponse(String response) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        JSONObject Goodo = jsonObject.getJSONObject("Goodo");
+                        if (Goodo.getInt("EID") == 0) {
+                            mActivity.setResult(Activity.RESULT_OK);
+                            mActivity.finish();
+                        } else {
+                            Toast.makeText(mActivity, "删除失败！", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            mHttpMethods.deleteSchedule(mScheduleDetailBean.getId(), subscriber);
+        }
+    }
+
     private void handleResponse(String response){
         try {
             JSONObject jsonObject = new JSONObject(response);
             JSONObject Goodo = jsonObject.getJSONObject("Goodo");
             Gson gson = new Gson();
-            ScheduleDetailBean bean = gson.fromJson(Goodo.toString(), ScheduleDetailBean.class);
-            mScheduleDetailView.getScheduleDetailBean(bean);
+            mScheduleDetailBean = gson.fromJson(Goodo.toString(), ScheduleDetailBean.class);
+            mScheduleDetailBean.setId(mScheduleBean.getID());
+            mScheduleDetailView.getScheduleDetailBean(mScheduleDetailBean);
         } catch (JSONException e) {
             e.printStackTrace();
         }
