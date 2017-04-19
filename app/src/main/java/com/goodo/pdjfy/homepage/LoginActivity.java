@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.goodo.pdjfy.R;
 import com.goodo.pdjfy.base.BaseActivity;
@@ -90,5 +91,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void isLoginSucceed(boolean succeed) {
         mLoginBtn.setEnabled(true);
+        if (!succeed) {
+            Toast.makeText(this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+        }
     }
 }

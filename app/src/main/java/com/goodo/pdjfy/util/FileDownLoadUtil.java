@@ -3,8 +3,12 @@ package com.goodo.pdjfy.util;
 
 import android.content.Context;
 import android.os.Environment;
+import android.util.Base64;
 
 import com.goodo.pdjfy.rxjava.HttpMethods;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -48,7 +52,10 @@ public class FileDownLoadUtil {
         }
     }
 
-    public void downLoad() {
+    /**
+     * 下载字节流文件
+     */
+    public void downLoad(final boolean isBase64) {
         final File file = new File(mPath + mFileName);
         if (!file.exists()) {
             try {
@@ -67,7 +74,11 @@ public class FileDownLoadUtil {
                     @Override
                     public void onNext(ResponseBody body) {
                         try {
-                            saveFile(body.bytes(), file);
+                            if (isBase64) {
+                                saveBase64File(body.bytes(), file);
+                            } else {
+                                saveFile(body.bytes(), file);
+                            }
                             mOnDownLoadSuccessListener.downLoadSuccess(file);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -88,6 +99,11 @@ public class FileDownLoadUtil {
 
     }
 
+    /**
+     * 保存字节流文件
+     * @param bytes
+     * @param file
+     */
     private void saveFile(byte[] bytes, File file) {
         FileOutputStream fileOutputStream = null;
         try {
@@ -105,6 +121,24 @@ public class FileDownLoadUtil {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    /**
+     * 保存base64编码文件
+     * @param bytes
+     * @param file
+     */
+    private void saveBase64File(byte[] bytes, File file){
+        try {
+            JSONObject jsonObject = new JSONObject(new String(bytes));
+            JSONObject Goodo = jsonObject.getJSONObject("Goodo");
+            String base64Data = Goodo.getString("Base64Data");
+            byte[] bytesDecode = Base64.decode(base64Data, Base64.DEFAULT);
+            saveFile(bytesDecode, file);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            mOnDownLoadFailListener.downLoadFail();
         }
     }
 

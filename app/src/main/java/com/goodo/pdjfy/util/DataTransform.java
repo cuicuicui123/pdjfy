@@ -245,8 +245,12 @@ public class DataTransform {
 	 * @return 去除秒之后的时间
      */
 	public static String transformDateTimeNoSecond(String text){
-		if (text.contains(":")) {
-			return transformDateAndTime(text.substring(0, text.lastIndexOf(":")));
+		if (text != null) {
+			if (text.contains(":")) {
+				return transformDateAndTime(text.substring(0, text.lastIndexOf(":")));
+			} else {
+				return "";
+			}
 		} else {
 			return "";
 		}

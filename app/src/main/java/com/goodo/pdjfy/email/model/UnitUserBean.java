@@ -1,12 +1,14 @@
 package com.goodo.pdjfy.email.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Cui on 2017/4/18.
  *
  * @Description
  */
 
-public class UnitUserBean {
+public class UnitUserBean implements Serializable {
 
     /**
      * User_ID : 135

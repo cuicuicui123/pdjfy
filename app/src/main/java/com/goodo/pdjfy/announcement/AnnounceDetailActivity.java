@@ -64,7 +64,7 @@ public class AnnounceDetailActivity extends BaseActivity implements AnnounceDeta
     @Override
     protected void initData() {
         mPresenter = new AnnounceDetailPresenterImpl(this, this, this);
-        mDownLoadFilePresenter = new DownLoadFilePresenterImpl(this, this);
+        mDownLoadFilePresenter = new DownLoadFilePresenterImpl(this);
         mContentId = getIntent().getStringExtra(MyConfig.KEY_CONTENT_ID);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -121,7 +121,7 @@ public class AnnounceDetailActivity extends BaseActivity implements AnnounceDeta
                     public void onClick(View view) {
                         progressBar.setVisibility(View.VISIBLE);
                         view.setEnabled(false);
-                        mDownLoadFilePresenter.downLoadFile(bean, progressBar, attachView);
+                        mDownLoadFilePresenter.downLoadFile(bean.getUrl(), MyConfig.getFileName(bean.getUrl()), progressBar, attachView, false);
                     }
                 });
             }

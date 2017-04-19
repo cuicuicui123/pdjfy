@@ -4,8 +4,6 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.goodo.pdjfy.homepage.model.AttachBean;
-
 /**
  * Created by Cui on 2017/4/12.
  *
@@ -13,6 +11,6 @@ import com.goodo.pdjfy.homepage.model.AttachBean;
  */
 
 public interface DownLoadFilePresenter {
-    void downLoadFile(AttachBean attachBean, ProgressBar progressBar, View view);
+    void downLoadFile(String url, String fileName, ProgressBar progressBar, View view, boolean isBase64);
     void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults);
 }

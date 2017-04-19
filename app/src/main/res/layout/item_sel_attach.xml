@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/white_press_grey">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_border"
+        android:layout_marginTop="@dimen/margin_border">
+
+        <ImageView
+            android:id="@+id/iv_attach"
+            android:layout_width="@dimen/image_size_attach"
+            android:layout_height="@dimen/image_size_attach"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_border"
+            android:layout_marginRight="@dimen/margin_kind"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pic_file_pic"/>
+
+        <ImageView
+            android:id="@+id/iv_clear"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:src="@drawable/ic_clear_red_400_24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_content"/>
+
+        <TextView
+            android:id="@+id/tv_attach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_clear"
+            android:layout_toRightOf="@id/iv_attach"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_content"/>
+    </RelativeLayout>
+
+    <include layout="@layout/divider"></include>
+</LinearLayout>

@@ -2,6 +2,8 @@ package com.goodo.pdjfy.rxjava;
 
 import android.util.Log;
 
+import com.goodo.pdjfy.email.model.SendInnerEmailBean;
+import com.goodo.pdjfy.email.model.SendOuterEmailBean;
 import com.goodo.pdjfy.homepage.model.LoginBean;
 import com.goodo.pdjfy.schedule.model.AddScheduleBean;
 import com.goodo.pdjfy.util.MyConfig;
@@ -327,6 +329,28 @@ public class HttpMethods {
      */
     public void getUnitGroupUser(int id, Subscriber subscriber){
         Observable observable = mHttpService.getUnitUser(MyConfig.USER_ID, MyConfig.UNIT_ID, MyConfig.SESSION_ID, id, true);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 发送内部电函
+     * -1代表没有id，是发送一封信的邮件
+     */
+    public void sendInnerEmail(SendInnerEmailBean bean, Subscriber subscriber){
+        Observable observable = mHttpService.sendInnerEmail(MyConfig.SESSION_ID, -1, bean.getSubject(),
+                bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(), bean.getCcName(),
+                bean.getBccName(), bean.getToIds(), bean.getCcIds(), bean.getBccIds(), 1, 0, "无", 0, "",
+                0, "", bean.getFileNames(), bean.getBase64Data());
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 发送外部邮件
+     */
+    public void sendOuterEmail(SendOuterEmailBean bean, Subscriber subscriber){
+        Observable observable = mHttpService.sendOuterEmail(MyConfig.SESSION_ID, 0, bean.getId(),
+                bean.getSubject(), bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(),
+                bean.getCcName(), bean.getBccName(), 1, 0, "无", 0, "", bean.getFileNames(), bean.getBase64Data());
         doSubscribe(observable, subscriber);
     }
 

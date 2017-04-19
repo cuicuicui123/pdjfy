@@ -49,17 +49,18 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/email_send_edt_height"
+                android:minHeight="@dimen/email_send_edt_height"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:padding="@dimen/padding_kind">
 
                 <TextView
-                    android:id="@+id/tv_sel_receiver"
+                    android:id="@+id/tv_receiver_remind"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="收件人："
                     android:textColor="@color/grey_text"
-                    android:textSize="@dimen/text_size_child_title"
+                    android:textSize="@dimen/text_size_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"/>
 
@@ -71,25 +72,39 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:padding="@dimen/padding_content"/>
+
+                <TextView
+                    android:id="@+id/tv_sel_receiver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grey_text"
+                    android:textSize="@dimen/text_size_content"
+                    android:layout_toRightOf="@id/tv_receiver_remind"
+                    android:layout_toLeftOf="@id/iv_sel_receiver"
+                    android:layout_centerVertical="true"/>
+
+
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/email_send_edt_height"
+                android:minHeight="@dimen/email_send_edt_height"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_border"
                 android:id="@+id/rl_cc"
                 android:background="@color/white"
                 android:padding="@dimen/padding_kind">
 
                 <TextView
-                    android:id="@+id/tv_sel_cc"
+                    android:id="@+id/tv_cc_remind"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="抄送："
                     android:textColor="@color/grey_text"
-                    android:textSize="@dimen/text_size_child_title"
+                    android:textSize="@dimen/text_size_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"/>
+
 
                 <ImageView
                     android:id="@+id/iv_sel_cc"
@@ -99,11 +114,24 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:padding="@dimen/padding_content"/>
+
+                <TextView
+                    android:id="@+id/tv_sel_cc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grey_text"
+                    android:textSize="@dimen/text_size_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/iv_sel_cc"
+                    android:layout_toRightOf="@id/tv_cc_remind"/>
+
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/email_send_edt_height"
+                android:minHeight="@dimen/email_send_edt_height"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_border"
                 android:id="@+id/rl_bcc"
                 android:background="@color/white"
@@ -113,9 +141,8 @@
                     android:id="@+id/tv_sel_bcc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="密送："
                     android:textColor="@color/grey_text"
-                    android:textSize="@dimen/text_size_child_title"
+                    android:textSize="@dimen/text_size_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"/>
 
@@ -127,6 +154,20 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:padding="@dimen/padding_content"/>
+
+                <TextView
+                    android:id="@+id/tv_bcc_remind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="密送："
+                    android:textColor="@color/grey_text"
+                    android:textSize="@dimen/text_size_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/tv_bcc_remind"
+                    android:layout_toLeftOf="@id/iv_sel_bcc"/>
+
+
             </RelativeLayout>
 
             <EditText

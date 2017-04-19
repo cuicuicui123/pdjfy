@@ -26,12 +26,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Cui on 2017/4/18.
+ * Created by Cui on 2017/4/19.
  *
  * @Description
  */
 
-public class SendInnerEmailActivity extends BaseActivity implements SendInnerEmailView {
+public abstract class BaseSendInnerEmailActivity extends BaseActivity implements SendInnerEmailView {
     @BindView(R.id.ll_return)
     LinearLayout mReturnLl;
     @BindView(R.id.tv_sure)
@@ -172,5 +172,4 @@ public class SendInnerEmailActivity extends BaseActivity implements SendInnerEma
         bean.setBody(mContentEdt.getText().toString());
         mPresenter.sendInnerEmail(bean);
     }
-
 }

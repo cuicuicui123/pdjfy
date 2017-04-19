@@ -1,25 +1,33 @@
 package com.goodo.pdjfy.email.presenter;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.goodo.pdjfy.R;
 import com.goodo.pdjfy.base.BaseFragment;
+import com.goodo.pdjfy.email.SendEmailDialogFragment;
 import com.goodo.pdjfy.email.model.EmailBean;
 import com.goodo.pdjfy.email.model.InnerMailBean;
 import com.goodo.pdjfy.email.model.OuterMailBean;
 import com.goodo.pdjfy.email.send.SendInnerEmailActivity;
+import com.goodo.pdjfy.email.send.SendOuterEmailActivity;
 import com.goodo.pdjfy.email.view.EmailView;
 import com.goodo.pdjfy.rxjava.CacheSubscriber;
 import com.goodo.pdjfy.rxjava.HttpMethods;
 import com.goodo.pdjfy.util.JudgeIsJsonArray;
+import com.goodo.pdjfy.util.MyConfig;
+import com.goodo.pdjfy.util.OnItemClickListener;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Cui on 2017/4/17.
@@ -32,6 +40,9 @@ public class EmailPresenterImpl implements EmailPresenter {
     private EmailView mEmailView;
     private HttpMethods mHttpMethods;
 
+    private List<OuterMailBean> mOuterMailBeanList;
+    private SendEmailDialogFragment mDialogFragment;
+
     private static String KEY_GET_OUTER_MAIL = "getOuterMail";
     private static String KEY_GET_INNER_RECEIVE_CLASSIFY = "getInnerReceiveClassify";
 
@@ -39,7 +50,7 @@ public class EmailPresenterImpl implements EmailPresenter {
         mFragment = fragment;
         mEmailView = emailView;
         mHttpMethods = HttpMethods.getInstance();
-
+        mOuterMailBeanList = new ArrayList<>();
     }
 
     @Override
@@ -76,8 +87,50 @@ public class EmailPresenterImpl implements EmailPresenter {
 
     @Override
     public void startToSendEmailActivity() {
-        Intent it = new Intent(mFragment.getContext(), SendInnerEmailActivity.class);
-        mFragment.startActivity(it);
+        int size = mOuterMailBeanList.size();
+        if (size == 0) {
+            Intent it = new Intent(mFragment.getContext(), SendInnerEmailActivity.class);
+            mFragment.startActivity(it);
+        } else {
+            mDialogFragment = new SendEmailDialogFragment();
+            final List<Map<String, Object>> list = getList(size);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(MyConfig.KEY_SEND_LIST, (Serializable) list);
+            mDialogFragment.setArguments(bundle);
+            mDialogFragment.show(mFragment.getFragmentManager(), "dialog");
+            mDialogFragment.setCancelable(true);
+            mDialogFragment.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    if (position == 0) {
+                        Intent it = new Intent(mFragment.getContext(), SendInnerEmailActivity.class);
+                        mFragment.startActivity(it);
+                    } else {
+                        Intent it = new Intent(mFragment.getContext(), SendOuterEmailActivity.class);
+                        it.putExtra(MyConfig.KEY_MAP, (Serializable) list.get(position));
+                        mFragment.startActivity(it);
+                    }
+                }
+            });
+        }
+
+    }
+
+    @NonNull
+    protected List<Map<String, Object>> getList(int size) {
+        final List<Map<String, Object>> list = new ArrayList<>();
+        Map<String, Object> map = new HashMap<>();
+        map.put(MyConfig.KEY_ID, 0);
+        map.put(MyConfig.KEY_NAME, "内部电函");
+        list.add(map);
+        for (int i = 0;i < size;i ++) {
+            OuterMailBean bean = mOuterMailBeanList.get(i);
+            Map<String, Object> mapOuter = new HashMap<>();
+            mapOuter.put(MyConfig.KEY_ID, bean.getOuterMailAddr_ID());
+            mapOuter.put(MyConfig.KEY_NAME, bean.getOuterMailName());
+            list.add(mapOuter);
+        }
+        return list;
     }
 
     private void handleOuterResponse(String response){
@@ -85,15 +138,15 @@ public class EmailPresenterImpl implements EmailPresenter {
             JSONObject jsonObject = new JSONObject(response);
             JSONObject Goodo = jsonObject.getJSONObject("Goodo");
             final Gson gson = new Gson();
-            final List<OuterMailBean> list = new ArrayList<>();
+            mOuterMailBeanList.clear();
             JudgeIsJsonArray.judge(Goodo, "R", new JudgeIsJsonArray.OnJudged() {
                 @Override
                 public void judged(JSONObject jsonObject) throws JSONException {
                     OuterMailBean bean = gson.fromJson(jsonObject.toString(), OuterMailBean.class);
-                    list.add(bean);
+                    mOuterMailBeanList.add(bean);
                 }
             });
-            getInnerReceiveClassify(list);
+            getInnerReceiveClassify(mOuterMailBeanList);
         } catch (JSONException e) {
             e.printStackTrace();
         }

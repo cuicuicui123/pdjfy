@@ -72,6 +72,8 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".email.SelectPersonActivity"
             android:theme="@style/AppTheme"/>
+        <activity android:name=".email.send.SendOuterEmailActivity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

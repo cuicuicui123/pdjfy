@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bar_height_title"
+        android:background="@color/blue"
+        android:elevation="@dimen/elevation_app_bar">
+
+        <include
+            layout="@layout/ll_return"></include>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="发送外部邮件"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_title"/>
+
+        <TextView
+            android:id="@+id/tv_sure"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_child_title"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/padding_content"
+            android:gravity="center_vertical"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey_bac">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/email_send_edt_height"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_kind">
+
+
+                <EditText
+                    android:id="@+id/edt_receiver"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:hint="收件人："
+                    android:inputType="text"
+                    android:textColor="@color/grey_text"
+                    android:textSize="@dimen/text_size_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_border"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/email_send_edt_height"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_kind">
+
+                <EditText
+                    android:id="@+id/edt_cc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:hint="抄送："
+                    android:inputType="text"
+                    android:textColor="@color/grey_text"
+                    android:textSize="@dimen/text_size_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_border"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/email_send_edt_height"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_kind">
+
+                <EditText
+                    android:id="@+id/edt_bcc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:hint="密送："
+                    android:inputType="text"
+                    android:textColor="@color/grey_text"
+                    android:textSize="@dimen/text_size_content"/>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/edt_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/email_send_edt_height"
+                android:layout_marginTop="@dimen/margin_border"
+                android:background="@color/white"
+                android:hint="标题："
+                android:lines="1"
+                android:padding="@dimen/padding_kind"
+                android:textSize="@dimen/text_size_content"/>
+
+            <EditText
+                android:id="@+id/edt_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_border"
+                android:background="@color/white"
+                android:gravity="start"
+                android:hint="正文："
+                android:lines="6"
+                android:padding="@dimen/padding_kind"
+                android:textSize="@dimen/text_size_content"/>
+
+            <LinearLayout
+                android:id="@+id/ll_attach"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_border"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_attach"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/grey_login_bac"
+                    android:padding="@dimen/margin_border"
+                    android:text="添加附件"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_child_title"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_add_attach"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

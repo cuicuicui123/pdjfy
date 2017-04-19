@@ -28,6 +28,10 @@ public class MyConfig {
     public static final String KEY_TIME = "time";
     public static final String KEY_EMAIL_LIST_BEAN = "emailListBean";
     public static final String KEY_IS_INBOX = "isInBox";
+    public static final String KEY_SEND_LIST = "sendList";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_MAP = "map";
+
 
     public static final int SCHEDULE_TYPE_PERSON = 3;
     public static final int SCHEDULE_TYPE_DEPART = 2;
@@ -40,6 +44,12 @@ public class MyConfig {
     public static final int ALL_DAY = 0;
     public static final int MORNING = 1;
     public static final int AFTERNOON = 2;
+
+
+    public static final int SEL_RECEIVER_CODE = 0;
+    public static final int SEL_CC_CODE = 1;
+    public static final int SEL_BCC_CODE = 2;
+    public static final int KEY_SEL_FILE = 3;
 
 
     public static final String BEGIN_TIME_HOLE_DAY = "06:00";

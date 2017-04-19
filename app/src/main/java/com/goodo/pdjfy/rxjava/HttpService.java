@@ -1,7 +1,10 @@
 package com.goodo.pdjfy.rxjava;
 
 import okhttp3.ResponseBody;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
@@ -216,5 +219,36 @@ public interface HttpService {
                                          @Query("SessionID") String sessionId, @Query("Org_ID") int id,
                                          @Query("IsListChild") boolean isListChild);
 
+    /**
+     * 发送内部电函邮件
+     */
+    @POST("EduPlate/MSGMail/InterfaceJson.asmx/Mail_Send")
+    @FormUrlEncoded
+    Observable<ResponseBody> sendInnerEmail(@Field("SessionID") String sessionId, @Field("Mail_ID") int mailId,
+                                            @Field("Subject") String subject, @Field("Body") String body,
+                                            @Field("SendUser_ID") int sendId, @Field("SendUserName") String sendName,
+                                            @Field("To") String toName, @Field("Cc") String ccName,
+                                            @Field("Bcc") String bccName, @Field("ToIDs") String toIds,
+                                            @Field("CcIDs") String ccIds, @Field("BccIDs") String bccIds,
+                                            @Field("IsAttached") int isAttached, @Field("Case_ID") int caseId,
+                                            @Field("CaseName") String caseName, @Field("IsEncrypt") int isEncrypt,
+                                            @Field("EncryptPWD") String pwd, @Field("IsSplitSend") int isSplitSend,
+                                            @Field("OriginAttachs") String originAttaches, @Field("FileNames") String fileNames,
+                                            @Field("Base64Datas") String base64Data);
 
+    /**
+     * 发送外部邮箱邮件
+     */
+    @POST("EduPlate/MSGMail/InterfaceJson.asmx/OuterMail_Send")
+    @FormUrlEncoded
+    Observable<ResponseBody> sendOuterEmail(@Field("SessionID") String sessionId, @Field("Mail_ID") int mailId,
+                                            @Field("OuterMailAddr_ID") int outerMailId,
+                                            @Field("Subject") String subject, @Field("Body") String body,
+                                            @Field("SendUser_ID") int sendId, @Field("SendUserName") String sendName,
+                                            @Field("To") String toName, @Field("Cc") String ccName,
+                                            @Field("Bcc") String bccName,
+                                            @Field("IsAttached") int isAttached, @Field("Case_ID") int caseId,
+                                            @Field("CaseName") String caseName, @Field("IsSplitSend") int isSplitSend,
+                                            @Field("OriginAttachs") String originAttaches, @Field("FileNames") String fileNames,
+                                            @Field("Base64Datas") String base64Data);
 }

@@ -72,7 +72,7 @@ public class HomePageNewsDetailActivity extends BaseActivity implements HomePage
     @Override
     protected void initData() {
         mPresenter = new HomePageNewsDetailPresenterImpl(this, this, this);
-        mDownLoadFilePresenter = new DownLoadFilePresenterImpl(this, this);
+        mDownLoadFilePresenter = new DownLoadFilePresenterImpl(this);
         mTitleTv.setText(getIntent().getStringExtra(MyConfig.KEY_TITLE));
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -128,7 +128,7 @@ public class HomePageNewsDetailActivity extends BaseActivity implements HomePage
                     public void onClick(View view) {
                         progressBar.setVisibility(View.VISIBLE);
                         view.setEnabled(false);
-                        mDownLoadFilePresenter.downLoadFile(bean, progressBar, attachView);
+                        mDownLoadFilePresenter.downLoadFile(bean.getUrl(), MyConfig.getFileName(bean.getUrl()), progressBar, attachView, false);
                     }
                 });
             }

@@ -1,7 +1,7 @@
 package com.goodo.pdjfy.email;
 
-import android.os.Build;
-import android.view.LayoutInflater;
+import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -15,7 +15,9 @@ import com.goodo.pdjfy.email.presenter.ExpandableListViewAdapter;
 import com.goodo.pdjfy.email.presenter.SelectPersonPresenter;
 import com.goodo.pdjfy.email.presenter.SelectPersonPresenterImpl;
 import com.goodo.pdjfy.email.view.SelectPersonView;
+import com.goodo.pdjfy.util.MyConfig;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,6 @@ public class SelectPersonActivity extends BaseActivity implements SelectPersonVi
     ExpandableListView mExpandableListView;
 
     private SelectPersonPresenter mPresenter;
-    private LayoutInflater mInflater;
     private ExpandableListViewAdapter mAdapter;
     private List<UnitBean> mUnitBeanList;
     private List<List<UnitUserBean>> mUnitUserBeanList;
@@ -52,7 +53,6 @@ public class SelectPersonActivity extends BaseActivity implements SelectPersonVi
     protected void initData() {
         mPresenter = new SelectPersonPresenterImpl(this, this);
         mPresenter.getUnitInfo();
-        mInflater = LayoutInflater.from(this);
         mUnitBeanList = new ArrayList<>();
         mUnitUserBeanList = new ArrayList<>();
         mAdapter = new ExpandableListViewAdapter(mUnitBeanList, mUnitUserBeanList);
@@ -71,7 +71,13 @@ public class SelectPersonActivity extends BaseActivity implements SelectPersonVi
         mSureTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                List<UnitUserBean> list = getSelectUser();
+                if (list.size() > 0) {
+                    Intent it = getIntent();
+                    it.putExtra(MyConfig.KEY_SEND_LIST, (Serializable) list);
+                    setResult(Activity.RESULT_OK, it);
+                    finish();
+                }
             }
         });
     }
@@ -82,4 +88,21 @@ public class SelectPersonActivity extends BaseActivity implements SelectPersonVi
         mUnitUserBeanList.addAll(userBeanList);
         mAdapter.notifyDataSetChanged();
     }
+
+    private List<UnitUserBean> getSelectUser(){
+        List<UnitUserBean> userBeanList = new ArrayList<>();
+        int size1 = mUnitUserBeanList.size();
+        for (int i = 0;i < size1;i ++) {
+            List<UnitUserBean> list = mUnitUserBeanList.get(i);
+            int size2 = list.size();
+            for (int j = 0;j < size2;j ++) {
+                UnitUserBean unitUserBean = list.get(j);
+                if (unitUserBean.isSelected()) {
+                    userBeanList.add(unitUserBean);
+                }
+            }
+        }
+        return userBeanList;
+    }
+
 }

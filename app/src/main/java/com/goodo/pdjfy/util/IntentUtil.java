@@ -3,8 +3,6 @@ package com.goodo.pdjfy.util;
 import android.content.Intent;
 import android.net.Uri;
 
-import com.goodo.pdjfy.base.AppContext;
-
 import java.io.File;
 
 /**
@@ -20,7 +18,17 @@ public class IntentUtil {
         intent.addCategory("android.intent.category.DEFAULT");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Uri uri = Uri.fromFile(file);
-        intent.setDataAndType(uri, AppContext.isMeiZu() ? "file/*" : "*/*");//魅族手机用file
+        String extension = MyConfig.getFileExtension(file.getName());
+        intent.setDataAndType(uri, extension);//魅族手机用file
         return intent;
+    }
+
+    /**
+     * 选择文件
+     */
+    public static Intent getSelectFileIntent(){
+        Intent it = new Intent(Intent.ACTION_GET_CONTENT);
+        it.setType("*/*");
+        return it;
     }
 }
