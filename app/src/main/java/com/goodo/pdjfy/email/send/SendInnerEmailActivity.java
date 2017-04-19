@@ -16,7 +16,10 @@ import com.goodo.pdjfy.email.model.SendInnerEmailBean;
 import com.goodo.pdjfy.email.model.UsersBean;
 import com.goodo.pdjfy.email.presenter.SendInnerPresenter;
 import com.goodo.pdjfy.email.presenter.SendInnerPresenterImpl;
+import com.goodo.pdjfy.email.presenter.ToTrashPresenter;
+import com.goodo.pdjfy.email.presenter.ToTrashPresenterImpl;
 import com.goodo.pdjfy.email.view.SendInnerEmailView;
+import com.goodo.pdjfy.email.view.ToTrashView;
 import com.goodo.pdjfy.util.IntentUtil;
 import com.goodo.pdjfy.util.MyConfig;
 
@@ -31,138 +34,23 @@ import butterknife.ButterKnife;
  * @Description
  */
 
-public class SendInnerEmailActivity extends BaseActivity implements SendInnerEmailView {
-    @BindView(R.id.ll_return)
-    LinearLayout mReturnLl;
-    @BindView(R.id.tv_sure)
-    TextView mSureTv;
-    @BindView(R.id.tv_sel_receiver)
-    TextView mSelReceiverTv;
-    @BindView(R.id.iv_sel_receiver)
-    ImageView mSelReceiverIv;
-    @BindView(R.id.rl_cc)
-    RelativeLayout mCcRl;
-    @BindView(R.id.tv_sel_cc)
-    TextView mSelCcTv;
-    @BindView(R.id.iv_sel_cc)
-    ImageView mSelCcIv;
-    @BindView(R.id.rl_bcc)
-    RelativeLayout mBccRl;
-    @BindView(R.id.tv_sel_bcc)
-    TextView mSelBccTv;
-    @BindView(R.id.iv_sel_bcc)
-    ImageView mSelBccIv;
-    @BindView(R.id.edt_title)
-    EditText mTitleEdt;
-    @BindView(R.id.edt_content)
-    EditText mContentEdt;
-    @BindView(R.id.tv_attach)
-    TextView mAttachTv;
-    @BindView(R.id.ll_add_attach)
-    LinearLayout mAddAttachLl;
-
-    private SendInnerPresenter mPresenter;
-    private LayoutInflater mInflater;
+public class SendInnerEmailActivity extends BaseSendInnerEmailActivity {
+    private ToTrashPresenter mToTrashPresenter;
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        mPresenter.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    protected void initContentView() {
-        setContentView(R.layout.activity_send_inner_email);
-        ButterKnife.bind(this);
-    }
-
-    @Override
-    protected void initData() {
+    protected void handleArgument() {
         mPresenter = new SendInnerPresenterImpl(this, this);
-        mInflater = LayoutInflater.from(this);
-    }
-
-    @Override
-    protected void initEvent() {
-        mReturnLl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        mSelReceiverIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.selPerson(MyConfig.SEL_RECEIVER_CODE);
-            }
-        });
-        mSelCcIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.selPerson(MyConfig.SEL_CC_CODE);
-            }
-        });
-        mSelBccIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.selPerson(MyConfig.SEL_BCC_CODE);
-            }
-        });
-        mAttachTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.selFile();
-            }
-        });
-        mSureTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendEmail();
-            }
-        });
-    }
-
-    @Override
-    public void getSelReceiverPerson(UsersBean usersBean) {
-        mSelReceiverTv.setText(usersBean.getNames());
-    }
-
-    @Override
-    public void getSelCcPerson(UsersBean usersBean) {
-        mSelCcTv.setText(usersBean.getNames());
-    }
-
-    @Override
-    public void getSelBccPerson(UsersBean usersBean) {
-        mSelBccTv.setText(usersBean.getNames());
-    }
-
-    @Override
-    public void getSelAttach(final String path) {
-        final View attachView = mInflater.inflate(R.layout.item_sel_attach, mAddAttachLl, false);
-        mAddAttachLl.addView(attachView);
-        TextView fileTv = (TextView) attachView.findViewById(R.id.tv_attach);
-        fileTv.setText(MyConfig.getFileName(path));
-        ImageView fileIv = (ImageView) attachView.findViewById(R.id.iv_attach);
-        fileIv.setImageResource(MyConfig.getFilePictureByName(path));
-        ImageView clearIv = (ImageView) attachView.findViewById(R.id.iv_clear);
-        attachView.setOnClickListener(new View.OnClickListener() {
+        mToTrashTv.setVisibility(View.VISIBLE);
+        mToTrashPresenter = new ToTrashPresenterImpl(this);
+        mToTrashTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = IntentUtil.getFileIntent(new File(path));
-                startActivity(it);
-            }
-        });
-        clearIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAddAttachLl.removeView(attachView);
-                mPresenter.removeAttach(path);
+                toTrash();
             }
         });
     }
 
-    private void sendEmail(){
+    private void toTrash(){
         if (mTitleEdt.getText().toString() == null || mTitleEdt.getText().toString().equals("")) {
             Toast.makeText(this, "请填写标题！", Toast.LENGTH_SHORT).show();
             return;
@@ -170,7 +58,7 @@ public class SendInnerEmailActivity extends BaseActivity implements SendInnerEma
         SendInnerEmailBean bean = new SendInnerEmailBean();
         bean.setSubject(mTitleEdt.getText().toString());
         bean.setBody(mContentEdt.getText().toString());
-        mPresenter.sendInnerEmail(bean);
+        mPresenter.getReceivers(bean);
+        mToTrashPresenter.toTrash(mPresenter.getAttachList(), bean);
     }
-
 }

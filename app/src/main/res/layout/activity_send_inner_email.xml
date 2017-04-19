@@ -36,6 +36,18 @@
             android:padding="@dimen/padding_content"
             android:gravity="center_vertical"/>
 
+        <TextView
+            android:id="@+id/tv_to_trash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="存草稿"
+            android:textColor="@drawable/text_color_white_press_blue"
+            android:textSize="@dimen/text_size_child_title"
+            android:layout_toLeftOf="@id/tv_sure"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_content"
+            android:visibility="invisible"/>
+
     </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"

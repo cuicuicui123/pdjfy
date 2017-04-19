@@ -337,10 +337,10 @@ public class HttpMethods {
      * -1代表没有id，是发送一封信的邮件
      */
     public void sendInnerEmail(SendInnerEmailBean bean, Subscriber subscriber){
-        Observable observable = mHttpService.sendInnerEmail(MyConfig.SESSION_ID, -1, bean.getSubject(),
+        Observable observable = mHttpService.sendInnerEmail(MyConfig.SESSION_ID, bean.getEmailId(), bean.getSubject(),
                 bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(), bean.getCcName(),
                 bean.getBccName(), bean.getToIds(), bean.getCcIds(), bean.getBccIds(), 1, 0, "无", 0, "",
-                0, "", bean.getFileNames(), bean.getBase64Data());
+                0, bean.getOriginAttachs(), bean.getFileNames(), bean.getBase64Data());
         doSubscribe(observable, subscriber);
     }
 
@@ -352,6 +352,18 @@ public class HttpMethods {
                 bean.getSubject(), bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(),
                 bean.getCcName(), bean.getBccName(), 1, 0, "无", 0, "", bean.getFileNames(), bean.getBase64Data());
         doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 内部电函存草稿
+     */
+    public void innerEmailToTrash(SendInnerEmailBean bean, Subscriber subscriber){
+        Observable observable = mHttpService.emailToTrash(MyConfig.SESSION_ID, -1, bean.getSubject(),
+                bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(), bean.getCcName(),
+                bean.getBccName(), bean.getToIds(), bean.getCcIds(), bean.getBccIds(), 1, 0, "无", 0, "",
+                0, "", bean.getFileNames(), bean.getBase64Data());
+        doSubscribe(observable, subscriber);
+
     }
 
 

@@ -50,6 +50,7 @@ public class MyConfig {
     public static final int SEL_CC_CODE = 1;
     public static final int SEL_BCC_CODE = 2;
     public static final int KEY_SEL_FILE = 3;
+    public static final int DETAIL_CODE = 4;
 
 
     public static final String BEGIN_TIME_HOLE_DAY = "06:00";

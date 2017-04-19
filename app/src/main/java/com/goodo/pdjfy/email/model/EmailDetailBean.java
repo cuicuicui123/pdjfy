@@ -21,11 +21,16 @@ public class EmailDetailBean {
     private String Subject;
     private String From;
     private String To;
+    private String Cc;
+    private String Bcc;
     private String Body;
     private String Date;
     private int Case_ID;
     private String CaseName;
     private int Mail_ID;
+    private String ToIDs;
+    private String CcIDs;
+    private String BccIDs;
 
     public String getSubject() {
         return Subject;
@@ -89,5 +94,45 @@ public class EmailDetailBean {
 
     public void setMail_ID(int Mail_ID) {
         this.Mail_ID = Mail_ID;
+    }
+
+    public String getToIDs() {
+        return ToIDs;
+    }
+
+    public void setToIDs(String toIDs) {
+        ToIDs = toIDs;
+    }
+
+    public String getCcIDs() {
+        return CcIDs;
+    }
+
+    public void setCcIDs(String ccIDs) {
+        CcIDs = ccIDs;
+    }
+
+    public String getBccIDs() {
+        return BccIDs;
+    }
+
+    public void setBccIDs(String bccIDs) {
+        BccIDs = bccIDs;
+    }
+
+    public String getCc() {
+        return Cc;
+    }
+
+    public void setCc(String cc) {
+        Cc = cc;
+    }
+
+    public String getBcc() {
+        return Bcc;
+    }
+
+    public void setBcc(String bcc) {
+        Bcc = bcc;
     }
 }

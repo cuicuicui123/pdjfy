@@ -251,4 +251,22 @@ public interface HttpService {
                                             @Field("CaseName") String caseName, @Field("IsSplitSend") int isSplitSend,
                                             @Field("OriginAttachs") String originAttaches, @Field("FileNames") String fileNames,
                                             @Field("Base64Datas") String base64Data);
+
+    /**
+     * 存草稿
+     */
+    @POST("EduPlate/MSGMail/InterfaceJson.asmx/Mail_Save")
+    @FormUrlEncoded
+    Observable<ResponseBody> emailToTrash(@Field("SessionID") String sessionId, @Field("Mail_ID") int mailId,
+                                          @Field("Subject") String subject, @Field("Body") String body,
+                                          @Field("SendUser_ID") int sendId, @Field("SendUserName") String sendName,
+                                          @Field("To") String toName, @Field("Cc") String ccName,
+                                          @Field("Bcc") String bccName,@Field("ToIDs") String toIds,
+                                          @Field("CcIDs") String ccIds, @Field("BccIDs") String bccIds,
+                                          @Field("IsAttached") int isAttached, @Field("Case_ID") int caseId,
+                                          @Field("CaseName") String caseName,@Field("IsEncrypt") int isEncrypt,
+                                          @Field("EncryptPWD") String pwd, @Field("IsSplitSend") int isSplitSend,
+                                          @Field("OriginAttachs") String originAttaches, @Field("FileNames") String fileNames,
+                                          @Field("Base64Datas") String base64Data);
+
 }

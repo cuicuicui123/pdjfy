@@ -60,9 +60,12 @@ public abstract class BaseSendInnerEmailActivity extends BaseActivity implements
     TextView mAttachTv;
     @BindView(R.id.ll_add_attach)
     LinearLayout mAddAttachLl;
+    @BindView(R.id.tv_to_trash)
+    TextView mToTrashTv;
 
-    private SendInnerPresenter mPresenter;
-    private LayoutInflater mInflater;
+    protected SendInnerPresenter mPresenter;
+    protected LayoutInflater mInflater;
+    protected SendInnerEmailBean mBean;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -78,9 +81,12 @@ public abstract class BaseSendInnerEmailActivity extends BaseActivity implements
 
     @Override
     protected void initData() {
-        mPresenter = new SendInnerPresenterImpl(this, this);
         mInflater = LayoutInflater.from(this);
+        mBean = new SendInnerEmailBean();
+        handleArgument();
     }
+
+    protected abstract void handleArgument();
 
     @Override
     protected void initEvent() {
@@ -167,9 +173,8 @@ public abstract class BaseSendInnerEmailActivity extends BaseActivity implements
             Toast.makeText(this, "请填写标题！", Toast.LENGTH_SHORT).show();
             return;
         }
-        SendInnerEmailBean bean = new SendInnerEmailBean();
-        bean.setSubject(mTitleEdt.getText().toString());
-        bean.setBody(mContentEdt.getText().toString());
-        mPresenter.sendInnerEmail(bean);
+        mBean.setSubject(mTitleEdt.getText().toString());
+        mBean.setBody(mContentEdt.getText().toString());
+        mPresenter.sendInnerEmail(mBean);
     }
 }

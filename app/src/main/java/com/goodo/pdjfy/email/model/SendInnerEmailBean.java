@@ -17,6 +17,29 @@ public class SendInnerEmailBean {
     String mBccIds;
     String mFileNames;
     String mBase64Data;
+    String mOriginAttachs;
+    int mEmailId;
+
+    public SendInnerEmailBean() {
+        mEmailId = -1;
+        mOriginAttachs = "";
+    }
+
+    public int getEmailId() {
+        return mEmailId;
+    }
+
+    public void setEmailId(int emailId) {
+        mEmailId = emailId;
+    }
+
+    public String getOriginAttachs() {
+        return mOriginAttachs;
+    }
+
+    public void setOriginAttachs(String originAttachs) {
+        mOriginAttachs = originAttachs;
+    }
 
     public String getSubject() {
         return mSubject;
