@@ -85,6 +85,9 @@ public class EmailFragment extends BaseMainFragment implements EmailView {
             LinearLayout contentLl = (LinearLayout) parentView.findViewById(R.id.ll_content);
             int contentLen = emailBean.getList().size();
             for (int j = 0;j < contentLen;j ++) {
+                if (j == 1) {
+                    int n = j;
+                }
                 EmailBean.ChildEmailBean childEmailBean = emailBean.getList().get(j);
                 String content = childEmailBean.getContent();
                 View childView = mInflater.inflate(R.layout.view_email_child, contentLl, false);

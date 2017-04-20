@@ -1,5 +1,7 @@
 package com.goodo.pdjfy.email;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +17,11 @@ import com.goodo.pdjfy.R;
 import com.goodo.pdjfy.base.BaseActivity;
 import com.goodo.pdjfy.email.model.EmailAttachBean;
 import com.goodo.pdjfy.email.model.EmailDetailBean;
+import com.goodo.pdjfy.email.presenter.DeleteEmailPresenter;
+import com.goodo.pdjfy.email.presenter.DeleteEmailPresenterImpl;
 import com.goodo.pdjfy.email.presenter.EmailDetailPresenter;
 import com.goodo.pdjfy.email.presenter.EmailDetailPresenterImpl;
+import com.goodo.pdjfy.email.view.DeleteEmailView;
 import com.goodo.pdjfy.email.view.EmailDetailView;
 import com.goodo.pdjfy.homepage.presenter.DownLoadFilePresenter;
 import com.goodo.pdjfy.homepage.presenter.DownLoadFilePresenterImpl;
@@ -35,7 +40,7 @@ import butterknife.ButterKnife;
  * @Description
  */
 
-public class EmailDetailActivity extends BaseActivity implements EmailDetailView{
+public class EmailDetailActivity extends BaseActivity implements EmailDetailView, DeleteEmailView{
     @BindView(R.id.ll_return)
     LinearLayout mReturnLl;
     @BindView(R.id.tv_send_person)
@@ -70,9 +75,12 @@ public class EmailDetailActivity extends BaseActivity implements EmailDetailView
     private EmailDetailPresenter mPresenter;
     private int mId;
     private int mIsInBox;
+    private int mPosition;
     private boolean mIsOpen;
     private DownLoadFilePresenter mDownLoadFilePresenter;
     private EmailDetailBean mEmailDetailBean;
+    private DeleteEmailPresenter mDeleteEmailPresenter;
+    private int mIsDel = 1;
 
     @Override
     protected void initContentView() {
@@ -82,8 +90,11 @@ public class EmailDetailActivity extends BaseActivity implements EmailDetailView
 
     @Override
     protected void initData() {
-        mId = getIntent().getIntExtra(MyConfig.KEY_ID, 0);
-        mIsInBox = getIntent().getIntExtra(MyConfig.KEY_IS_INBOX, 0);
+        Intent it = getIntent();
+        mId = it.getIntExtra(MyConfig.KEY_ID, 0);
+        mIsInBox = it.getIntExtra(MyConfig.KEY_IS_INBOX, 0);
+        mPosition = it.getIntExtra(MyConfig.KEY_POSITION, 0);
+        mIsDel = it.getIntExtra(MyConfig.KEY_IS_DEL, MyConfig.DRAFT);
         mPresenter = new EmailDetailPresenterImpl(mId, mIsInBox, this, this);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
@@ -92,6 +103,7 @@ public class EmailDetailActivity extends BaseActivity implements EmailDetailView
         webSettings.setUseWideViewPort(false);
         mDownLoadFilePresenter = new DownLoadFilePresenterImpl(this);
         mReplyTv.setVisibility(mIsInBox == MyConfig.IS_INBOX ? View.VISIBLE : View.GONE);
+        mDeleteEmailPresenter = new DeleteEmailPresenterImpl(this, this);
     }
 
     @Override
@@ -113,6 +125,12 @@ public class EmailDetailActivity extends BaseActivity implements EmailDetailView
             @Override
             public void onClick(View v) {
                 mPresenter.startToReplyActivity();
+            }
+        });
+        mDeleteIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDeleteEmailPresenter.deleteEmail(mId, mIsInBox, mIsDel, mPosition);
             }
         });
     }
@@ -155,6 +173,7 @@ public class EmailDetailActivity extends BaseActivity implements EmailDetailView
         } else {
             mDateTv.setText(DataTransform.getDateTimeStr(DataTransform.transformDateTimeNoSecond(bean.getDate())));
         }
+        mTitleTv.setText(mEmailDetailBean.getSubject());
         mWebView.loadDataWithBaseURL(HttpMethods.BASE_URL, bean.getBody(), "text/html", "utf-8", null);
     }
 
@@ -199,4 +218,11 @@ public class EmailDetailActivity extends BaseActivity implements EmailDetailView
         return builder.toString();
     }
 
+    @Override
+    public void onDeleteEmail(int position) {
+        Intent it = new Intent();
+        it.putExtra(MyConfig.KEY_POSITION, position);
+        setResult(Activity.RESULT_OK, it);
+        finish();
+    }
 }

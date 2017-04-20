@@ -186,8 +186,7 @@ public abstract class BaseSendInnerEmailActivity extends BaseActivity implements
         }
 
         mBean.setSubject(mTitleEdt.getText().toString());
-        mWebView.loadUrl("javascript:window.java_obj.getSource(" +
-                "document.documentElement.innerHTML);");
+
         //获取webView中的html
         mObj.setOnHtmlGetListener(new InJavaScriptLocalObj.OnHtmlGetListener() {
             @Override
@@ -196,5 +195,7 @@ public abstract class BaseSendInnerEmailActivity extends BaseActivity implements
                 mPresenter.sendInnerEmail(mBean);
             }
         });
+        mWebView.loadUrl("javascript:window.java_obj.getSource(" +
+                "document.documentElement.innerHTML);");
     }
 }

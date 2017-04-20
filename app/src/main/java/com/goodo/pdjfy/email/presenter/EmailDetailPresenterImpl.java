@@ -116,7 +116,6 @@ public class EmailDetailPresenterImpl implements EmailDetailPresenter {
             }
             mEmailDetailView.getEmailAttachList(mAttachBeanList);
 
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

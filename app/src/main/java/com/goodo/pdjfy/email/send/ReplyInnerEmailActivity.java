@@ -45,7 +45,7 @@ public class ReplyInnerEmailActivity extends BaseSendInnerEmailActivity {
         mPresenter.init(mEmailDetailBean, mAttachBeanList);
         getAttachView(mAttachBeanList);
         mTitleEdt.setText("Re：" + mEmailDetailBean.getSubject());
-        mBean.setEmailId(mEmailDetailBean.getReceive_ID());
+        mBean.setEmailId(mEmailDetailBean.getReceive_ID().equals("") ? 0 : Integer.parseInt(mEmailDetailBean.getReceive_ID()));
 
         mHtmlHandleBean = new EmailHtmlHandleBean();
         String newContent = mHtmlHandleBean.answerAndTransmitHtml(mEmailDetailBean);

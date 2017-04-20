@@ -429,5 +429,13 @@ public class HttpMethods {
         doSubscribe(observable, subscriber);
     }
 
+    /**
+     * 删除邮件
+     */
+    public void deleteEmail(int id, int isInBox, int isDel, Subscriber subscriber){
+        Observable observable = mHttpService.deleteEmail(MyConfig.SESSION_ID, MyConfig.USER_ID, id, isInBox, isDel);
+        doSubscribe(observable, subscriber);
+    }
+
 
 }

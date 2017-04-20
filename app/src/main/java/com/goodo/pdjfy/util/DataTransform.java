@@ -221,11 +221,11 @@ public class DataTransform {
 	 * @return
 	 */
 	public static String outEmailRemoveContentEditable(String html){
-		Pattern pattern = Pattern.compile("<body contenteditable=\"true\"");
+		Pattern pattern = Pattern.compile("<body[^>]*>");
 		Matcher matcher = pattern.matcher(html);
 		String newHtml;
 		if (matcher.find()) {
-			newHtml = html.replace("<body contenteditable=\"true\"", "<body");
+			newHtml = html.replace(matcher.group(), "<body>");
 		} else {
 			newHtml = html;
 		}

@@ -17,20 +17,7 @@ import com.goodo.pdjfy.util.MyConfig;
 
 public class EmailTrashActivity extends BaseEmailListActivity {
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == MyConfig.DETAIL_CODE) {
-                int position = data.getIntExtra(MyConfig.KEY_POSITION, -1);
-                if (position != -1 && position < mBeanList.size()) {
-                    mBeanList.remove(position);
-                    mAdapter.notifyDataSetChanged();
-                }
-            }
-        }
 
-    }
 
     @Override
     protected void initEmailActivity() {

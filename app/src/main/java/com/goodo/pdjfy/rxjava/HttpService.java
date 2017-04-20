@@ -385,4 +385,12 @@ public interface HttpService {
                                              @Field("OriginAttachs") String originAttaches, @Field("FileNames") String fileNames,
                                              @Field("Base64Datas") String base64Data);
 
+    /**
+     * 删除邮件
+     */
+    @GET("EduPlate/MSGMail/InterfaceJson.asmx/EMail_Delete")
+    Observable<ResponseBody> deleteEmail(@Query("SessionID") String sessionId, @Query("User_ID") int userId,
+                                         @Query("EMail_ID") int emailId, @Query("IsInBox") int isInBox,
+                                         @Query("IsDel") int isDel);
+
 }

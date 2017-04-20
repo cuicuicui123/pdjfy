@@ -38,7 +38,7 @@ public class EmailDetailBean implements Parcelable {
     int OuterMail_ID;
     int SendUser_ID;
     String SendUserName;
-    int Receive_ID;
+    String Receive_ID;
     int OuterReceive_ID;
 
 
@@ -60,7 +60,7 @@ public class EmailDetailBean implements Parcelable {
         OuterMail_ID = in.readInt();
         SendUser_ID = in.readInt();
         SendUserName = in.readString();
-        Receive_ID = in.readInt();
+        Receive_ID = in.readString();
         OuterReceive_ID = in.readInt();
     }
 
@@ -84,11 +84,11 @@ public class EmailDetailBean implements Parcelable {
         OuterReceive_ID = outerReceive_ID;
     }
 
-    public int getReceive_ID() {
+    public String getReceive_ID() {
         return Receive_ID;
     }
 
-    public void setReceive_ID(int receive_ID) {
+    public void setReceive_ID(String receive_ID) {
         Receive_ID = receive_ID;
     }
 
@@ -252,7 +252,7 @@ public class EmailDetailBean implements Parcelable {
         dest.writeInt(OuterMail_ID);
         dest.writeInt(SendUser_ID);
         dest.writeString(SendUserName);
-        dest.writeInt(Receive_ID);
+        dest.writeString(Receive_ID);
         dest.writeInt(OuterReceive_ID);
     }
 }

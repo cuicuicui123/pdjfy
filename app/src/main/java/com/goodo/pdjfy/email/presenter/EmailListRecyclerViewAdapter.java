@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.goodo.pdjfy.R;
 import com.goodo.pdjfy.base.AppContext;
 import com.goodo.pdjfy.email.model.EmailListBean;
@@ -28,6 +29,7 @@ public class EmailListRecyclerViewAdapter extends RecyclerView.Adapter {
     private AppContext mAppContext;
     private LayoutInflater mInflater;
     private OnItemClickListener mOnItemClickListener;
+    private OnItemClickListener mOnDeleteClickListener;
 
     public EmailListRecyclerViewAdapter(List<EmailListBean> beanList) {
         mBeanList = beanList;
@@ -56,6 +58,16 @@ public class EmailListRecyclerViewAdapter extends RecyclerView.Adapter {
                 }
             }
         });
+        viewHolder.mSwipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+        viewHolder.mSwipeLayout.addDrag(SwipeLayout.DragEdge.Right, viewHolder.mDeleteTv);
+        viewHolder.mDeleteTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mOnDeleteClickListener != null) {
+                    mOnDeleteClickListener.onItemClick(position);
+                }
+            }
+        });
     }
 
     @Override
@@ -70,6 +82,10 @@ public class EmailListRecyclerViewAdapter extends RecyclerView.Adapter {
         TextView mSubjectTv;
         @BindView(R.id.tv_date)
         TextView mDateTv;
+        @BindView(R.id.swipe_layout)
+        SwipeLayout mSwipeLayout;
+        @BindView(R.id.tv_delete)
+        TextView mDeleteTv;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -79,6 +95,10 @@ public class EmailListRecyclerViewAdapter extends RecyclerView.Adapter {
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         mOnItemClickListener = onItemClickListener;
+    }
+
+    public void setOnDeleteClickListener(OnItemClickListener onItemClickListener){
+        mOnDeleteClickListener = onItemClickListener;
     }
 
 }

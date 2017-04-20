@@ -17,6 +17,7 @@ public class AllEmailReceiveActivity extends BaseEmailListActivity{
     protected void initEmailActivity() {
         mTitleTv.setText("收件箱");
         mPresenter = new AllEmailListReceivePresenterImpl(this, this);
+        mIsInBox = 1;
     }
 
     @Override
@@ -24,6 +25,7 @@ public class AllEmailReceiveActivity extends BaseEmailListActivity{
         Intent it = new Intent(this, EmailDetailActivity.class);
         it.putExtra(MyConfig.KEY_ID, mBeanList.get(position).getReceive_ID());
         it.putExtra(MyConfig.KEY_IS_INBOX, MyConfig.IS_INBOX);
-        startActivity(it);
+        it.putExtra(MyConfig.KEY_POSITION, position);
+        startActivityForResult(it, MyConfig.DETAIL_CODE);
     }
 }

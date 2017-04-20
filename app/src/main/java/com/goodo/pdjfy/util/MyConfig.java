@@ -36,6 +36,9 @@ public class MyConfig {
     public static final String KEY_OUTER_MAIL_ID = "outerMailId";
     public static final String KEY_EMAIL_DETAIL_BEAN = "emailDetailBean";
     public static final String KEY_EMAIL_ATTACH_LIST = "emailAttachList";
+    public static final String KEY_IS_DEL = "isDel";
+    public static final int DELETE = 2;
+    public static final int DRAFT = 1;
 
 
     public static final int SCHEDULE_TYPE_PERSON = 3;

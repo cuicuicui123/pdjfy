@@ -124,8 +124,6 @@ public abstract class BaseSendOuterEmailActivity extends BaseActivity implements
         mSendOuterEmailBean.setToName(mReceiverEdt.getText().toString());
         mSendOuterEmailBean.setCcName(mCcEdt.getText().toString());
         mSendOuterEmailBean.setBccName(mBccEdt.getText().toString());
-        mWebView.loadUrl("javascript:window.java_obj.getSource(" +
-                "document.documentElement.innerHTML);");
         mObj.setOnHtmlGetListener(new InJavaScriptLocalObj.OnHtmlGetListener() {
             @Override
             public void onHtmlGet(String html) {
@@ -133,6 +131,8 @@ public abstract class BaseSendOuterEmailActivity extends BaseActivity implements
                 mPresenter.sendOuterEmail(mSendOuterEmailBean);
             }
         });
+        mWebView.loadUrl("javascript:window.java_obj.getSource(" +
+                "document.documentElement.innerHTML);");
     }
 
     @Override

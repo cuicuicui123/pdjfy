@@ -27,6 +27,7 @@ public class OuterEmailSendActivity extends BaseEmailListActivity {
         Intent it = new Intent(this, EmailDetailActivity.class);
         it.putExtra(MyConfig.KEY_ID, mBeanList.get(position).getMail_ID());
         it.putExtra(MyConfig.KEY_IS_INBOX, MyConfig.NOT_INBOX);
-        startActivity(it);
+        it.putExtra(MyConfig.KEY_POSITION, position);
+        startActivityForResult(it, MyConfig.DETAIL_CODE);
     }
 }

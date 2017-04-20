@@ -18,6 +18,7 @@ public class EmailDraftActivity extends BaseEmailListActivity {
     protected void initEmailActivity() {
         mTitleTv.setText("回收箱");
         mPresenter = new AllEmailListTrashPresenterImpl(this, this);
+        mIsDel = MyConfig.DELETE;
     }
 
     @Override
@@ -26,6 +27,8 @@ public class EmailDraftActivity extends BaseEmailListActivity {
         EmailListBean bean = mBeanList.get(position);
         it.putExtra(MyConfig.KEY_ID, bean.getMail_ID());
         it.putExtra(MyConfig.KEY_IS_INBOX, MyConfig.NOT_INBOX);
-        startActivity(it);
+        it.putExtra(MyConfig.KEY_POSITION, position);
+        it.putExtra(MyConfig.KEY_IS_DEL, MyConfig.DELETE);
+        startActivityForResult(it, MyConfig.DETAIL_CODE);
     }
 }
