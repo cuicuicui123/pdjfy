@@ -8,10 +8,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.goodo.pdjfy.R;
-import com.goodo.pdjfy.email.list.AllEmailDraftActivity;
+import com.goodo.pdjfy.email.list.EmailTrashActivity;
 import com.goodo.pdjfy.email.list.AllEmailReceiveActivity;
 import com.goodo.pdjfy.email.list.AllEmailSendActivity;
-import com.goodo.pdjfy.email.list.AllEmailTrashActivity;
+import com.goodo.pdjfy.email.list.EmailDraftActivity;
 import com.goodo.pdjfy.email.list.InnerEmailReceiveActivity;
 import com.goodo.pdjfy.email.list.InnerEmailSendActivity;
 import com.goodo.pdjfy.email.list.OuterEmailReceiveActivity;
@@ -122,9 +122,9 @@ public class EmailFragment extends BaseMainFragment implements EmailView {
                 } else if (mPosition == 1) {//所有邮箱发件箱
                     it.setClass(getActivity(), AllEmailSendActivity.class);
                 } else if (mPosition == 2) {//所有邮箱草稿箱
-                    it.setClass(getActivity(), AllEmailDraftActivity.class);
+                    it.setClass(getActivity(), EmailTrashActivity.class);
                 } else if (mPosition == 3) {//所有邮箱回收箱
-                    it.setClass(getActivity(), AllEmailTrashActivity.class);
+                    it.setClass(getActivity(), EmailDraftActivity.class);
                 }
             } else if (mEmail == 1){
                 if (mPosition < mInnerEmailClassifySize) {//内部电函收件箱

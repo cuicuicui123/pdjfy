@@ -14,7 +14,37 @@ public class SendOuterEmailBean {
     String mBccName;
     String mFileNames;
     String mBase64Data;
-    int mId;
+    int mEmailId;
+    String mOriginAttachs;
+    int mOuterMailAddrId;
+
+    public SendOuterEmailBean() {
+        mOriginAttachs = "";
+    }
+
+    public int getOuterMailAddrId() {
+        return mOuterMailAddrId;
+    }
+
+    public void setOuterMailAddrId(int outerMailId) {
+        mOuterMailAddrId = outerMailId;
+    }
+
+    public String getOriginAttachs() {
+        return mOriginAttachs;
+    }
+
+    public void setOriginAttachs(String originAttachs) {
+        mOriginAttachs = originAttachs;
+    }
+
+    public int getEmailId() {
+        return mEmailId;
+    }
+
+    public void setEmailId(int emailId) {
+        mEmailId = emailId;
+    }
 
     public String getSubject() {
         return mSubject;
@@ -72,11 +102,4 @@ public class SendOuterEmailBean {
         mBase64Data = base64Data;
     }
 
-    public int getId() {
-        return mId;
-    }
-
-    public void setId(int id) {
-        mId = id;
-    }
 }

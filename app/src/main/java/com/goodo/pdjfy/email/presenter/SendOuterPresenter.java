@@ -2,6 +2,8 @@ package com.goodo.pdjfy.email.presenter;
 
 import android.content.Intent;
 
+import com.goodo.pdjfy.email.model.EmailAttachBean;
+import com.goodo.pdjfy.email.model.EmailDetailBean;
 import com.goodo.pdjfy.email.model.SendOuterEmailBean;
 
 import java.util.List;
@@ -18,4 +20,6 @@ public interface SendOuterPresenter {
     void selFile();
     void getFileBase64data(List<String> fileList, SendOuterEmailBean bean);
     void removeAttach(String path);
+    List<String> getAttachList();
+    void init(EmailDetailBean bean, List<EmailAttachBean> list);
 }

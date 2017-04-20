@@ -54,9 +54,9 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".email.list.AllEmailSendActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".email.list.AllEmailDraftActivity"
+        <activity android:name=".email.list.EmailTrashActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".email.list.AllEmailTrashActivity"
+        <activity android:name=".email.list.EmailDraftActivity"
             android:theme="@style/AppTheme"/>
         <activity android:name=".email.list.InnerEmailReceiveActivity"
             android:theme="@style/AppTheme"/>
@@ -74,7 +74,12 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".email.send.SendOuterEmailActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".email.send.DraftEmailDetailActivity"/>
+        <activity android:name=".email.send.TrashEmailDetailActivity"/>
+        <activity android:name=".email.send.TrashOuterEmailDetailActivity"/>
+        <activity android:name=".email.send.TransmitInnerEmailActivity"/>
+        <activity android:name=".email.send.TransmitOuterEmailActivity"/>
+        <activity android:name=".email.send.ReplyInnerEmailActivity"/>
+        <activity android:name=".email.send.ReplyOuterEmailActivity"/>
     </application>
 
 </manifest>

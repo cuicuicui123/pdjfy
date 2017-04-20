@@ -13,7 +13,7 @@ import com.goodo.pdjfy.util.MyConfig;
  * @Description
  */
 
-public class AllEmailTrashActivity extends BaseEmailListActivity {
+public class EmailDraftActivity extends BaseEmailListActivity {
     @Override
     protected void initEmailActivity() {
         mTitleTv.setText("回收箱");
@@ -24,13 +24,8 @@ public class AllEmailTrashActivity extends BaseEmailListActivity {
     protected void setOnItemClickEvent(int position) {
         Intent it = new Intent(this, EmailDetailActivity.class);
         EmailListBean bean = mBeanList.get(position);
-        if (bean.getReceive_ID() != 0) {//收件箱
-            it.putExtra(MyConfig.KEY_ID, bean.getReceive_ID());
-            it.putExtra(MyConfig.KEY_IS_INBOX, MyConfig.IS_INBOX);
-        } else {//发件箱
-            it.putExtra(MyConfig.KEY_ID, bean.getMail_ID());
-            it.putExtra(MyConfig.KEY_IS_INBOX, MyConfig.NOT_INBOX);
-        }
+        it.putExtra(MyConfig.KEY_ID, bean.getMail_ID());
+        it.putExtra(MyConfig.KEY_IS_INBOX, MyConfig.NOT_INBOX);
         startActivity(it);
     }
 }

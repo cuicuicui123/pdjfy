@@ -7,7 +7,6 @@ import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,10 +14,9 @@ import com.goodo.pdjfy.R;
 import com.goodo.pdjfy.base.BaseActivity;
 import com.goodo.pdjfy.email.CustomWebViewClient;
 import com.goodo.pdjfy.email.InJavaScriptLocalObj;
-import com.goodo.pdjfy.email.model.SendInnerEmailBean;
-import com.goodo.pdjfy.email.model.UsersBean;
-import com.goodo.pdjfy.email.presenter.SendInnerPresenter;
-import com.goodo.pdjfy.email.view.SendInnerEmailView;
+import com.goodo.pdjfy.email.model.SendOuterEmailBean;
+import com.goodo.pdjfy.email.presenter.SendOuterPresenter;
+import com.goodo.pdjfy.email.view.SendOuterEmailView;
 import com.goodo.pdjfy.util.DataTransform;
 import com.goodo.pdjfy.util.IntentUtil;
 import com.goodo.pdjfy.util.MyConfig;
@@ -29,32 +27,22 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Cui on 2017/4/19.
+ * Created by Cui on 2017/4/20.
  *
  * @Description
  */
 
-public abstract class BaseSendInnerEmailActivity extends BaseActivity implements SendInnerEmailView {
+public abstract class BaseSendOuterEmailActivity extends BaseActivity implements SendOuterEmailView {
     @BindView(R.id.ll_return)
     LinearLayout mReturnLl;
     @BindView(R.id.tv_sure)
     TextView mSureTv;
-    @BindView(R.id.tv_sel_receiver)
-    TextView mSelReceiverTv;
-    @BindView(R.id.iv_sel_receiver)
-    ImageView mSelReceiverIv;
-    @BindView(R.id.rl_cc)
-    RelativeLayout mCcRl;
-    @BindView(R.id.tv_sel_cc)
-    TextView mSelCcTv;
-    @BindView(R.id.iv_sel_cc)
-    ImageView mSelCcIv;
-    @BindView(R.id.rl_bcc)
-    RelativeLayout mBccRl;
-    @BindView(R.id.tv_sel_bcc)
-    TextView mSelBccTv;
-    @BindView(R.id.iv_sel_bcc)
-    ImageView mSelBccIv;
+    @BindView(R.id.edt_receiver)
+    EditText mReceiverEdt;
+    @BindView(R.id.edt_cc)
+    EditText mCcEdt;
+    @BindView(R.id.edt_bcc)
+    EditText mBccEdt;
     @BindView(R.id.edt_title)
     EditText mTitleEdt;
     @BindView(R.id.webView)
@@ -66,11 +54,12 @@ public abstract class BaseSendInnerEmailActivity extends BaseActivity implements
     @BindView(R.id.tv_to_trash)
     TextView mToTrashTv;
 
-    protected SendInnerPresenter mPresenter;
+    protected SendOuterPresenter mPresenter;
     protected LayoutInflater mInflater;
-    protected SendInnerEmailBean mBean;
-    private CustomWebViewClient mWebViewClient;
+    protected int mOuterMailId;
+    protected SendOuterEmailBean mSendOuterEmailBean;
     protected InJavaScriptLocalObj mObj;
+    protected CustomWebViewClient mWebViewClient;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -80,15 +69,16 @@ public abstract class BaseSendInnerEmailActivity extends BaseActivity implements
 
     @Override
     protected void initContentView() {
-        setContentView(R.layout.activity_send_inner_email);
+        setContentView(R.layout.activity_send_outer_email);
         ButterKnife.bind(this);
     }
 
     @Override
     protected void initData() {
         mInflater = LayoutInflater.from(this);
-        mBean = new SendInnerEmailBean();
+        mSendOuterEmailBean = new SendOuterEmailBean();
         mWebView.getSettings().setDefaultTextEncodingName("utf-8");
+        mObj = new InJavaScriptLocalObj();
         mWebViewClient = new CustomWebViewClient();
         mWebView.setWebViewClient(mWebViewClient);
         mWebView.getSettings().setJavaScriptEnabled(true);
@@ -107,22 +97,10 @@ public abstract class BaseSendInnerEmailActivity extends BaseActivity implements
                 finish();
             }
         });
-        mSelReceiverIv.setOnClickListener(new View.OnClickListener() {
+        mSureTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.selPerson(MyConfig.SEL_RECEIVER_CODE);
-            }
-        });
-        mSelCcIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.selPerson(MyConfig.SEL_CC_CODE);
-            }
-        });
-        mSelBccIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.selPerson(MyConfig.SEL_BCC_CODE);
+                sendOuterEmail();
             }
         });
         mAttachTv.setOnClickListener(new View.OnClickListener() {
@@ -131,27 +109,30 @@ public abstract class BaseSendInnerEmailActivity extends BaseActivity implements
                 mPresenter.selFile();
             }
         });
-        mSureTv.setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void sendOuterEmail(){
+        if (mTitleEdt.getText().toString().equals("")) {
+            Toast.makeText(this, "请填写标题！", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (mReceiverEdt.getText().toString().equals("")) {
+            Toast.makeText(this, "请填写收件人地址", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        mSendOuterEmailBean.setSubject(mTitleEdt.getText().toString());
+        mSendOuterEmailBean.setToName(mReceiverEdt.getText().toString());
+        mSendOuterEmailBean.setCcName(mCcEdt.getText().toString());
+        mSendOuterEmailBean.setBccName(mBccEdt.getText().toString());
+        mWebView.loadUrl("javascript:window.java_obj.getSource(" +
+                "document.documentElement.innerHTML);");
+        mObj.setOnHtmlGetListener(new InJavaScriptLocalObj.OnHtmlGetListener() {
             @Override
-            public void onClick(View v) {
-                sendEmail();
+            public void onHtmlGet(String html) {
+                mSendOuterEmailBean.setBody(DataTransform.outEmailRemoveContentEditable(html));
+                mPresenter.sendOuterEmail(mSendOuterEmailBean);
             }
         });
-    }
-
-    @Override
-    public void getSelReceiverPerson(UsersBean usersBean) {
-        mSelReceiverTv.setText(usersBean.getNames());
-    }
-
-    @Override
-    public void getSelCcPerson(UsersBean usersBean) {
-        mSelCcTv.setText(usersBean.getNames());
-    }
-
-    @Override
-    public void getSelBccPerson(UsersBean usersBean) {
-        mSelBccTv.setText(usersBean.getNames());
     }
 
     @Override
@@ -175,25 +156,6 @@ public abstract class BaseSendInnerEmailActivity extends BaseActivity implements
             public void onClick(View v) {
                 mAddAttachLl.removeView(attachView);
                 mPresenter.removeAttach(path);
-            }
-        });
-    }
-
-    private void sendEmail(){
-        if (mTitleEdt.getText().toString() == null || mTitleEdt.getText().toString().equals("")) {
-            Toast.makeText(this, "请填写标题！", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        mBean.setSubject(mTitleEdt.getText().toString());
-        mWebView.loadUrl("javascript:window.java_obj.getSource(" +
-                "document.documentElement.innerHTML);");
-        //获取webView中的html
-        mObj.setOnHtmlGetListener(new InJavaScriptLocalObj.OnHtmlGetListener() {
-            @Override
-            public void onHtmlGet(String html) {
-                mBean.setBody(DataTransform.outEmailRemoveContentEditable(html));
-                mPresenter.sendInnerEmail(mBean);
             }
         });
     }

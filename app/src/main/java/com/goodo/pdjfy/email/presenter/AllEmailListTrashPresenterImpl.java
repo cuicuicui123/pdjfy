@@ -18,6 +18,8 @@ public class AllEmailListTrashPresenterImpl extends BaseEmailListPresenterImpl {
 
     @Override
     public void getEmailList(int page, int size) {
+        mPage = page;
+        mPageSize = size;
         CacheSubscriber cacheSubscriber = new CacheSubscriber(KEY_LIST + page + size) {
             @Override
             protected void getCache(String cacheData) {

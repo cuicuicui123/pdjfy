@@ -8,4 +8,6 @@ package com.goodo.pdjfy.email.presenter;
 
 public interface EmailDetailPresenter {
     void getEmailDetail();
+    void startToTransmitActivity();
+    void startToReplyActivity();
 }

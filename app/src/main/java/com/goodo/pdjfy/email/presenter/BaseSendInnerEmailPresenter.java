@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Subscriber;
-
 /**
  * Created by Cui on 2017/4/19.
  *
@@ -114,6 +112,7 @@ public abstract class BaseSendInnerEmailPresenter implements SendInnerPresenter 
                         JSONObject jsonObject = new JSONObject(response);
                         JSONObject Goodo = jsonObject.getJSONObject("Goodo");
                         if (Goodo.getInt("EID") == 0) {
+                            mActivity.setResult(Activity.RESULT_OK, mActivity.getIntent());
                             mActivity.finish();
                         } else {
                             Toast.makeText(mActivity, "发送失败", Toast.LENGTH_SHORT).show();

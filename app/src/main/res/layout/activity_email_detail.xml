@@ -23,142 +23,189 @@
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_title"
             android:layout_centerInParent="true"/>
+
+        <TextView
+            android:id="@+id/tv_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="回复"
+            android:textColor="@drawable/text_color_white_press_blue"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="@dimen/padding_content"/>
     </RelativeLayout>
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/elevation_bottom_bar"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/ll_bottom"
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:padding="@dimen/padding_kind">
+
+            <ImageView
+                android:id="@+id/iv_transmit"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/icon_size"
+                android:src="@drawable/ic_reply_blue_24dp"
+                android:scaleType="fitCenter"/>
+
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/icon_size"
+                android:src="@drawable/ic_delete_blue_24dp"
+                android:scaleType="fitCenter"/>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_border">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_kind"
-                android:id="@+id/rl_send"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/tv_send_person_remind"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/margin_border"
-                    android:text="发件人:"
-                    android:textColor="@color/grey_text"
-                    android:textSize="@dimen/text_size_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"/>
-
-                <TextView
-                    android:id="@+id/tv_send_person"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/padding_content"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_content"
-                    android:layout_toRightOf="@id/tv_send_person_remind"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_kind"
-                android:layout_marginTop="@dimen/margin_kind"
-                android:orientation="horizontal"
-                android:id="@+id/rl_receive"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/tv_receive_person_remind"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/margin_border"
-                    android:text="收件人:"
-                    android:textColor="@color/grey_text"
-                    android:textSize="@dimen/text_size_content"
-                    android:layout_centerVertical="true"/>
-
-                <TextView
-                    android:id="@+id/tv_receive_open"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="展开"
-                    android:textColor="@drawable/text_color_blue_press_dark_blue"
-                    android:textSize="@dimen/text_size_content"
-                    android:layout_alignParentRight="true"
-                    android:visibility="invisible"
-                    android:layout_centerVertical="true"/>
-
-                <TextView
-                    android:id="@+id/tv_receive_person"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/padding_content"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_content"
-                    android:layout_toRightOf="@id/tv_receive_person_remind"
-                    android:layout_toLeftOf="@id/tv_receive_open"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
-
-            <include
-                layout="@layout/divider"></include>
-
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_content"
-                android:text="标题"
-                android:layout_marginBottom="@dimen/margin_border"
-                android:layout_marginTop="@dimen/margin_kind"/>
-
-            <TextView
-                android:id="@+id/tv_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2017年4月18日 14:00"
-                android:textSize="@dimen/text_size_date"
-                android:textColor="@color/grey_text"/>
-
-            <WebView
-                android:id="@+id/webView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_border"></WebView>
+            android:layout_above="@id/ll_bottom">
 
             <LinearLayout
-                android:id="@+id/ll_attach"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/white"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/margin_border"
-                android:visibility="gone">
+                android:padding="@dimen/padding_border">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_kind"
+                    android:id="@+id/rl_send"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_send_person_remind"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_border"
+                        android:text="发件人:"
+                        android:textColor="@color/grey_text"
+                        android:textSize="@dimen/text_size_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/tv_send_person"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_content"
+                        android:layout_toRightOf="@id/tv_send_person_remind"
+                        android:layout_centerVertical="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_kind"
+                    android:layout_marginTop="@dimen/margin_kind"
+                    android:orientation="horizontal"
+                    android:id="@+id/rl_receive"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_receive_person_remind"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_border"
+                        android:text="收件人:"
+                        android:textColor="@color/grey_text"
+                        android:textSize="@dimen/text_size_content"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/tv_receive_open"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="展开"
+                        android:textColor="@drawable/text_color_blue_press_dark_blue"
+                        android:textSize="@dimen/text_size_content"
+                        android:layout_alignParentRight="true"
+                        android:visibility="invisible"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/tv_receive_person"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_content"
+                        android:layout_toRightOf="@id/tv_receive_person_remind"
+                        android:layout_toLeftOf="@id/tv_receive_open"
+                        android:layout_centerVertical="true"/>
+                </RelativeLayout>
+
+                <include
+                    layout="@layout/divider"></include>
+
                 <TextView
-                    android:id="@+id/tv_attach"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_child_title"
-                    android:padding="@dimen/margin_border"
-                    android:background="@color/grey_login_bac"/>
+                    android:textSize="@dimen/text_size_content"
+                    android:text="标题"
+                    android:layout_marginBottom="@dimen/margin_border"
+                    android:layout_marginTop="@dimen/margin_kind"/>
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2017年4月18日 14:00"
+                    android:textSize="@dimen/text_size_date"
+                    android:textColor="@color/grey_text"/>
+
+                <WebView
+                    android:id="@+id/webView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_border"></WebView>
+
                 <LinearLayout
+                    android:id="@+id/ll_attach"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:id="@+id/ll_add_attach">
+                    android:layout_marginTop="@dimen/margin_border"
+                    android:visibility="gone">
+                    <TextView
+                        android:id="@+id/tv_attach"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_child_title"
+                        android:padding="@dimen/margin_border"
+                        android:background="@color/grey_login_bac"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/ll_add_attach">
 
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
-    </ScrollView>
+        </ScrollView>
+
+    </RelativeLayout>
+
 
 </LinearLayout>

@@ -47,6 +47,7 @@ public interface HttpService {
 
     /**
      * 下载文件
+     *
      * @param url
      * @return
      */
@@ -261,12 +262,127 @@ public interface HttpService {
                                           @Field("Subject") String subject, @Field("Body") String body,
                                           @Field("SendUser_ID") int sendId, @Field("SendUserName") String sendName,
                                           @Field("To") String toName, @Field("Cc") String ccName,
-                                          @Field("Bcc") String bccName,@Field("ToIDs") String toIds,
+                                          @Field("Bcc") String bccName, @Field("ToIDs") String toIds,
                                           @Field("CcIDs") String ccIds, @Field("BccIDs") String bccIds,
                                           @Field("IsAttached") int isAttached, @Field("Case_ID") int caseId,
-                                          @Field("CaseName") String caseName,@Field("IsEncrypt") int isEncrypt,
+                                          @Field("CaseName") String caseName, @Field("IsEncrypt") int isEncrypt,
                                           @Field("EncryptPWD") String pwd, @Field("IsSplitSend") int isSplitSend,
                                           @Field("OriginAttachs") String originAttaches, @Field("FileNames") String fileNames,
                                           @Field("Base64Datas") String base64Data);
+
+    /**
+     * 外部邮箱存草稿
+     */
+    @POST("EduPlate/MSGMail/InterfaceJson.asmx/OuterMail_Save")
+    @FormUrlEncoded
+    Observable<ResponseBody> outerEmailToTrash(@Field("SessionID") String sessionId, @Field("Mail_ID") int mailId,
+                                               @Field("OuterMailAddr_ID") int outerMailId,
+                                               @Field("Subject") String subject, @Field("Body") String body,
+                                               @Field("SendUser_ID") int sendId, @Field("SendUserName") String sendName,
+                                               @Field("To") String toName, @Field("Cc") String ccName,
+                                               @Field("Bcc") String bccName,
+                                               @Field("IsAttached") int isAttached, @Field("Case_ID") int caseId,
+                                               @Field("CaseName") String caseName, @Field("IsSplitSend") int isSplitSend,
+                                               @Field("OriginAttachs") String originAttaches, @Field("FileNames") String fileNames,
+                                               @Field("Base64Datas") String base64Data);
+
+    /**
+     * 收件人转发内部电函
+     */
+    @POST("EduPlate/MSGMail/InterfaceJson.asmx/Mail_RelayByReceiver")
+    @FormUrlEncoded
+    Observable<ResponseBody> receiverTransmitInnerEmail(@Field("SessionID") String sessionId, @Field("Receive_ID") int mailId,
+                                                        @Field("Subject") String subject, @Field("Body") String body,
+                                                        @Field("SendUser_ID") int sendId, @Field("SendUserName") String sendName,
+                                                        @Field("To") String toName, @Field("Cc") String ccName,
+                                                        @Field("Bcc") String bccName, @Field("ToIDs") String toIds,
+                                                        @Field("CcIDs") String ccIds, @Field("BccIDs") String bccIds,
+                                                        @Field("IsAttached") int isAttached, @Field("Case_ID") int caseId,
+                                                        @Field("CaseName") String caseName, @Field("IsEncrypt") int isEncrypt,
+                                                        @Field("EncryptPWD") String pwd, @Field("IsSplitSend") int isSplitSend,
+                                                        @Field("OriginAttachs") String originAttaches, @Field("FileNames") String fileNames,
+                                                        @Field("Base64Datas") String base64Data);
+
+    /**
+     * 发件人转发内部电函
+     */
+    @POST("EduPlate/MSGMail/InterfaceJson.asmx/Mail_RelayBySender")
+    @FormUrlEncoded
+    Observable<ResponseBody> sendrTransmintInnerEmail(@Field("SessionID") String sessionId, @Field("Mail_ID") int mailId,
+                                                      @Field("Subject") String subject, @Field("Body") String body,
+                                                      @Field("SendUser_ID") int sendId, @Field("SendUserName") String sendName,
+                                                      @Field("To") String toName, @Field("Cc") String ccName,
+                                                      @Field("Bcc") String bccName, @Field("ToIDs") String toIds,
+                                                      @Field("CcIDs") String ccIds, @Field("BccIDs") String bccIds,
+                                                      @Field("IsAttached") int isAttached, @Field("Case_ID") int caseId,
+                                                      @Field("CaseName") String caseName, @Field("IsEncrypt") int isEncrypt,
+                                                      @Field("EncryptPWD") String pwd, @Field("IsSplitSend") int isSplitSend,
+                                                      @Field("OriginAttachs") String originAttaches, @Field("FileNames") String fileNames,
+                                                      @Field("Base64Datas") String base64Data);
+
+    /**
+     * 收件人转发外部邮件
+     */
+    @POST("EduPlate/MSGMail/InterfaceJson.asmx/OuterMail_RelayByReceiver")
+    @FormUrlEncoded
+    Observable<ResponseBody> receiverTransmitOuterEmail(@Field("SessionID") String sessionId, @Field("Receive_ID") int mailId,
+                                                        @Field("OuterMailAddr_ID") int outerMailId,
+                                                        @Field("Subject") String subject, @Field("Body") String body,
+                                                        @Field("SendUser_ID") int sendId, @Field("SendUserName") String sendName,
+                                                        @Field("To") String toName, @Field("Cc") String ccName,
+                                                        @Field("Bcc") String bccName,
+                                                        @Field("IsAttached") int isAttached, @Field("Case_ID") int caseId,
+                                                        @Field("CaseName") String caseName, @Field("IsSplitSend") int isSplitSend,
+                                                        @Field("OriginAttachs") String originAttaches, @Field("FileNames") String fileNames,
+                                                        @Field("Base64Datas") String base64Data);
+
+    /**
+     * 发件人转发外部邮件
+     */
+    @POST("EduPlate/MSGMail/InterfaceJson.asmx/OuterMail_RelayBySender")
+    @FormUrlEncoded
+    Observable<ResponseBody> senderTransmitOuterEmail(@Field("SessionID") String sessionId, @Field("Mail_ID") int mailId,
+                                                        @Field("OuterMailAddr_ID") int outerMailId,
+                                                        @Field("Subject") String subject, @Field("Body") String body,
+                                                        @Field("SendUser_ID") int sendId, @Field("SendUserName") String sendName,
+                                                        @Field("To") String toName, @Field("Cc") String ccName,
+                                                        @Field("Bcc") String bccName,
+                                                        @Field("IsAttached") int isAttached, @Field("Case_ID") int caseId,
+                                                        @Field("CaseName") String caseName, @Field("IsSplitSend") int isSplitSend,
+                                                        @Field("OriginAttachs") String originAttaches, @Field("FileNames") String fileNames,
+                                                        @Field("Base64Datas") String base64Data);
+
+    /**
+     * 回复内部电函
+     */
+    @POST("EduPlate/MSGMail/InterfaceJson.asmx/Mail_Reply")
+    @FormUrlEncoded
+    Observable<ResponseBody> replyInnerEmail(@Field("SessionID") String sessionId, @Field("Receive_ID") int mailId,
+                                             @Field("Subject") String subject, @Field("Body") String body,
+                                             @Field("SendUser_ID") int sendId, @Field("SendUserName") String sendName,
+                                             @Field("To") String toName, @Field("Cc") String ccName,
+                                             @Field("Bcc") String bccName, @Field("ToIDs") String toIds,
+                                             @Field("CcIDs") String ccIds, @Field("BccIDs") String bccIds,
+                                             @Field("IsAttached") int isAttached, @Field("Case_ID") int caseId,
+                                             @Field("CaseName") String caseName, @Field("IsEncrypt") int isEncrypt,
+                                             @Field("EncryptPWD") String pwd, @Field("IsSplitSend") int isSplitSend,
+                                             @Field("OriginAttachs") String originAttaches, @Field("FileNames") String fileNames,
+                                             @Field("Base64Datas") String base64Data);
+
+    /**
+     * 回复外部邮箱
+     */
+    @POST("EduPlate/MSGMail/InterfaceJson.asmx/OuterMail_Reply")
+    @FormUrlEncoded
+    Observable<ResponseBody> replyOuterEmail(@Field("SessionID") String sessionId, @Field("Receive_ID") int mailId,
+                                             @Field("OuterMailAddr_ID") int outerMailId,
+                                             @Field("Subject") String subject, @Field("Body") String body,
+                                             @Field("SendUser_ID") int sendId, @Field("SendUserName") String sendName,
+                                             @Field("To") String toName, @Field("Cc") String ccName,
+                                             @Field("Bcc") String bccName,
+                                             @Field("IsAttached") int isAttached, @Field("Case_ID") int caseId,
+                                             @Field("CaseName") String caseName, @Field("IsSplitSend") int isSplitSend,
+                                             @Field("OriginAttachs") String originAttaches, @Field("FileNames") String fileNames,
+                                             @Field("Base64Datas") String base64Data);
 
 }

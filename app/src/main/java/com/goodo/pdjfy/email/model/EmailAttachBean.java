@@ -1,12 +1,14 @@
 package com.goodo.pdjfy.email.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Cui on 2017/4/18.
  *
  * @Description
  */
 
-public class EmailAttachBean {
+public class EmailAttachBean implements Serializable {
 
 
     /**

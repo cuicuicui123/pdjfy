@@ -348,9 +348,9 @@ public class HttpMethods {
      * 发送外部邮件
      */
     public void sendOuterEmail(SendOuterEmailBean bean, Subscriber subscriber){
-        Observable observable = mHttpService.sendOuterEmail(MyConfig.SESSION_ID, 0, bean.getId(),
+        Observable observable = mHttpService.sendOuterEmail(MyConfig.SESSION_ID, bean.getEmailId(), bean.getOuterMailAddrId(),
                 bean.getSubject(), bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(),
-                bean.getCcName(), bean.getBccName(), 1, 0, "无", 0, "", bean.getFileNames(), bean.getBase64Data());
+                bean.getCcName(), bean.getBccName(), 1, 0, "无", 0, bean.getOriginAttachs(), bean.getFileNames(), bean.getBase64Data());
         doSubscribe(observable, subscriber);
     }
 
@@ -358,12 +358,75 @@ public class HttpMethods {
      * 内部电函存草稿
      */
     public void innerEmailToTrash(SendInnerEmailBean bean, Subscriber subscriber){
-        Observable observable = mHttpService.emailToTrash(MyConfig.SESSION_ID, -1, bean.getSubject(),
+        Observable observable = mHttpService.emailToTrash(MyConfig.SESSION_ID, bean.getEmailId(), bean.getSubject(),
                 bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(), bean.getCcName(),
                 bean.getBccName(), bean.getToIds(), bean.getCcIds(), bean.getBccIds(), 1, 0, "无", 0, "",
                 0, "", bean.getFileNames(), bean.getBase64Data());
         doSubscribe(observable, subscriber);
+    }
 
+    /**
+     * 外部邮件存草稿
+     */
+    public void outerEmailToTrash(SendOuterEmailBean bean, Subscriber subscriber){
+        Observable observable = mHttpService.outerEmailToTrash(MyConfig.SESSION_ID, bean.getEmailId(), bean.getOuterMailAddrId(),
+                bean.getSubject(), bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(),
+                bean.getCcName(), bean.getBccName(), 1, 0, "无", 0, "", bean.getFileNames(), bean.getBase64Data());
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 转发内部电函
+     */
+    public void transmitInnerEmail(SendInnerEmailBean bean, int isInBox, Subscriber subscriber){
+        Observable observable;
+        if (isInBox == MyConfig.IS_INBOX) {
+            observable = mHttpService.receiverTransmitInnerEmail(MyConfig.SESSION_ID, bean.getEmailId(), bean.getSubject(),
+                    bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(), bean.getCcName(), bean.getBccName(), bean.getToIds(),
+                    bean.getCcIds(), bean.getBccIds(), 1, 0, "无", 0, "", 0, bean.getOriginAttachs(), bean.getFileNames(), bean.getBase64Data());
+        } else {
+            observable = mHttpService.sendrTransmintInnerEmail(MyConfig.SESSION_ID, bean.getEmailId(), bean.getSubject(),
+                    bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(), bean.getCcName(), bean.getBccName(), bean.getToIds(),
+                    bean.getCcIds(), bean.getBccIds(), 1, 0, "无", 0, "", 0, bean.getOriginAttachs(), bean.getFileNames(), bean.getBase64Data());
+        }
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 转发外部邮件
+     */
+    public void transmitOuterEmail(SendOuterEmailBean bean, int isInbox, Subscriber subscriber){
+        Observable observable;
+        if (isInbox == MyConfig.IS_INBOX) {
+            observable = mHttpService.receiverTransmitOuterEmail(MyConfig.SESSION_ID, bean.getEmailId(), bean.getOuterMailAddrId(), bean.getSubject(),
+                    bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(), bean.getCcName(), bean.getBccName(), 1, 0, "无", 0,
+                    bean.getOriginAttachs(), bean.getFileNames(), bean.getBase64Data());
+        } else {
+            observable = mHttpService.senderTransmitOuterEmail(MyConfig.SESSION_ID, bean.getEmailId(), bean.getOuterMailAddrId(), bean.getSubject(),
+                    bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(), bean.getCcName(), bean.getBccName(), 1, 0, "无", 0,
+                    bean.getOriginAttachs(), bean.getFileNames(), bean.getBase64Data());
+        }
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 回复内部邮件
+     */
+    public void replyInnerEmail(SendInnerEmailBean bean, Subscriber subscriber){
+        Observable observable = mHttpService.replyInnerEmail(MyConfig.SESSION_ID, bean.getEmailId(), bean.getSubject(),
+                bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(), bean.getCcName(), bean.getBccName(), bean.getToIds(),
+                bean.getCcIds(), bean.getBccIds(), 1, 0, "无", 0, "", 0, bean.getOriginAttachs(), bean.getFileNames(), bean.getBase64Data());
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 回复外部邮件
+     */
+    public void replyOuterEmail(SendOuterEmailBean bean, Subscriber subscriber){
+        Observable observable = mHttpService.replyOuterEmail(MyConfig.SESSION_ID, bean.getEmailId(), bean.getOuterMailAddrId(), bean.getSubject(),
+                bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(), bean.getCcName(), bean.getBccName(), 1, 0, "无", 0,
+                bean.getOriginAttachs(), bean.getFileNames(), bean.getBase64Data());
+        doSubscribe(observable, subscriber);
     }
 
 

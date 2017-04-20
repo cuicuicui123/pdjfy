@@ -107,7 +107,7 @@ public class EmailPresenterImpl implements EmailPresenter {
                         mFragment.startActivity(it);
                     } else {
                         Intent it = new Intent(mFragment.getContext(), SendOuterEmailActivity.class);
-                        it.putExtra(MyConfig.KEY_MAP, (Serializable) list.get(position));
+                        it.putExtra(MyConfig.KEY_OUTER_MAIL_ID, (Integer) list.get(position).get(MyConfig.KEY_ID));
                         mFragment.startActivity(it);
                     }
                 }

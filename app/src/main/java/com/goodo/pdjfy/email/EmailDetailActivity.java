@@ -60,6 +60,12 @@ public class EmailDetailActivity extends BaseActivity implements EmailDetailView
     RelativeLayout mReceiveRl;
     @BindView(R.id.tv_receive_open)
     TextView mReceiveOpenTv;
+    @BindView(R.id.tv_reply)
+    TextView mReplyTv;
+    @BindView(R.id.iv_transmit)
+    ImageView mTransmitIv;
+    @BindView(R.id.iv_delete)
+    ImageView mDeleteIv;
 
     private EmailDetailPresenter mPresenter;
     private int mId;
@@ -85,6 +91,7 @@ public class EmailDetailActivity extends BaseActivity implements EmailDetailView
         webSettings.setBuiltInZoomControls(true);
         webSettings.setUseWideViewPort(false);
         mDownLoadFilePresenter = new DownLoadFilePresenterImpl(this);
+        mReplyTv.setVisibility(mIsInBox == MyConfig.IS_INBOX ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -94,6 +101,18 @@ public class EmailDetailActivity extends BaseActivity implements EmailDetailView
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        mTransmitIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.startToTransmitActivity();
+            }
+        });
+        mReplyTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.startToReplyActivity();
             }
         });
     }
@@ -131,8 +150,11 @@ public class EmailDetailActivity extends BaseActivity implements EmailDetailView
             mReceiveRl.setVisibility(View.VISIBLE);
             mSendRl.setVisibility(View.GONE);
         }
-        mTitleTv.setText(bean.getSubject());
-        mDateTv.setText(DataTransform.getDateTimeStr(DataTransform.transformDateTimeNoSecond(bean.getDate())));
+        if (mEmailDetailBean.getDate().equals("")) {
+            mDateTv.setVisibility(View.GONE);
+        } else {
+            mDateTv.setText(DataTransform.getDateTimeStr(DataTransform.transformDateTimeNoSecond(bean.getDate())));
+        }
         mWebView.loadDataWithBaseURL(HttpMethods.BASE_URL, bean.getBody(), "text/html", "utf-8", null);
     }
 

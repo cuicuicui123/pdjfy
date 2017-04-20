@@ -21,6 +21,8 @@ public class OuterEmailListReceivePresenterImpl extends BaseEmailListPresenterIm
 
     @Override
     public void getEmailList(int page, int size) {
+        mPage = page;
+        mPageSize = size;
         CacheSubscriber cacheSubscriber = new CacheSubscriber(KEY_LIST + mId + page + size) {
             @Override
             protected void getCache(String cacheData) {

@@ -1,32 +1,13 @@
 package com.goodo.pdjfy.email.send;
 
-import android.content.Intent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.goodo.pdjfy.R;
-import com.goodo.pdjfy.base.BaseActivity;
-import com.goodo.pdjfy.email.model.SendInnerEmailBean;
-import com.goodo.pdjfy.email.model.UsersBean;
-import com.goodo.pdjfy.email.presenter.SendInnerPresenter;
+import com.goodo.pdjfy.email.InJavaScriptLocalObj;
 import com.goodo.pdjfy.email.presenter.SendInnerPresenterImpl;
 import com.goodo.pdjfy.email.presenter.ToTrashPresenter;
 import com.goodo.pdjfy.email.presenter.ToTrashPresenterImpl;
-import com.goodo.pdjfy.email.view.SendInnerEmailView;
-import com.goodo.pdjfy.email.view.ToTrashView;
-import com.goodo.pdjfy.util.IntentUtil;
-import com.goodo.pdjfy.util.MyConfig;
-
-import java.io.File;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.goodo.pdjfy.util.DataTransform;
 
 /**
  * Created by Cui on 2017/4/18.
@@ -48,6 +29,9 @@ public class SendInnerEmailActivity extends BaseSendInnerEmailActivity {
                 toTrash();
             }
         });
+        float minHeight = 80;
+        String newContent = DataTransform.outEmailTransformHtmlToEditable("<html><body style=\"background: white;width: 100%;min-height: " + minHeight +"px\"></body></html>");
+        mWebView.loadData(newContent, "text/html; charset=UTF-8", null);
     }
 
     private void toTrash(){
@@ -55,10 +39,17 @@ public class SendInnerEmailActivity extends BaseSendInnerEmailActivity {
             Toast.makeText(this, "请填写标题！", Toast.LENGTH_SHORT).show();
             return;
         }
-        SendInnerEmailBean bean = new SendInnerEmailBean();
-        bean.setSubject(mTitleEdt.getText().toString());
-        bean.setBody(mContentEdt.getText().toString());
-        mPresenter.getReceivers(bean);
-        mToTrashPresenter.toTrash(mPresenter.getAttachList(), bean);
+        mBean.setSubject(mTitleEdt.getText().toString());
+        mWebView.loadUrl("javascript:window.java_obj.getSource(" +
+                "document.documentElement.innerHTML);");
+        //获取webView中的html
+        mObj.setOnHtmlGetListener(new InJavaScriptLocalObj.OnHtmlGetListener() {
+            @Override
+            public void onHtmlGet(String html) {
+                mBean.setBody(DataTransform.outEmailRemoveContentEditable(html));
+                mPresenter.getReceivers(mBean);
+                mToTrashPresenter.toTrash(mPresenter.getAttachList(), mBean);
+            }
+        });
     }
 }

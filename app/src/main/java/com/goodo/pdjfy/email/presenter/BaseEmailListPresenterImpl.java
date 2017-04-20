@@ -26,13 +26,14 @@ public abstract class BaseEmailListPresenterImpl implements EmailListPresenter {
 
     protected String KEY_LIST;
     protected int mDbSize;
+    protected int mPage;
+    protected int mPageSize;
 
     public BaseEmailListPresenterImpl(EmailListView emailListView, BaseActivity activity) {
         mEmailListView = emailListView;
         mActivity = activity;
         mHttpMethods = HttpMethods.getInstance();
     }
-
 
     protected void handleResponse(String response, boolean hasNewInfo){
         try {

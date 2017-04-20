@@ -1,12 +1,15 @@
 package com.goodo.pdjfy.email.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Cui on 2017/4/18.
  *
  * @Description
  */
 
-public class EmailDetailBean {
+public class EmailDetailBean implements Parcelable {
     /**
      * Subject : 修改信息
      * From : 赵士果
@@ -31,6 +34,87 @@ public class EmailDetailBean {
     private String ToIDs;
     private String CcIDs;
     private String BccIDs;
+    int OuterMailAddr_ID;
+    int OuterMail_ID;
+    int SendUser_ID;
+    String SendUserName;
+    int Receive_ID;
+    int OuterReceive_ID;
+
+
+    protected EmailDetailBean(Parcel in) {
+        Subject = in.readString();
+        From = in.readString();
+        To = in.readString();
+        Cc = in.readString();
+        Bcc = in.readString();
+        Body = in.readString();
+        Date = in.readString();
+        Case_ID = in.readInt();
+        CaseName = in.readString();
+        Mail_ID = in.readInt();
+        ToIDs = in.readString();
+        CcIDs = in.readString();
+        BccIDs = in.readString();
+        OuterMailAddr_ID = in.readInt();
+        OuterMail_ID = in.readInt();
+        SendUser_ID = in.readInt();
+        SendUserName = in.readString();
+        Receive_ID = in.readInt();
+        OuterReceive_ID = in.readInt();
+    }
+
+    public static final Creator<EmailDetailBean> CREATOR = new Creator<EmailDetailBean>() {
+        @Override
+        public EmailDetailBean createFromParcel(Parcel in) {
+            return new EmailDetailBean(in);
+        }
+
+        @Override
+        public EmailDetailBean[] newArray(int size) {
+            return new EmailDetailBean[size];
+        }
+    };
+
+    public int getOuterReceive_ID() {
+        return OuterReceive_ID;
+    }
+
+    public void setOuterReceive_ID(int outerReceive_ID) {
+        OuterReceive_ID = outerReceive_ID;
+    }
+
+    public int getReceive_ID() {
+        return Receive_ID;
+    }
+
+    public void setReceive_ID(int receive_ID) {
+        Receive_ID = receive_ID;
+    }
+
+    public int getSendUser_ID() {
+        return SendUser_ID;
+    }
+
+    public void setSendUser_ID(int sendUser_ID) {
+        SendUser_ID = sendUser_ID;
+    }
+
+    public String getSendUserName() {
+        return SendUserName;
+    }
+
+    public void setSendUserName(String sendUserName) {
+        SendUserName = sendUserName;
+    }
+
+    public int getOuterMailAddr_ID() {
+        return OuterMailAddr_ID;
+    }
+
+    public void setOuterMailAddr_ID(int outerMailAddr_ID) {
+        OuterMailAddr_ID = outerMailAddr_ID;
+    }
 
     public String getSubject() {
         return Subject;
@@ -134,5 +218,41 @@ public class EmailDetailBean {
 
     public void setBcc(String bcc) {
         Bcc = bcc;
+    }
+
+    public int getOuterMail_ID() {
+        return OuterMail_ID;
+    }
+
+    public void setOuterMail_ID(int outerMail_ID) {
+        OuterMail_ID = outerMail_ID;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(Subject);
+        dest.writeString(From);
+        dest.writeString(To);
+        dest.writeString(Cc);
+        dest.writeString(Bcc);
+        dest.writeString(Body);
+        dest.writeString(Date);
+        dest.writeInt(Case_ID);
+        dest.writeString(CaseName);
+        dest.writeInt(Mail_ID);
+        dest.writeString(ToIDs);
+        dest.writeString(CcIDs);
+        dest.writeString(BccIDs);
+        dest.writeInt(OuterMailAddr_ID);
+        dest.writeInt(OuterMail_ID);
+        dest.writeInt(SendUser_ID);
+        dest.writeString(SendUserName);
+        dest.writeInt(Receive_ID);
+        dest.writeInt(OuterReceive_ID);
     }
 }

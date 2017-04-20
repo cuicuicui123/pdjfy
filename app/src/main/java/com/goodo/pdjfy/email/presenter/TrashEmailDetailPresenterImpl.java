@@ -6,10 +6,7 @@ import com.goodo.pdjfy.email.model.EmailDetailBean;
 import com.goodo.pdjfy.email.model.SendInnerEmailBean;
 import com.goodo.pdjfy.email.view.SendInnerEmailView;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import rx.Subscriber;
 
 /**
  * Created by Cui on 2017/4/19.
@@ -17,11 +14,27 @@ import rx.Subscriber;
  * @Description
  */
 
-public class DraftEmailDetailPresenterImpl extends BaseSendInnerEmailPresenter {
+public class TrashEmailDetailPresenterImpl extends BaseSendInnerEmailPresenter {
     private List<EmailAttachBean> mEmailAttachBeanList;
 
-    public DraftEmailDetailPresenterImpl(SendInnerEmailView sendInnerEmailView, BaseActivity activity) {
+    public TrashEmailDetailPresenterImpl(SendInnerEmailView sendInnerEmailView, BaseActivity activity) {
         super(sendInnerEmailView, activity);
+    }
+
+    @Override
+    public void sendInnerEmail(SendInnerEmailBean bean) {
+        String OriginAttachs = "";
+        int size = mEmailAttachBeanList.size();
+        for(int i = 0;i < size;i ++){
+            EmailAttachBean attachBean = mEmailAttachBeanList.get(i);
+            if(i == 0){
+                OriginAttachs = "0|" + attachBean.getName() + "|0|" + attachBean.getUrl();
+            }else{
+                OriginAttachs = OriginAttachs + ",0|" + attachBean.getName() + "|0|" + attachBean.getUrl();
+            }
+        }
+        bean.setOriginAttachs(OriginAttachs);
+        super.sendInnerEmail(bean);
     }
 
     @Override

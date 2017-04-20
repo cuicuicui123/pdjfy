@@ -31,6 +31,11 @@ public class MyConfig {
     public static final String KEY_SEND_LIST = "sendList";
     public static final String KEY_NAME = "name";
     public static final String KEY_MAP = "map";
+    public static final String KEY_FILE_NAME = "fileName";
+    public static final String KEY_BASE64DATA = "base64Data";
+    public static final String KEY_OUTER_MAIL_ID = "outerMailId";
+    public static final String KEY_EMAIL_DETAIL_BEAN = "emailDetailBean";
+    public static final String KEY_EMAIL_ATTACH_LIST = "emailAttachList";
 
 
     public static final int SCHEDULE_TYPE_PERSON = 3;
