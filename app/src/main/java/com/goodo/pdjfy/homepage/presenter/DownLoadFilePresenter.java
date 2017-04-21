@@ -11,6 +11,6 @@ import android.widget.ProgressBar;
  */
 
 public interface DownLoadFilePresenter {
-    void downLoadFile(String url, String fileName, ProgressBar progressBar, View view, boolean isBase64);
+    void downLoadFile(String url, String fileName, ProgressBar progressBar, View view, boolean isBase64, boolean isXml);
     void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults);
 }

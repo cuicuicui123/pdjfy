@@ -21,6 +21,8 @@
     <dimen name="dialog_send_email_height">150dp</dimen>
     <dimen name="email_web_view_height">150dp</dimen>
     <dimen name="swipe_height">80dp</dimen>
+    <dimen name="file_image_size">36dp</dimen>
+    <dimen name="unread_size">8dp</dimen>
 
     <dimen name="text_size_title">18sp</dimen>
     <dimen name="text_size_child_title">16sp</dimen>
@@ -29,6 +31,7 @@
     <dimen name="text_size_date">14sp</dimen>
     <dimen name="text_size_inform">14sp</dimen>
     <dimen name="text_size_remember_pwd">14sp</dimen>
+    <dimen name="text_size_user">22sp</dimen>
 
     <dimen name="elevation_app_bar">4dp</dimen>
     <dimen name="elevation_bottom_bar">4dp</dimen>
@@ -43,6 +46,7 @@
     <dimen name="margin_login_title">32dp</dimen>
     <dimen name="margin_login_btn">32dp</dimen>
     <dimen name="margin_expandable">32dp</dimen>
+    <dimen name="margin_user">100dp</dimen>
 
     <dimen name="padding_login_top">48dp</dimen>
     <dimen name="padding_kind">8dp</dimen>

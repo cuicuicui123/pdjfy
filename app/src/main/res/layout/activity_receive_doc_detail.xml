@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@color/blue">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bar_height_title"
+        android:background="@color/blue"
+        android:elevation="@dimen/elevation_app_bar">
+
+        <include
+            layout="@layout/ll_return"></include>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="接收公文"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_title"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_border">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_title"
+            android:textColor="@color/black"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_border">
+
+            <TextView
+                android:id="@+id/tv_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_content"/>
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_date"
+                android:textColor="@color/grey_text"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_attach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/margin_border"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/tv_attach"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_child_title"
+                android:padding="@dimen/margin_border"
+                android:background="@color/grey_login_bac"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/ll_add_attach">
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -437,5 +437,52 @@ public class HttpMethods {
         doSubscribe(observable, subscriber);
     }
 
+    /**
+     * 获取接收公文
+     */
+    public void getReceiveDocumentList(Subscriber subscriber){
+        Observable observable = mHttpService.getReceiveDocument(MyConfig.USER_ID);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取发送公文
+     */
+    public void getSendDocumentList(Subscriber subscriber){
+        Observable observable = mHttpService.getSendDocument(MyConfig.USER_ID);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取接收公文详情
+     */
+    public void getReceiveDocDetail(int id, Subscriber subscriber){
+        Observable observable = mHttpService.getReceiveDocDetail(id);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取发送公文详情
+     */
+    public void getSendDocDetail(int id, Subscriber subscriber){
+        Observable observable = mHttpService.getSendDocDetail(id, MyConfig.USER_ID);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取通知列表
+     */
+    public void getNoticeList(Subscriber subscriber){
+        Observable observable = mHttpService.getNoticeList(MyConfig.USER_ID, "", -1);
+        doSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取通知详情
+     */
+    public void getNoticeDetail(int noticeId, Subscriber subscriber){
+        Observable observable = mHttpService.getNoticeDetail(noticeId);
+        doSubscribe(observable, subscriber);
+    }
 
 }

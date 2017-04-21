@@ -121,7 +121,7 @@ public class AnnounceDetailActivity extends BaseActivity implements AnnounceDeta
                     public void onClick(View view) {
                         progressBar.setVisibility(View.VISIBLE);
                         view.setEnabled(false);
-                        mDownLoadFilePresenter.downLoadFile(bean.getUrl(), MyConfig.getFileName(bean.getUrl()), progressBar, attachView, false);
+                        mDownLoadFilePresenter.downLoadFile(bean.getUrl(), MyConfig.getFileName(bean.getUrl()), progressBar, attachView, false, false);
                     }
                 });
             }

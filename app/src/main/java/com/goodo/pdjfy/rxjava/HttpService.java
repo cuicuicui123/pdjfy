@@ -393,4 +393,40 @@ public interface HttpService {
                                          @Query("EMail_ID") int emailId, @Query("IsInBox") int isInBox,
                                          @Query("IsDel") int isDel);
 
+    /**
+     * 接收公文列表接口
+     */
+    @GET("EduPlate/jfyPublicDocument/IPublicDocument.asmx/ReceiveDocument_GetXmlByUser")
+    Observable<ResponseBody> getReceiveDocument(@Query("User_ID") int userId);
+
+    /**
+     * 发送公文列表接口
+     */
+    @GET("EduPlate/jfyPublicDocument/IPublicDocument.asmx/SendDocument_GetXmlByUser")
+    Observable<ResponseBody> getSendDocument(@Query("User_ID") int userId);
+
+    /**
+     * 接收公文详情
+     */
+    @GET("EduPlate/jfyPublicDocument/IPublicDocument.asmx/ReceiveDocument_GetSingle")
+    Observable<ResponseBody> getReceiveDocDetail(@Query("Receive_ID") int id);
+
+    /**
+     * 发送公文详情
+     */
+    @GET("EduPlate/jfyPublicDocument/IPublicDocument.asmx/SendDocument_GetSingle")
+    Observable<ResponseBody> getSendDocDetail(@Query("Send_ID") int sendId, @Query("UserID") int userId);
+
+    /**
+     * 通知列表信息
+     */
+    @GET("EduPlate/NoticePlate/JsonNotice.asmx/ReceiveNotice_Get")
+    Observable<ResponseBody> getNoticeList(@Query("User_ID") int userId, @Query("Keyword") String keyword,
+                                           @Query("SearchType") int searchType);
+
+    /**
+     * 获取通知详情
+     */
+    @GET("EduPlate/NoticePlate/JsonNotice.asmx/Notice_Get")
+    Observable<ResponseBody> getNoticeDetail(@Query("Notice_ID") int noticeId);
 }

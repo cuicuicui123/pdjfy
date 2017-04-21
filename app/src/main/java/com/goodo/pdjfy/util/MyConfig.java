@@ -39,6 +39,8 @@ public class MyConfig {
     public static final String KEY_IS_DEL = "isDel";
     public static final int DELETE = 2;
     public static final int DRAFT = 1;
+    public static final int IS_READ = 1;
+    public static final int UNREAD = 0;
 
 
     public static final int SCHEDULE_TYPE_PERSON = 3;

@@ -1,5 +1,6 @@
 package com.goodo.pdjfy.main;
 
+import android.content.Intent;
 import android.graphics.drawable.PaintDrawable;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -9,10 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.goodo.pdjfy.R;
 import com.goodo.pdjfy.base.AppContext;
 import com.goodo.pdjfy.base.BaseFragment;
+import com.goodo.pdjfy.folder.MyFolderActivity;
+import com.goodo.pdjfy.util.MyConfig;
 
 /**
  * Created by Cui on 2017/4/13.
@@ -64,6 +68,23 @@ public abstract class BaseMainFragment extends BaseFragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 mPopupWindow.dismiss();
                 return false;
+            }
+        });
+        TextView nameTv = (TextView) contentView.findViewById(R.id.tv_name);
+        nameTv.setText(MyConfig.USERNAME);
+        TextView folderTv = (TextView) contentView.findViewById(R.id.tv_folder);
+        TextView returnTv = (TextView) contentView.findViewById(R.id.tv_return);
+        returnTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
+        folderTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(getContext(), MyFolderActivity.class);
+                startActivity(it);
             }
         });
     }

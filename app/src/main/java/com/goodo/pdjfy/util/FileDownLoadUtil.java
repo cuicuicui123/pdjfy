@@ -7,13 +7,19 @@ import android.util.Base64;
 
 import com.goodo.pdjfy.rxjava.HttpMethods;
 
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xml.sax.InputSource;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.StringReader;
 
 import okhttp3.ResponseBody;
 import rx.Subscriber;
@@ -55,7 +61,7 @@ public class FileDownLoadUtil {
     /**
      * 下载字节流文件
      */
-    public void downLoad(final boolean isBase64) {
+    public void downLoad(final boolean isBase64, final boolean isXml) {
         final File file = new File(mPath + mFileName);
         if (!file.exists()) {
             try {
@@ -75,7 +81,7 @@ public class FileDownLoadUtil {
                     public void onNext(ResponseBody body) {
                         try {
                             if (isBase64) {
-                                saveBase64File(body.bytes(), file);
+                                saveBase64File(body.bytes(), file, isXml);
                             } else {
                                 saveFile(body.bytes(), file);
                             }
@@ -128,18 +134,38 @@ public class FileDownLoadUtil {
      * 保存base64编码文件
      * @param bytes
      * @param file
+     * @param isXml 是否是xml格式
      */
-    private void saveBase64File(byte[] bytes, File file){
-        try {
-            JSONObject jsonObject = new JSONObject(new String(bytes));
-            JSONObject Goodo = jsonObject.getJSONObject("Goodo");
-            String base64Data = Goodo.getString("Base64Data");
-            byte[] bytesDecode = Base64.decode(base64Data, Base64.DEFAULT);
-            saveFile(bytesDecode, file);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            mOnDownLoadFailListener.downLoadFail();
+    private void saveBase64File(byte[] bytes, File file, boolean isXml){
+        if (!isXml) {
+            try {
+                JSONObject jsonObject = new JSONObject(new String(bytes));
+                JSONObject Goodo = jsonObject.getJSONObject("Goodo");
+                String base64Data = Goodo.getString("Base64Data");
+                byte[] bytesDecode = Base64.decode(base64Data, Base64.DEFAULT);
+                saveFile(bytesDecode, file);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                mOnDownLoadFailListener.downLoadFail();
+            }
+        } else {
+            String response = new String(bytes);
+            StringReader reader = new StringReader(response);
+            InputSource source = new InputSource(reader);
+            SAXBuilder builder = new SAXBuilder();
+            try {
+                Document document = builder.build(source);
+                Element root = document.getRootElement();
+                String base64Data = root.getAttributeValue("File");
+                byte[] bytesDecode = Base64.decode(base64Data, Base64.DEFAULT);
+                saveFile(bytesDecode, file);
+            } catch (JDOMException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public interface OnDownLoadSuccessListener {

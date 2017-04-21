@@ -86,7 +86,7 @@ public class TrashEmailDetailActivity extends BaseSendInnerEmailActivity impleme
                     public void onClick(View view) {
                         progressBar.setVisibility(View.VISIBLE);
                         view.setEnabled(false);
-                        mDownLoadFilePresenter.downLoadFile(getAttachUrl(bean), bean.getName(), progressBar, attachView, true);
+                        mDownLoadFilePresenter.downLoadFile(getAttachUrl(bean), bean.getName(), progressBar, attachView, true, false);
                     }
                 });
             }

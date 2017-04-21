@@ -43,7 +43,7 @@ public class EmailListBean implements Parcelable {
     private String CaseName;
     private int Item_ID;
     private boolean IsTop;
-    private boolean IsRead;
+    private int IsRead;
     private boolean IsAttached;
     private int OuterMailAddr_ID;
     private String To;
@@ -62,7 +62,7 @@ public class EmailListBean implements Parcelable {
         CaseName = in.readString();
         Item_ID = in.readInt();
         IsTop = in.readByte() != 0;
-        IsRead = in.readByte() != 0;
+        IsRead = in.readByte();
         IsAttached = in.readByte() != 0;
         OuterMailAddr_ID = in.readInt();
         To = in.readString();
@@ -177,11 +177,11 @@ public class EmailListBean implements Parcelable {
         this.IsTop = IsTop;
     }
 
-    public boolean isIsRead() {
+    public int isIsRead() {
         return IsRead;
     }
 
-    public void setIsRead(boolean IsRead) {
+    public void setIsRead(int IsRead) {
         this.IsRead = IsRead;
     }
 
@@ -236,7 +236,7 @@ public class EmailListBean implements Parcelable {
         dest.writeString(CaseName);
         dest.writeInt(Item_ID);
         dest.writeByte((byte) (IsTop ? 1 : 0));
-        dest.writeByte((byte) (IsRead ? 1 : 0));
+        dest.writeInt(IsRead);
         dest.writeByte((byte) (IsAttached ? 1 : 0));
         dest.writeInt(OuterMailAddr_ID);
         dest.writeString(To);

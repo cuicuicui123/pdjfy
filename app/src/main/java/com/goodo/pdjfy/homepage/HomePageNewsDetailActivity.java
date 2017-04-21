@@ -128,7 +128,7 @@ public class HomePageNewsDetailActivity extends BaseActivity implements HomePage
                     public void onClick(View view) {
                         progressBar.setVisibility(View.VISIBLE);
                         view.setEnabled(false);
-                        mDownLoadFilePresenter.downLoadFile(bean.getUrl(), MyConfig.getFileName(bean.getUrl()), progressBar, attachView, false);
+                        mDownLoadFilePresenter.downLoadFile(bean.getUrl(), MyConfig.getFileName(bean.getUrl()), progressBar, attachView, false, false);
                     }
                 });
             }
