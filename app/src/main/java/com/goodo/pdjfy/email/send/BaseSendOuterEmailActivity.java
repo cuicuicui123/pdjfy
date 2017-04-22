@@ -15,7 +15,7 @@ import com.goodo.pdjfy.base.BaseActivity;
 import com.goodo.pdjfy.email.CustomWebViewClient;
 import com.goodo.pdjfy.email.InJavaScriptLocalObj;
 import com.goodo.pdjfy.email.model.SendOuterEmailBean;
-import com.goodo.pdjfy.email.presenter.SendOuterPresenter;
+import com.goodo.pdjfy.email.presenter.SendOuterEmailPresenter;
 import com.goodo.pdjfy.email.view.SendOuterEmailView;
 import com.goodo.pdjfy.util.DataTransform;
 import com.goodo.pdjfy.util.IntentUtil;
@@ -54,7 +54,7 @@ public abstract class BaseSendOuterEmailActivity extends BaseActivity implements
     @BindView(R.id.tv_to_trash)
     TextView mToTrashTv;
 
-    protected SendOuterPresenter mPresenter;
+    protected SendOuterEmailPresenter mPresenter;
     protected LayoutInflater mInflater;
     protected int mOuterMailId;
     protected SendOuterEmailBean mSendOuterEmailBean;

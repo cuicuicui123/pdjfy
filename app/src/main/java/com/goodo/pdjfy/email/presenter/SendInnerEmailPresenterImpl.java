@@ -37,9 +37,9 @@ import rx.Subscriber;
  * @Description
  */
 
-public class SendInnerPresenterImpl extends BaseSendInnerEmailPresenter {
+public class SendInnerEmailPresenterImpl extends BaseSendInnerEmailPresenter {
 
-    public SendInnerPresenterImpl(SendInnerEmailView sendInnerEmailView, BaseActivity activity) {
+    public SendInnerEmailPresenterImpl(SendInnerEmailView sendInnerEmailView, BaseActivity activity) {
         super(sendInnerEmailView, activity);
     }
 

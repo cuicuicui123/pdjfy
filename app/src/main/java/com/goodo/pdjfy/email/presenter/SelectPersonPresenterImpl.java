@@ -28,7 +28,7 @@ public class SelectPersonPresenterImpl implements SelectPersonPresenter {
     private int mSize;
     private int mNum = 0;
     private List<UnitBean> mUnitBeanList;
-    private List<List<UnitUserBean>> mUserBeanList;
+    private List<UnitUserBean>[] mUserBeanLists;
 
     private String KEY_UNIT_INFO = "getUnitInfo";
 
@@ -37,7 +37,6 @@ public class SelectPersonPresenterImpl implements SelectPersonPresenter {
         mActivity = activity;
         mHttpMethods = HttpMethods.getInstance();
         mUnitBeanList = new ArrayList<>();
-        mUserBeanList = new ArrayList<>();
     }
 
     @Override
@@ -58,9 +57,10 @@ public class SelectPersonPresenterImpl implements SelectPersonPresenter {
                         }
                     });
                     mSize = mUnitBeanList.size();
+                    mUserBeanLists = new List[mSize];
                     for (int i = 0;i < mSize;i ++) {
                         UnitBean bean = mUnitBeanList.get(i);
-                        getUnitUser(bean.getID());
+                        getUnitUser(bean.getID(), i);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -71,7 +71,7 @@ public class SelectPersonPresenterImpl implements SelectPersonPresenter {
     }
 
     @Override
-    public void getUnitUser(int id) {
+    public void getUnitUser(int id, final int position) {
         MySubscriber subscriber = new MySubscriber() {
             @Override
             protected void onResponse(String response) {
@@ -87,10 +87,10 @@ public class SelectPersonPresenterImpl implements SelectPersonPresenter {
                             list.add(bean);
                         }
                     });
-                    mUserBeanList.add(list);
+                    mUserBeanLists[position] = list;
                     mNum ++;
                     if (mNum == mSize) {
-                        mSelectPersonView.getUnitInfoList(mUnitBeanList, mUserBeanList);
+                        mSelectPersonView.getUnitInfoList(mUnitBeanList, mUserBeanLists);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

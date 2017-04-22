@@ -41,7 +41,7 @@ public class SelectPersonActivity extends BaseActivity implements SelectPersonVi
     private SelectPersonPresenter mPresenter;
     private ExpandableListViewAdapter mAdapter;
     private List<UnitBean> mUnitBeanList;
-    private List<List<UnitUserBean>> mUnitUserBeanList;
+    private List<UnitUserBean>[] mUnitUserBeanLists;
 
     @Override
     protected void initContentView() {
@@ -54,10 +54,7 @@ public class SelectPersonActivity extends BaseActivity implements SelectPersonVi
         mPresenter = new SelectPersonPresenterImpl(this, this);
         mPresenter.getUnitInfo();
         mUnitBeanList = new ArrayList<>();
-        mUnitUserBeanList = new ArrayList<>();
-        mAdapter = new ExpandableListViewAdapter(mUnitBeanList, mUnitUserBeanList);
-        mExpandableListView.setAdapter(mAdapter);
-        mExpandableListView.setGroupIndicator(null);
+
     }
 
     @Override
@@ -83,24 +80,30 @@ public class SelectPersonActivity extends BaseActivity implements SelectPersonVi
     }
 
     @Override
-    public void getUnitInfoList(List<UnitBean> unitBeanList, List<List<UnitUserBean>> userBeanList) {
-        mUnitBeanList.addAll(unitBeanList);
-        mUnitUserBeanList.addAll(userBeanList);
+    public void getUnitInfoList(List<UnitBean> unitBeanList, List<UnitUserBean>[] userBeanLists) {
+        mUnitBeanList = unitBeanList;
+        mUnitUserBeanLists = userBeanLists;
+        mAdapter = new ExpandableListViewAdapter(unitBeanList, userBeanLists);
+        mExpandableListView.setAdapter(mAdapter);
+        mExpandableListView.setGroupIndicator(null);
         mAdapter.notifyDataSetChanged();
     }
 
-    private List<UnitUserBean> getSelectUser(){
+    private List<UnitUserBean> getSelectUser() {
         List<UnitUserBean> userBeanList = new ArrayList<>();
-        int size1 = mUnitUserBeanList.size();
-        for (int i = 0;i < size1;i ++) {
-            List<UnitUserBean> list = mUnitUserBeanList.get(i);
-            int size2 = list.size();
-            for (int j = 0;j < size2;j ++) {
-                UnitUserBean unitUserBean = list.get(j);
-                if (unitUserBean.isSelected()) {
-                    userBeanList.add(unitUserBean);
+        if (mUnitUserBeanLists != null) {
+            int size1 = mUnitUserBeanLists.length;
+            for (int i = 0; i < size1; i++) {
+                List<UnitUserBean> list = mUnitUserBeanLists[i];
+                int size2 = list.size();
+                for (int j = 0; j < size2; j++) {
+                    UnitUserBean unitUserBean = list.get(j);
+                    if (unitUserBean.isSelected()) {
+                        userBeanList.add(unitUserBean);
+                    }
                 }
             }
+
         }
         return userBeanList;
     }

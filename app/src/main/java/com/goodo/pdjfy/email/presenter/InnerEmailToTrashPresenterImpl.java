@@ -24,11 +24,11 @@ import java.util.List;
  * @Description
  */
 
-public class ToTrashPresenterImpl implements ToTrashPresenter {
+public class InnerEmailToTrashPresenterImpl implements InnerEmailToTrashPresenter {
     private HttpMethods mHttpMethods;
     private BaseActivity mActivity;
 
-    public ToTrashPresenterImpl(BaseActivity activity) {
+    public InnerEmailToTrashPresenterImpl(BaseActivity activity) {
         mActivity = activity;
         mHttpMethods = HttpMethods.getInstance();
     }

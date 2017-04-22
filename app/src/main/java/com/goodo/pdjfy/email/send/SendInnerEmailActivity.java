@@ -4,9 +4,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.goodo.pdjfy.email.InJavaScriptLocalObj;
-import com.goodo.pdjfy.email.presenter.SendInnerPresenterImpl;
-import com.goodo.pdjfy.email.presenter.ToTrashPresenter;
-import com.goodo.pdjfy.email.presenter.ToTrashPresenterImpl;
+import com.goodo.pdjfy.email.presenter.SendInnerEmailPresenterImpl;
+import com.goodo.pdjfy.email.presenter.InnerEmailToTrashPresenter;
+import com.goodo.pdjfy.email.presenter.InnerEmailToTrashPresenterImpl;
 import com.goodo.pdjfy.util.DataTransform;
 
 /**
@@ -16,13 +16,13 @@ import com.goodo.pdjfy.util.DataTransform;
  */
 
 public class SendInnerEmailActivity extends BaseSendInnerEmailActivity {
-    private ToTrashPresenter mToTrashPresenter;
+    private InnerEmailToTrashPresenter mInnerEmailToTrashPresenter;
 
     @Override
     protected void handleArgument() {
-        mPresenter = new SendInnerPresenterImpl(this, this);
+        mPresenter = new SendInnerEmailPresenterImpl(this, this);
         mToTrashTv.setVisibility(View.VISIBLE);
-        mToTrashPresenter = new ToTrashPresenterImpl(this);
+        mInnerEmailToTrashPresenter = new InnerEmailToTrashPresenterImpl(this);
         mToTrashTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +48,7 @@ public class SendInnerEmailActivity extends BaseSendInnerEmailActivity {
             public void onHtmlGet(String html) {
                 mBean.setBody(DataTransform.outEmailRemoveContentEditable(html));
                 mPresenter.getReceivers(mBean);
-                mToTrashPresenter.toTrash(mPresenter.getAttachList(), mBean);
+                mInnerEmailToTrashPresenter.toTrash(mPresenter.getAttachList(), mBean);
             }
         });
     }

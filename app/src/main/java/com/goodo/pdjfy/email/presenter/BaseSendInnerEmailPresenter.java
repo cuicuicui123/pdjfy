@@ -35,7 +35,7 @@ import java.util.List;
  * @Description
  */
 
-public abstract class BaseSendInnerEmailPresenter implements SendInnerPresenter {
+public abstract class BaseSendInnerEmailPresenter implements SendInnerEmailPresenter {
     protected SendInnerEmailView mEmailView;
     protected BaseActivity mActivity;
     protected HttpMethods mHttpMethods;

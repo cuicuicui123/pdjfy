@@ -4,7 +4,7 @@ import android.content.Intent;
 
 import com.goodo.pdjfy.email.model.EmailAttachBean;
 import com.goodo.pdjfy.email.model.EmailDetailBean;
-import com.goodo.pdjfy.email.model.SendInnerEmailBean;
+import com.goodo.pdjfy.email.model.SendOuterEmailBean;
 
 import java.util.List;
 
@@ -14,14 +14,12 @@ import java.util.List;
  * @Description
  */
 
-public interface SendInnerPresenter {
-    void selPerson(int code);
-    void selFile();
+public interface SendOuterEmailPresenter {
+    void sendOuterEmail(SendOuterEmailBean sendOuterEmailBean);
     void onActivityResult(int requestCode, int resultCode, Intent data);
+    void selFile();
+    void getFileBase64data(List<String> fileList, SendOuterEmailBean bean);
     void removeAttach(String path);
     List<String> getAttachList();
-    void getReceivers(SendInnerEmailBean bean);
-    void sendInnerEmail(SendInnerEmailBean bean);
-    void getFileBase64data(List<String> fileList, SendInnerEmailBean bean);
-    void init(EmailDetailBean emailDetailBean, List<EmailAttachBean> list);
+    void init(EmailDetailBean bean, List<EmailAttachBean> list);
 }

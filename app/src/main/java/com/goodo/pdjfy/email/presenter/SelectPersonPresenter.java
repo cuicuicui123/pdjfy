@@ -8,5 +8,5 @@ package com.goodo.pdjfy.email.presenter;
 
 public interface SelectPersonPresenter {
     void getUnitInfo();
-    void getUnitUser(int id);
+    void getUnitUser(int id, int position);
 }

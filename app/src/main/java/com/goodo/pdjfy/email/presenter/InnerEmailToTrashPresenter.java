@@ -10,6 +10,6 @@ import java.util.List;
  * @Description
  */
 
-public interface ToTrashPresenter {
+public interface InnerEmailToTrashPresenter {
     void toTrash(List<String> attachList, SendInnerEmailBean bean);
 }

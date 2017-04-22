@@ -24,11 +24,11 @@ import java.util.List;
 
 public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     private List<UnitBean> mUnitBeanList;
-    private List<List<UnitUserBean>> mUnitUserBeanLists;
+    private List<UnitUserBean>[] mUnitUserBeanLists;
     private AppContext mAppContext;
     private LayoutInflater mInflater;
 
-    public ExpandableListViewAdapter(List<UnitBean> unitBeanList, List<List<UnitUserBean>> unitUserBeanLists) {
+    public ExpandableListViewAdapter(List<UnitBean> unitBeanList, List<UnitUserBean>[] unitUserBeanLists) {
         mUnitBeanList = unitBeanList;
         mUnitUserBeanLists = unitUserBeanLists;
         mAppContext = AppContext.getInstance();
@@ -42,7 +42,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int i) {
-        return mUnitUserBeanLists.get(i).size();
+        return mUnitUserBeanLists[i].size();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int i, int i1) {
-        return mUnitUserBeanLists.get(i).get(i1);
+        return mUnitUserBeanLists[i].get(i1);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             public void onClick(View view) {
                 boolean state = !unitBean.isSelected();
                 unitBean.setSelected(state);
-                for (UnitUserBean unitUserBean : mUnitUserBeanLists.get(i)) {
+                for (UnitUserBean unitUserBean : mUnitUserBeanLists[i]) {
                     unitUserBean.setSelected(state);
                 }
                 notifyDataSetChanged();
@@ -118,7 +118,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             viewHolder = (ChildViewHolder) view.getTag();
         }
         final UnitBean unitBean = mUnitBeanList.get(i);
-        final UnitUserBean unitUserBean = mUnitUserBeanLists.get(i).get(i1);
+        final UnitUserBean unitUserBean = mUnitUserBeanLists[i].get(i1);
         viewHolder.mTextView.setText(unitUserBean.getUserName());
         viewHolder.mSelectIv.setSelected(unitUserBean.isSelected());
         viewHolder.mRl.setOnClickListener(new View.OnClickListener() {

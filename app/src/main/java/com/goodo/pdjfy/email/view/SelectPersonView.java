@@ -12,5 +12,5 @@ import java.util.List;
  */
 
 public interface SelectPersonView {
-    void getUnitInfoList(List<UnitBean> unitBeanList, List<List<UnitUserBean>> userBeanList);
+    void getUnitInfoList(List<UnitBean> unitBeanList, List<UnitUserBean>[] userBeanLists);
 }

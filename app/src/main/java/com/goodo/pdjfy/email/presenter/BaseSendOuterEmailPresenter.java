@@ -32,7 +32,7 @@ import java.util.List;
  * @Description
  */
 
-public abstract class BaseSendOuterEmailPresenter implements SendOuterPresenter {
+public abstract class BaseSendOuterEmailPresenter implements SendOuterEmailPresenter {
     protected HttpMethods mHttpMethods;
     protected BaseActivity mActivity;
     protected SendOuterEmailView mSendOuterEmailView;
