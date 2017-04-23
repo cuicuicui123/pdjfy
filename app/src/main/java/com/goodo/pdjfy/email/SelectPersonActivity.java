@@ -54,7 +54,6 @@ public class SelectPersonActivity extends BaseActivity implements SelectPersonVi
         mPresenter = new SelectPersonPresenterImpl(this, this);
         mPresenter.getUnitInfo();
         mUnitBeanList = new ArrayList<>();
-
     }
 
     @Override

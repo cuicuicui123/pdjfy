@@ -485,4 +485,7 @@ public class HttpMethods {
         doSubscribe(observable, subscriber);
     }
 
+    public HttpService getHttpService(){
+        return mHttpService;
+    }
 }

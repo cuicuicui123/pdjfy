@@ -9,6 +9,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Observable;
+import rx.functions.Action1;
+import rx.functions.Func1;
+
 /**
  * Created by Cui on 2016/10/19.
  * 文件夹逻辑实现类
@@ -27,31 +31,34 @@ public class MyFolderPresenterImpl implements MyFolderPresenter {
      */
     @Override
     public void getList(String path) {
-        List<MyFolderBean> list = new ArrayList<>();
+        final List<MyFolderBean> list = new ArrayList<>();
         File file = new File(path);
         File[] fileList = file.listFiles();
         if (fileList != null) {
-            try {
-                int len = fileList.length;
-                for (int i = 0; i < len; i++) {
-                    MyFolderBean myFolderBean = new MyFolderBean();
-                    File fileItem = fileList[i];
-                    myFolderBean.setFileName(fileItem.getName());
-                    myFolderBean.setFilePath(fileItem.getPath());
-                    String extension = MyConfig.getFileExtension(myFolderBean.getFileName());
-                    if (fileItem.isDirectory()) { // 如果当前文件为文件夹，设置文件夹的图标
-                        myFolderBean.setIconResId(R.drawable.pic_message_folder);
-                    } else if (extension != null && extension.contains("image")) {
-                        myFolderBean.setPicture(true);
-                    } else {
-                        myFolderBean.setIconResId(MyConfig.getFilePictureByName(myFolderBean.getFileName()));
-                    }
-                    list.add(myFolderBean);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Observable.from(fileList)
+                    .map(new Func1<File, MyFolderBean>() {
+                        @Override
+                        public MyFolderBean call(File file) {
+                            MyFolderBean bean = new MyFolderBean();
+                            bean.setFileName(file.getName());
+                            bean.setFilePath(file.getPath());
+                            String extension = MyConfig.getFileExtension(bean.getFileName());
+                            if (file.isDirectory()) { // 如果当前文件为文件夹，设置文件夹的图标
+                                bean.setIconResId(R.drawable.pic_message_folder);
+                            } else if (extension != null && extension.contains("image")) {
+                                bean.setPicture(true);
+                            } else {
+                                bean.setIconResId(MyConfig.getFilePictureByName(bean.getFileName()));
+                            }
+                            return bean;
+                        }
+                    })
+                    .subscribe(new Action1<MyFolderBean>() {
+                        @Override
+                        public void call(MyFolderBean myFolderBean) {
+                            list.add(myFolderBean);
+                        }
+                    });
         }
-        mFolderView.getList(list);
     }
 }
