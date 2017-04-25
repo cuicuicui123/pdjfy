@@ -7,7 +7,7 @@
     android:background="@color/blue"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.goodo.pdjfy.homepage.HomePageActivity">
+    tools:context="com.goodo.app.homepage.HomePageActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <com.goodo.pdjfy.homepage.ShufflingFigureViewPagerFl
+        <com.goodo.app.homepage.ShufflingFigureViewPagerFl
             android:id="@+id/fl_viewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

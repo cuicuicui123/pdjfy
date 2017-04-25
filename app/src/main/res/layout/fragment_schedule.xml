@@ -56,7 +56,7 @@
             android:layout_alignParentRight="true"/>
 
     </RelativeLayout>
-        <com.goodo.pdjfy.schedule.ScheduleMainView
+        <com.goodo.app.schedule.ScheduleMainView
             android:id="@+id/scheduleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

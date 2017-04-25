@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.goodo.pdjfy">
+          package="com.goodo.app">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
@@ -8,14 +8,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 
     <application
-        android:name=".base.AppContext"
+        android:name="com.goodo.app.base.AppContext"
         android:allowBackup="true"
         android:icon="@drawable/logo120"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".homepage.HomePageActivity"
+            android:name="com.goodo.app.homepage.HomePageActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -24,66 +24,66 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".homepage.NewsListActivity"
+            android:name="com.goodo.app.homepage.NewsListActivity"
             android:theme="@style/AppTheme">
         </activity>
         <activity
-            android:name=".homepage.HomePageNewsDetailActivity"
+            android:name="com.goodo.app.homepage.HomePageNewsDetailActivity"
             android:label="@string/title_activity_home_page_pic_detail"
             android:theme="@style/AppTheme">
         </activity>
-        <activity android:name=".homepage.HomePagePicDetailActivity"
+        <activity android:name="com.goodo.app.homepage.HomePagePicDetailActivity"
             android:theme="@style/AppTheme"></activity>
-        <activity android:name=".homepage.LoginActivity"
+        <activity android:name="com.goodo.app.homepage.LoginActivity"
             android:theme="@style/AppTheme"></activity>
-        <activity android:name=".main.MainActivity"
+        <activity android:name="com.goodo.app.main.MainActivity"
             android:theme="@style/AppTheme"></activity>
-        <activity android:name=".announcement.AnnounceDetailActivity"
+        <activity android:name="com.goodo.app.announcement.AnnounceDetailActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".announcement.AnnounceClassifyListActivity"
+        <activity android:name="com.goodo.app.announcement.AnnounceClassifyListActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".announcement.AnnounceClassifyOneListActivity"
+        <activity android:name="com.goodo.app.announcement.AnnounceClassifyOneListActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".schedule.ScheduleDetailActivity"
+        <activity android:name="com.goodo.app.schedule.ScheduleDetailActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".schedule.AddScheduleActivity"
+        <activity android:name="com.goodo.app.schedule.AddScheduleActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".schedule.EditScheduleActivity"
+        <activity android:name="com.goodo.app.schedule.EditScheduleActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".email.list.AllEmailReceiveActivity"
+        <activity android:name="com.goodo.app.email.list.AllEmailReceiveActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".email.list.AllEmailSendActivity"
+        <activity android:name="com.goodo.app.email.list.AllEmailSendActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".email.list.EmailTrashActivity"
+        <activity android:name="com.goodo.app.email.list.EmailTrashActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".email.list.EmailDraftActivity"
+        <activity android:name="com.goodo.app.email.list.EmailDraftActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".email.list.InnerEmailReceiveActivity"
+        <activity android:name="com.goodo.app.email.list.InnerEmailReceiveActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".email.list.InnerEmailSendActivity"
+        <activity android:name="com.goodo.app.email.list.InnerEmailSendActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".email.list.OuterEmailReceiveActivity"
+        <activity android:name="com.goodo.app.email.list.OuterEmailReceiveActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".email.list.OuterEmailSendActivity"
+        <activity android:name="com.goodo.app.email.list.OuterEmailSendActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".email.EmailDetailActivity"
+        <activity android:name="com.goodo.app.email.EmailDetailActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".email.send.SendInnerEmailActivity"
+        <activity android:name="com.goodo.app.email.send.SendInnerEmailActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".email.SelectPersonActivity"
+        <activity android:name="com.goodo.app.email.SelectPersonActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".email.send.SendOuterEmailActivity"
+        <activity android:name="com.goodo.app.email.send.SendOuterEmailActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".email.send.TrashEmailDetailActivity"/>
-        <activity android:name=".email.send.TrashOuterEmailDetailActivity"/>
-        <activity android:name=".email.send.TransmitInnerEmailActivity"/>
-        <activity android:name=".email.send.TransmitOuterEmailActivity"/>
-        <activity android:name=".email.send.ReplyInnerEmailActivity"/>
-        <activity android:name=".email.send.ReplyOuterEmailActivity"/>
-        <activity android:name=".document.ReceiveDocDetailActivity"/>
-        <activity android:name=".document.SendDocDetailActivity"/>
-        <activity android:name=".notice.NoticeDetailActivity"/>
-        <activity android:name=".folder.MyFolderActivity"/>
+        <activity android:name="com.goodo.app.email.send.TrashEmailDetailActivity"/>
+        <activity android:name="com.goodo.app.email.send.TrashOuterEmailDetailActivity"/>
+        <activity android:name="com.goodo.app.email.send.TransmitInnerEmailActivity"/>
+        <activity android:name="com.goodo.app.email.send.TransmitOuterEmailActivity"/>
+        <activity android:name="com.goodo.app.email.send.ReplyInnerEmailActivity"/>
+        <activity android:name="com.goodo.app.email.send.ReplyOuterEmailActivity"/>
+        <activity android:name="com.goodo.app.document.ReceiveDocDetailActivity"/>
+        <activity android:name="com.goodo.app.document.SendDocDetailActivity"/>
+        <activity android:name="com.goodo.app.notice.NoticeDetailActivity"/>
+        <activity android:name="com.goodo.app.folder.MyFolderActivity"/>
     </application>
 
 </manifest>
