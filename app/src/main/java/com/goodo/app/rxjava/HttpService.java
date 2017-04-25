@@ -6,7 +6,9 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
@@ -243,7 +245,8 @@ public interface HttpService {
      * 发送内部电函邮件
      */
     @POST("EduPlate/MSGMail/InterfaceJson.asmx/Mail_Send")
-    Observable<ResponseBody> sendInnerEmail2(@Body RequestBody body);
+    @Multipart
+    Observable<ResponseBody> sendInnerEmail2(@Part RequestBody body);
 
 
 
