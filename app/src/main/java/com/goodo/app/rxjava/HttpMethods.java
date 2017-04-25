@@ -1,5 +1,6 @@
 package com.goodo.app.rxjava;
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.goodo.app.email.model.SendInnerEmailBean;
@@ -12,7 +13,10 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -337,11 +341,44 @@ public class HttpMethods {
      * -1代表没有id，是发送一封信的邮件
      */
     public void sendInnerEmail(SendInnerEmailBean bean, Subscriber subscriber){
-        Observable observable = mHttpService.sendInnerEmail(MyConfig.SESSION_ID, bean.getEmailId(), bean.getSubject(),
-                bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(), bean.getCcName(),
-                bean.getBccName(), bean.getToIds(), bean.getCcIds(), bean.getBccIds(), 1, 0, "无", 0, "",
-                0, bean.getOriginAttachs(), bean.getFileNames(), bean.getBase64Data());
+        Uri.Builder builder = new Uri.Builder();
+        builder.appendQueryParameter("Subject", bean.getSubject());
+        builder.appendQueryParameter("Body", bean.getBody());
+        builder.appendQueryParameter("SendUser_ID", MyConfig.USER_ID + "");
+        builder.appendQueryParameter("SendUserName", MyConfig.USERNAME);
+        builder.appendQueryParameter("To", bean.getToName());
+        builder.appendQueryParameter("Cc", bean.getCcName());
+        builder.appendQueryParameter("Bcc", bean.getBccName());
+        builder.appendQueryParameter("ToIDs", bean.getToIds());
+        builder.appendQueryParameter("CcIDs", bean.getCcIds());
+        builder.appendQueryParameter("BccIDs", bean.getBccIds());
+        builder.appendQueryParameter("IsAttached", "1");
+        builder.appendQueryParameter("Case_ID", "0");
+        builder.appendQueryParameter("CaseName", "无");
+        builder.appendQueryParameter("IsEncrypt", "0");
+        builder.appendQueryParameter("EncryptPWD", "");
+        builder.appendQueryParameter("IsSplitSend", "0");
+        builder.appendQueryParameter("OriginAttachs", bean.getOriginAttachs());
+        builder.appendQueryParameter("FileNames", bean.getFileNames());
+        builder.appendQueryParameter("Base64Datas", bean.getBase64Data());
+        String url = builder.toString();
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/xml"), url);
+        ProgressRequestBody progressRequestBody = new ProgressRequestBody(requestBody, new ProgressRequestListener() {
+            @Override
+            public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                Log.i("progress", bytesWritten / contentLength + "");
+            }
+        });
+        MultipartBody.Part body = MultipartBody.Part.create(progressRequestBody);
+
+        Observable observable = mHttpService.sendInnerEmail2(progressRequestBody);
         doSubscribe(observable, subscriber);
+
+//        Observable observable = mHttpService.sendInnerEmail(MyConfig.SESSION_ID, bean.getEmailId(), bean.getSubject(),
+//                bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(), bean.getCcName(),
+//                bean.getBccName(), bean.getToIds(), bean.getCcIds(), bean.getBccIds(), 1, 0, "无", 0, "",
+//                0, bean.getOriginAttachs(), bean.getFileNames(), bean.getBase64Data());
+//        doSubscribe(observable, subscriber);
     }
 
     /**
@@ -385,7 +422,7 @@ public class HttpMethods {
                     bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(), bean.getCcName(), bean.getBccName(), bean.getToIds(),
                     bean.getCcIds(), bean.getBccIds(), 1, 0, "无", 0, "", 0, bean.getOriginAttachs(), bean.getFileNames(), bean.getBase64Data());
         } else {
-            observable = mHttpService.sendrTransmintInnerEmail(MyConfig.SESSION_ID, bean.getEmailId(), bean.getSubject(),
+            observable = mHttpService.sendTransmitInnerEmail(MyConfig.SESSION_ID, bean.getEmailId(), bean.getSubject(),
                     bean.getBody(), MyConfig.USER_ID, MyConfig.USERNAME, bean.getToName(), bean.getCcName(), bean.getBccName(), bean.getToIds(),
                     bean.getCcIds(), bean.getBccIds(), 1, 0, "无", 0, "", 0, bean.getOriginAttachs(), bean.getFileNames(), bean.getBase64Data());
         }

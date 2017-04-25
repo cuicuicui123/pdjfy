@@ -73,6 +73,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String account = mAccountEdt.getText().toString();
+                String pwd = mPwdEdt.getText().toString();
+                if (account.equals("") || pwd.equals("")) {
+                    Toast.makeText(LoginActivity.this, "请输入用户名和密码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 mLoginBtn.setEnabled(false);
                 mLoginPresenter.login(mAccountEdt.getText().toString(),
                         mPwdEdt.getText().toString());
