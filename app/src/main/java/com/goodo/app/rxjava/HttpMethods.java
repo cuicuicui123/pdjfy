@@ -38,6 +38,7 @@ public class HttpMethods {
     private Retrofit mRetrofit;
     private Interceptor mInterceptor;
     private HttpService mHttpService;
+    private OkHttpClient.Builder mBuilder;
 
     public static String BASE_URL = "http://jfy.pudong-edu.sh.cn/";
     private static final int DEFAULT_TIMEOUT = 60;//默认超时时间60秒
@@ -67,11 +68,10 @@ public class HttpMethods {
                 Log.w("Error", e);
             }
         });
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
-        builder.addInterceptor(mInterceptor);
+        mBuilder = new OkHttpClient.Builder();
+        mBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         mRetrofit = new Retrofit.Builder()
-                .client(builder.build())
+                .client(mBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)
@@ -362,7 +362,7 @@ public class HttpMethods {
         builder.appendQueryParameter("FileNames", bean.getFileNames());
         builder.appendQueryParameter("Base64Datas", bean.getBase64Data());
         String url = builder.toString();
-        RequestBody requestBody = RequestBody.create(MediaType.parse("text/xml"), url);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), url);
         ProgressRequestBody progressRequestBody = new ProgressRequestBody(requestBody, new ProgressRequestListener() {
             @Override
             public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
