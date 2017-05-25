@@ -243,7 +243,7 @@ public interface HttpService {
      * 发送内部电函邮件
      */
     @POST("EduPlate/MSGMail/InterfaceJson.asmx/Mail_Send")
-    Observable<ResponseBody> sendInnerEmail2(@Body RequestBody body);
+    Observable<ResponseBody> sendInnerEmail2(@Body RequestBody requestBody);
 
 
 

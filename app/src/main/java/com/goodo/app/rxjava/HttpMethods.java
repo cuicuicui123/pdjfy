@@ -14,7 +14,6 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -38,11 +37,14 @@ public class HttpMethods {
     private Retrofit mRetrofit;
     private Interceptor mInterceptor;
     private HttpService mHttpService;
-    private OkHttpClient.Builder mBuilder;
 
     public static String BASE_URL = "http://jfy.pudong-edu.sh.cn/";
     private static final int DEFAULT_TIMEOUT = 60;//默认超时时间60秒
     private static volatile HttpMethods mInstance;
+
+    private String mUrlType = "application/x-www-form-urlencoded";
+    private String mMultiPartType = "multipart/form-data";
+    private String mTextType = "";
 
     /**
      * 初始化HttpMethods
@@ -56,6 +58,19 @@ public class HttpMethods {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Log.i("url", chain.request().url().toString());
+//                if (chain.request().method().equals("POST")) {
+//                    Request original = chain.request();
+//
+//                    Request request = original.newBuilder()
+//                            .method(original.method(), new ProgressRequestBody(original.body(), new ProgressRequestListener() {
+//                                @Override
+//                                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+//                                    Log.i("progress", bytesWritten / contentLength + "");
+//                                }
+//                            }))
+//                            .build();
+//                    return chain.proceed(request);
+//                }
                 return chain.proceed(chain.request());
             }
         };
@@ -68,10 +83,11 @@ public class HttpMethods {
                 Log.w("Error", e);
             }
         });
-        mBuilder = new OkHttpClient.Builder();
-        mBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        builder.addNetworkInterceptor(mInterceptor);
         mRetrofit = new Retrofit.Builder()
-                .client(mBuilder.build())
+                .client(builder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)
@@ -362,15 +378,16 @@ public class HttpMethods {
         builder.appendQueryParameter("FileNames", bean.getFileNames());
         builder.appendQueryParameter("Base64Datas", bean.getBase64Data());
         String url = builder.toString();
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), url);
+
+        //构造上传请求，类似web表单
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain"), url);
         ProgressRequestBody progressRequestBody = new ProgressRequestBody(requestBody, new ProgressRequestListener() {
             @Override
             public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
                 Log.i("progress", bytesWritten / contentLength + "");
             }
         });
-        MultipartBody.Part body = MultipartBody.Part.create(progressRequestBody);
-
+        //这里是发送请求代码
         Observable observable = mHttpService.sendInnerEmail2(progressRequestBody);
         doSubscribe(observable, subscriber);
 
